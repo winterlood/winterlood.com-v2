@@ -14,8 +14,7 @@ export default function PageViewCounter() {
     const res = await fetch(url);
 
     if (res.ok) {
-      const data: { path: string; pageView: string }[] =
-        await res.json();
+      const data: { path: string; pageView: string }[] = await res.json();
 
       setView(parseInt(data[0].pageView));
     }

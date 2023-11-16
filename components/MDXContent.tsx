@@ -1,11 +1,20 @@
 "use client";
 import { MDXComponents, MDXContent } from "mdx/types";
 import { useMDXComponent } from "next-contentlayer/hooks";
-import Image, { ImageProps } from "next/image";
+import Image from "next/image";
+import { getBlurImage } from "util/get-blur-image";
 
 const MDXComponents = {
   img: async (props: React.HTMLProps<HTMLImageElement> & { blurDataURL: string }) => {
+    if (!props) return null;
+
     const { src, height, width } = props;
+
+    if (!height && !width) {
+      return <img src={src} />;
+    }
+
+    const blurDataURL = await getBlurImage(src!);
 
     return (
       <Image
@@ -15,7 +24,7 @@ const MDXComponents = {
         height={height as number}
         width={width as number}
         placeholder="blur"
-        blurDataURL={props.blurDataURL}
+        blurDataURL={blurDataURL}
       />
     );
   },

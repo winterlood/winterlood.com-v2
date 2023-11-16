@@ -21,6 +21,9 @@ export const Post = defineDocumentType(() => ({
   fields: {
     title: { type: "string", required: true },
     date: { type: "date", required: true },
+    subtitle: { type: "string", required: true },
+    tags: { type: "list", of: { type: "string" }, required: true },
+    thumbnail: { type: "string", required: false },
   },
   computedFields: {
     url: { type: "string", resolve: (post) => `/content/${post._raw.flattenedPath}` },
@@ -34,6 +37,8 @@ export const Qna = defineDocumentType(() => ({
   fields: {
     title: { type: "string", required: true },
     date: { type: "date", required: true },
+    subtitle: { type: "string", required: true },
+    tags: { type: "list", of: { type: "string" }, required: true },
   },
   computedFields: {
     url: { type: "string", resolve: (post) => `/content/${post._raw.flattenedPath}` },

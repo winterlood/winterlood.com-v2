@@ -1,0 +1,72 @@
+---
+type: Qna
+title: React Children은 내부적으로 어떻게 동작하나요?
+date: "2023-10-30"
+subtitle: ""
+tags:
+  - 한 입 크기로 잘라먹는 리액트
+---
+
+<aside>
+💡 인프런 **“한 입 크기로 잘라먹는 리액트”** 강의에 올라온 질문입니다.
+
+[한입 크기로 잘라 먹는 리액트(React.js) : 기초부터 실전까지 - 인프런 | 강의](https://www.inflearn.com/course/한입-리액트)
+
+</aside>
+
+<aside>
+🎁 🎁 현재 10% 할인 쿠폰 이벤트 중입니다  (기간 한정)
+
+- 쿠폰 번호 : **13270-179e6e7d50fb**
+- 강의 링크 : [**https://inf.run/sPF2**](https://inf.run/sPF2)
+
+(주변에 많이 많이 공유해주셔도 됩니다)
+
+</aside>
+
+### 질문
+
+React의 Children Props 전달 방식에 대한 궁금함이 있어 질문드립니다.
+
+children Props 의 경우에 어떻게 아래 코드처럼 일반적인 Props 형태로 전달하지 않아도
+
+```jsx
+<Container children={<OddEvenResult count={count} />} />
+```
+
+다음과 같이 JSX 노드 자체를 컴포넌트의 자식 요소로 배치하는 것 만으로도 children Props로 전달되는지 그 원리가 궁금합니다.
+
+```tsx
+<Container>
+  <div className="App">
+    <Counter {...counterProps} />
+  </div>
+</Container>
+// Container children : <div> ... </div>
+```
+
+### 답변
+
+안녕하세요 이정환입니다.
+
+결론부터 말씀드리면 이것은 React가 내부적으로 자동으로 처리하기 때문에 그렇습니다.
+
+사실 모든 리액트 컴포넌트의 코드는 빌드 될 때 다음과 같이 Babel이라는 도구에 의해 변환됩니다.
+
+![](https://cdn.inflearn.com/public/files/posts/9a059220-6a60-4444-89a5-d0d9020f25e2/image.png)
+
+더 정확히 말씀드리자면 왼쪽의 React 컴포넌트의 return 내부의 JSX 코드가
+
+오른쪽의 React.createElement 라는 내부 메서드 호출로 변환된다고 이해하시면 됩니다.
+
+React.createElement 라는 메서드는 전달된 인수를 토대로 현재 이 컴포넌트가 화면에 렌더링 해야 하는 정보를 포함하는 React Element 라는 객체를 생성하는 함수입니다. React Element란 화면에 나타나야(렌더링 되어야) 하는 UI에 대한 모든 정보를 가지고 있는 객체입니다.
+
+따라서 위의 App 컴포넌트는 결국 아래와 같은 객체 값을 반환하게 됩니다.
+
+![](https://cdn.inflearn.com/public/files/posts/1b7ee0eb-8b50-4216-80d2-919c912a3149/image.png)
+
+왼쪽의 컴포넌트를 실행(호출)한 결과 오른쪽의 객체(React Element)를 반환합니다.
+
+React Element 객체에 담긴 값들을 살펴보시면 App 컴포넌트가 렌더링 하는 HTML 태그들이 잘 저장되어 있는걸 보실 수 있는데요 (`type : "main"` -> main 태그를 렌더링 해야 함 등등) 이때 `props.children` 프로퍼티에는 자식 요소도 함께 저장되는걸 보실 수 있습니다.
+
+그 이유는 아래 그림처럼 우리는 App 컴포넌트를 작성할 때 {'<main>'} 아래에 {'<p>'}라는 자식 요소를 배치했기 때문입니다.

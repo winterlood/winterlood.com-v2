@@ -4,6 +4,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import MDXContent from "@/components/MDXContent";
 import { useMDXComponent } from "next-contentlayer/hooks";
+import PostItem from "@/components/PostItem";
+import QnaItem from "@/components/QnaItem";
 
 type Props = {
   params: { category: string };
@@ -39,15 +41,13 @@ export default async function Page({ params: { category } }: Props) {
     case "work": {
       const page = allPages.find((page) => page._id === `page/${category}.mdx`);
       if (!page) notFound();
-
       return <MDXContent code={page!.body.code} />;
     }
     case "post": {
-      console.log("hhh");
-      return allPosts.map((post) => <div key={post._id}>{post.title}</div>);
+      return allPosts.map((post) => <PostItem key={post._raw.flattenedPath} {...post} />);
     }
     case "qna": {
-      return allQnas.map((qna) => <div key={qna._id}>{qna.title}</div>);
+      return allQnas.map((qna) => <QnaItem key={qna._raw.flattenedPath} {...qna} />);
     }
     default: {
       notFound();
