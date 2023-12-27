@@ -1,0 +1,371 @@
+---
+id: 74cd203a-4527-4bb1-99f3-86a5e9853627
+type: POST
+title: 타입스크립트 Hello World
+date: 2023-02-04
+subtitle: 환경 설정부터 컴파일 그리고 실행까지
+thumbnail: https://res.cloudinary.com/winterlood/image/upload/v1703649379/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20Hello%20World/file_bnfgia.webp
+tags:
+  - 타입스크립트
+---
+
+<Blank />
+
+## 개요
+
+안녕하세요 이정환입니다 😃
+
+이번에는 타입스크립트 코드를 직접 작성하고 실행해 보겠습니다. 실습 환경(Node.js, VsCode)를 함께 설정한 다음 타입스크립트 컴파일러 및 각종 도구를 설치하고 직접 타입스크립트 코드를 작성한 다음 컴파일하고 그 결과도 확인해 봅니다.
+
+<Blank />
+
+## 실습 환경 설정하기
+
+실습에는 자바스크립트 런타임인 Node.js와 세상에서 가장 사랑받고 있는 소스코드 에디터 Visual Studio Code(이하 VsCode)를 사용할 예정입니다. Node.js는 이 글을 작성하는 시점에서 LTS 버전인 18버전을 사용합니다. 현재 유지중인 16 버전도 괜찮습니다. VsCode의 버전은 실습에 큰 영향을 주지는 않으므로 그냥 최신 버전을 설치하겠습니다. 만약 독자의 PC에 이미 위 환경이 구축되어 있다면 본 단원은 건너뛰고 학습해도 괜찮습니다.
+
+> 💡 **LTS 버전이 뭔가요?**  
+> LTS(Long Term Support) 버전이란 오랜 기간 유지보수되는 버전으로 프로덕션 개발에 가장 적합한 안정적인 버전 입니다. 보통 Node.js는 짝수 버전이 LTS 버전 홀수 버전은 실험적인 버전으로 개발됩니다. 이 글을 작성하는 2022년 2월 기준으로 Node.js의 LTS 버전은 18 버전입니다.
+>
+> 아래 링크에서 Node.js 버전의 현황을 자세히 살펴볼 수 있습니다.  
+> [https://github.com/nodejs/release#release-schedule](https://github.com/nodejs/release#release-schedule)
+
+    LTS(Long Term Support) 버전이란 오랜 기간 유지보수되는 버전으로 프로덕션 개발에 가장 적합한 안정적인 버전 입니다. 보통 Node.js는 짝수 버전이 LTS 버전 홀수 버전은 실험적인 버전으로 개발됩니다. 이 글을 작성하는 2022년 2월 기준으로 Node.js의 LTS 버전은 18 버전입니다.
+
+    아래 링크에서 Node.js 버전의 현황을 자세히 살펴볼 수 있습니다.
+    [https://github.com/nodejs/release#release-schedule](https://github.com/nodejs/release#release-schedule)
+
+<Blank />
+
+### Node 설치하기
+
+아래 링크로 이동하여 사용하고 있는 OS 환경에 맞는 Node.js LTS 버전을 설치합니다.
+
+이미 설치 되어 있다면 16버전 혹은 18버전이 설치 되어있는지 확인합니다.
+
+그렇다면 본 단원은 넘어가도 됩니다. 만약 아니라면 삭제 후 18 버전으로 다시 설치합니다.
+
+<Bookmark
+  url={"https://nodejs.org/en/"}
+  title={"Node.js"}
+  thumbnail={"https://nodejs.org/static/images/logo-hexagon-card.png"}
+  description={"Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine."}
+  favicon={"/static/images/favicons/favicon.png"}
+/>
+
+<NImage
+  width={1708}
+  height={1060}
+  blurDataURL={
+    "data:image/webp;base64,UklGRsQAAABXRUJQVlA4ILgAAADQCACdASpkAD4APqVEmUosrqshuRgMAdAUiWktgAq1AdOz60R1Yv0NxAjpfZyWJgEXqU13zUX+zsh3ek26/Uk0d65QHkXPkErLGfmLrTgAAP7rnF/zJof//TXZ5Eq6k9vuHkM4L+0n8+yqTfkxQvV20hgEWfVzzatwNaGbKtAd0+kdvo9DuWlP6El/6j89zms28/BWTgZGTHrPuBc2X+dqWPIavp/cDyMchACAUWEPQp2lzT8qBgAA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649379/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20Hello%20World/file_bnfgia.webp`}
+  captionText={""}
+/>
+
+> 💡 **Node.js 설치가 처음입니다.**  
+> 위 링크로 이동해 다음 순서대로 설치를 진행하세요
+>
+> 1. 왼쪽의 초록색 버튼(LTS 라고 써 있음) 클릭하여 설치 파일 다운로드
+> 2. 다운로드 된 설치 파일 실행
+> 3. 설치 중 옵션은 모두 기본값으로 진행
+
+    위 링크로 이동해 다음 순서대로 설치를 진행하세요
+    1. 왼쪽의 초록색 버튼(LTS 라고 써 있음) 클릭하여 설치 파일 다운로드
+    2. 다운로드 된 설치 파일 실행
+    3. 설치 중 옵션은 모두 기본값으로 진행
+
+<Blank />
+
+<Blank />
+
+### Node 설치 확인하기
+
+Node.js 설치를 성공적으로 잘 마쳤다면 명령어를 입력해 잘 설치 되었는지 확인 해 보겠습니다.
+
+터미널을 연 다음 다음 명령어를 입력합니다.
+
+```shell
+> node -v
+v18.14.0
+```
+
+터미널에 node -v 명령을 입력하면 현재 독자의 PC에 설치된 Node.js 버전이 출력됩니다. 만약 오류가 발생하거나 버전이 출력되지 않는다면 터미널을 새롭게 연 다음 다시 동일한 명령을 입력합니다. 그래도 안된다면 Node.j가 정상적으로 설치 되었는지 확인합니다. 보통은 아예 제거하고 처음부터 다시 설치하는 걸 권장합니다.
+
+<Blank />
+
+### 버전 업그레이드 하기
+
+Node.js가 잘 설치 되어 있으며 18버전을 이용하고 있는 경우 이번 단원은 굳이 확인하지 않아도 괜찮습니다.
+
+만약 독자의 PC에 설치된 Node.js 버전이 18버전 이하일 경우 `n` 이라는 Node.js 라이브러리를 이용해 버전을 쉽게 업그레이드 할 수 있습니다. 먼저 다음과 같이 `n` 을 글로벌 모듈로 설치합니다.
+
+```shell
+sudo npm i -g n
+```
+
+```shell
+> npm i -g n
+```
+
+n 을 성공적으로 설치했다면 다음 명령을 입력하여 LTS 버전을 설치합니다.
+
+```shell
+n lts
+```
+
+LTS 버전을 성공적으로 설치 했다면 특별한 경우를 제외하곤 기존에 설치 되어 있던 LTS 보다 낮은 버전은 제거해도 됩니다. 다음 명령어를 입력해 LTS를 제외한 모든 버전을 제거합니다. 물론 제거하지 않아도 큰 문제는 없습니다.
+
+```shell
+n prune
+```
+
+<Blank />
+
+### npm 설치 확인하기
+
+Node.js 설치와 함께 npm도 잘 설치되었는지 확인합니다. 다음 명령어를 터미널에 입력합니다.
+
+```shell
+> npm -v
+9.3.1
+```
+
+npm 버전이 잘 출력 되는지 확인합니다.
+
+> 💡 **npm이 뭔가요?**  
+> npm(Node Package Manager)는 Node.js 설치시 함께 설치되는 도구입니다. npm은 Node.js의 패키지 매니저라는 뜻으로 Node.js 패키지를 설치하고 삭제하고 버전을 업그레이드 하는 등의 기능을 제공합니다.
+
+    npm(Node Package Manager)는 Node.js 설치시 함께 설치되는 도구입니다. npm은 Node.js의 패키지 매니저라는 뜻으로 Node.js 패키지를 설치하고 삭제하고 버전을 업그레이드 하는 등의 기능을 제공합니다.
+
+<Blank />
+
+### VsCode 설치하기
+
+전 세계 프로그래머들이 가장 사랑하는 텍스트 에디터 VsCode를 설치합니다. 독자의 PC에 VsCode가 이미 설치 되어 있다면 본 단원의 내용은 건너 뛰어도 괜찮습니다. 참고로 VsCode의 버전은 실습에 큰 영향을 미치지 않습니다.
+
+<Bookmark
+  url={"https://code.visualstudio.com/"}
+  title={"Visual Studio Code - Code Editing. Redefined"}
+  thumbnail={"https://code.visualstudio.com/opengraphimg/opengraph-home.png"}
+  description={
+    "Visual Studio Code is a code editor redefined and optimized for building and debugging modern web and cloud applications.  Visual Studio Code is free and available on your favorite platform - Linux, macOS, and Windows."
+  }
+  favicon={"/favicon.ico"}
+/>
+
+VsCode의 기본 언어 설정은 영어입니다. 만약 한국어 지원이 필요한 사용자라면 한국어 팩을 설치합니다. 한국어 팩 설치 방법은 인터넷에 “VsCode 한국어 팩 설치” 라고 검색하면 충분히 많은 자료가 존재 합니다. 따라서 자세한 내용은 생략하겠습니다.
+
+<Blank />
+
+## 타입스크립트 Hello World
+
+실습 환경 설정을 완료 했다면 이제 타입스크립트 코드를 작성할 차례입니다.
+
+이번 단원 에서는 새로운 실습용 Node.js 패키지를 만들고 타입스크립트 프로그래밍을 돕는 여러 도구를 설치 할 것 입니다. 그 다음 타입스크립트 코드를 작성 하고 직접 컴파일 한 다음 실행까지 해 보겠습니다.
+
+<Blank />
+
+### Node.js 패키지 만들기
+
+실습에 활용할 새로운 패키지를 하나 만듭니다. 특별한 목적이 있지 않다면 문서(Documents) 폴더 아래에 패키지를 위한 새로운 폴더를 만드는 걸 추천합니다.
+
+```shell
+cd ~/Documents/onebite-typescript/section1
+**npm init**
+```
+
+패키지 구성 관련 질문에는 모두 엔터로 응답합니다. 단순 실습을 위한 패키지이므로 패키지 기본 정보를 자세히 설정할 필요는 없습니다.
+
+앞으로는 설명 편의상 우리가 직접 만든 패키지는 패키지, npm을 이용해 설치하는 라이브러리 역할을 하는 외부 패키지는 라이브러리 라고 부르겠습니다.
+
+<Blank />
+
+### @types/node 설치하기
+
+새로운 실습용 패키지를 만들었다면 가장 먼저 해 주어야 하는 일이 있습니다. Node.js의 타입 정보를 갖고 있는 라이브러리를 설치해야 합니다.
+
+@types/node 라이브러리는 Node.js가 제공하는 기본 기능(내장 함수, 클래스 등)에 대한 타입 정보를 가지고 있습니다. 만약 이 라이브러리를 설치하지 않으면 Node.js가 제공하는 기본 기능(내장 함수 등)들의 타입이 선언되지 않아 타입스크립트의 컴파일 과정에서 오류가 발생할 수 있습니다. 정확히는 타입 검사를 실패할 것 입니다.
+
+VsCode에서 터미널을 연 다음 패키지 루트 위치에서 다음 명령어를 실행합니다.
+
+```shell
+npm i -D @types/node
+```
+
+이 패키지는 타입스크립트의 타입 검사를 위한 목적으로 설치 되므로 -D 옵션을 붙여 개발모드일 때만 사용할 라이브러리(devDependencies)로 설치합니다.
+
+Node.js가 제공하는 기본 기능들에 대한 타입을 선언하기 위해 별도 패키지를 설치하는 이유는 무엇 일까요?
+
+타입스크립트는 코드를 실행하기 전에 타입을 올바르게 사용했는지 검사하는 ‘타입 검사’ 과정을 거칩니다. 이 검사 과정에서 타입이 선언되지 않은 코드를 만나게 되면 타입스크립트는 타입이 올바르게 사용 되지 않았다고 생각해 오류를 발생 시킵니다. 따라서 Node.js의 기본 기능들을 위한 타입을 별도로 선언하기 위해 @types/node 패키지를 설치해야 합니다.
+
+> 💡 **devDependencies는 무엇인가요?**  
+> 일반적으로 우리가 npm을 이용해 설치하는 라이브러리들을 dependencies라고 부릅니다. 이 라이브러리들은 우리가 프로젝트를 개발할 때에도 사용하고 개발을 완료해 프로덕션으로 배포하기 위해 빌드 파일을 만들 때에도 사용됩니다. 이런 라이브러리의 대표적인 예로는 ‘react’가 있습니다.  
+> 그러나 이번에 설치한 @types/node 같은 라이브러리는 타입스크립트의 컴파일 과정을 돕기 위해 존재하므로 개발 중 일때만 사용합니다. 컴파일 이후에는 이 패키지가 필요하지 않기 때문입니다. 따라서 이런 라이브러리들을 설치할 때에는 npm 명령어에 -D 또는 -dev 옵션을 붙여 devDependencies로 설치 해 개발 중일 때에만 사용하도록 설정합니다.
+
+    일반적으로 우리가 npm을 이용해 설치하는 라이브러리들을 dependencies라고 부릅니다. 이 라이브러리들은 우리가 프로젝트를 개발할 때에도 사용하고 개발을 완료해 프로덕션으로 배포하기 위해 빌드 파일을 만들 때에도 사용됩니다. 이런 라이브러리의 대표적인 예로는 ‘react’가 있습니다.
+    그러나 이번에 설치한 @types/node 같은 라이브러리는 타입스크립트의 컴파일 과정을 돕기 위해 존재하므로 개발 중 일때만 사용합니다. 컴파일 이후에는 이 패키지가 필요하지 않기 때문입니다. 따라서 이런 라이브러리들을 설치할 때에는 npm 명령어에 -D 또는 -dev 옵션을 붙여 devDependencies로 설치 해 개발 중일 때에만 사용하도록 설정합니다.
+
+<Blank />
+
+@types/node가 성공적으로 설치되면 패키지의 node_modules 폴더에 @types 폴더가 생성됩니다. 이 폴더를 클릭해 무슨 파일들이 존재하는지 살펴보겠습니다.
+
+<NImage
+  width={301}
+  height={300}
+  blurDataURL={
+    "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAACwBwCdASpkAGQAPp1On02lpCKiIKmosBOJaQAW3QA0NOG31IQ+zCCvgXPMIpw7TsIfdYLA/D8l7aHCOuaJIFkgmeZaGsAAAP7xD3saIvcMLxeSAOSjVCcHHORoRoioBdtWnNG6pHFetOiXBS4ctLrf2wfo9T6xxOWBZCrctgAAAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649386/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20Hello%20World/file_eauwhn.webp`}
+  captionText={"@types/node 설치시 생성되는 node_modules/@types"}
+/>
+
+<NImage
+  width={1101}
+  height={613}
+  blurDataURL={
+    "data:image/webp;base64,UklGRhACAABXRUJQVlA4TAQCAAAvY8ANABfwgpEXhIhJ09A3rOH8xwcCialt5bGWgAV4YewnAS0gkCPcAq4z8/pJwBTw/aRMc72+EiL670CS1LhZqCmzwjmQ9In7vq/ze39/LgGQkp+6uO/y51vOWitnYI8xurnTXcr5vUo5pYHIwo9aq1XQ8CJaF40nuZSSc0ZK0TkDV2moGq/k57nXfVfhEw/Q4BdDpQUXbRPNk6H/Fx/HAc4IKXpv6aeczFIBtHQm/lQWyZlPYI9+MnFJznIAqiVaukpmAKxaVnPid5XMpxzywE8DCHTs0W55ADAzENIQEAYOYHOzjW9pEM56u00VPh4XGXjZ9k/JGcApv8DFaBQIEKeB/fQjM0DpNbAL0HCgYXGm/dPADYIUxjYgCqOJ35UzMli95sb2UQ8BaDYKnd1+h0Bk6ucBoOw4BBh60906aEGGilb7XmaZ1UeNwMDRwZm61GEWdaDXQZHR2Sk6G7WiD6L5F4C+f9G2B5gHSJu2Q/Le0p8HezdZNwIpAIirH008EIC0EZFbTeQYoQo82R6dgY3Sk9seFz+5tUegtOtl0h/q7/4URtJlSK1eF+O1uO1BZVJwWreEFNPe31lavFVstKEryTnrg0LadUt3/zv7ArZIHZ7b7IyJh6BWWG2Ts44tQFsCRDKwxWUxzgGH9ODko4dl7wmHSAESzZYYD/isXAB1piY="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649389/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20Hello%20World/file_tqfcyg.webp`}
+  captionText={
+    "Node.js가 제공하는 console 함수에 대한 타입이 선언되어 있는node_modules/@types/console.d.ts 파일"
+  }
+/>
+
+<Blank />
+
+폴더를 열어보면 Node.js가 기본적으로 제공하는 기능(내장 함수 등)들에 대한 타입이 선언되어 있는 여러개의 폴더와 파일들이 존재합니다.
+
+이렇듯 타입스크립트는 우리가 작성하는 코드 외에도 Node.js의 기본 기능이나 우리가 설치하는 모든 라이브러리에 대해서도 타입 검사를 수행합니다. 따라서 타입스크립트를 지원하지 않는 라이브러리를 설치하면 타입 검사가 실패하여 오류가 발생합니다. 그러나 오늘날 대부분의 Node.js 라이브러리들은 타입스크립트를 지원 하므로 걱정할 필요는 없습니다. 또 만약 타입스크립트를 지원하지 않는 라이브러리를 만나더라도 직접 타입 선언 파일을 만들어 대응하는 것 또한 가능합니다. 역시 불가능한 것은 없습니다.
+
+<Blank />
+
+### 타입스크립트 설치하기
+
+이번에는 타입스크립트를 설치하겠습니다. 타입스크립트는 Node.js 패키지(라이브러리)로 개발되었기 때문에 npm을 이용하여 설치할 수 있습니다. 이 패키지에는 타입스크립트 컴파일러 등 타입스크립트 개발을 돕는 다양한 도구들이 포함되어 있습니다.
+
+타입스크립트 컴파일러는 왜 설치해야 하는 걸까요?
+
+앞서 타입스크립트의 동작 원리에 대해 살펴보며 우리는 타입스크립트를 실행하기 위해선 타입스크립트 컴파일러를 이용해 자바스크립트 코드로 변환한 다음, Node.js나 브라우저등의 자바스크립트 실행 도구(런타임)을 이용해 변환된 자바스크립트 코드를 실행해야 함을 알았습니다.
+
+앞서 변환된 자바스크립트 코드를 실행하기 위한 Node.js는 설치했습니다. 그러므로 이번에는 타입스크립트 코드를 자바스크립트 코드로 변환할 타입스크립트 컴파일러를 설치해야 합니다.
+
+타입스크립트 패키지는 npm을 이용해 손쉽게 설치할 수 있습니다. -g 옵션을 이용해 전역으로 설치하겠습니다. 이렇게 전역으로 패키지를 설치하면 마치 pc에 설치된 프로그램처럼(Node.js 처럼) 터미널에 패키지 이름을 호출해 사용할 수 있습니다.
+
+다음 명령어를 터미널에 입력해 타입스크립트 패키지를 설치합니다. 새로이 터미널을 열거나 VsCode의 터미널에 입력해도 괜찮습니다.
+
+```shell
+sudo npm i -g typescript
+```
+
+```shell
+npm i -g typescript
+```
+
+참고로 macOS일 경우 sudo(관리자 권한) 옵션을 사용하므로 PC 패스워드를 물어볼 수 있습니다.
+
+설치가 완료되면 다음 명령어를 터미널에 입력해 제대로 설치 되었는지 확인합니다.
+
+```shell
+tsc -v
+Version 4.9.5
+```
+
+<Blank />
+
+### 타입스크립트 실행하기 1
+
+타입스크립트 패키지를 성공적으로 설치했다면 이제 타입스크립트 파일을 만든 다음 간단한 코드를 작성 해 보겠습니다. 패키지 루트 아래에 src 폴더를 생성한 다음 index.ts 파일을 생성하고 다음과 같이 작성합니다. 참고로 타입스크립트 파일의 확장자는 `ts` 입니다.
+
+```typescript
+// src/index.ts
+console.log("Hello Typescript");
+```
+
+코드 작성을 완료 했다면 타입스크립트 컴파일러를 이용해 이 타입스크립트 코드를 컴파일 합니다. 터미널에 다음 명령어를 입력합니다.
+
+```shell
+tsc src/index.ts
+```
+
+`tsc 파일명` 은 특정 파일을 컴파일 하도록 타입스크립트 컴파일러에게 지시하는 명령어입니다. 위 명령어를 입력하면 src/index.ts 파일을 타입스크립트 컴파일러가 컴파일 합니다.
+
+컴파일이 완료되면 자바스크립트 파일 `src/index.js` 이 생성됩니다. 파일을 열어 컴파일 된 자바스크립트 코드를 확인합니다.
+
+<NImage
+  width={689}
+  height={312}
+  blurDataURL={
+    "data:image/webp;base64,UklGRhQCAABXRUJQVlA4TAcCAAAvYwALAB8gFkzx1TRSkLYBi7unY2QClrFrQwrzH/8rLHQMspvtb+oOJOceS4d9UmCAFCORe5wy0JHMfZqRGODUff4FBkh3Y4Xvi+g/A7dtG6mI0t2bn7CLpW9VWBbYkA+aERPGmC3JRx1r2E5I6tnAU19OwHZAVBvIh0ArVW6mw/Y9Ndg/rttGXUJieuc3xj82LiZYVkJuj9/z8X0cEgAuLmX9/k1yO2/i0I0CbuqV/IJj3o4IR2i6xq+mnL9JMp74qNm6KE9k9RXALXxFk2sFoLqkDGrHLYLe3rT0IUnxHWuw5tHnRgEreVaEHOcxnNQpQJ5VAnmsv7Y3bQM4Ln0WsSxpOiifa5+zSO9TIAWUdcXTgokpQ/Q+UVHkUmSxjk7BEZI8O80gYib7qNdBnYWQyBOaR9sroJakKDIAKfVdq6SrnzJLsx0fe797IYBMpDhu7bMCVjlcPV9sGCVznoqoja945oNCXfkZEe9hY7B9W0oWWYIpmtl3TsmMTfxcb5u6EFlSX2GbTlWWxPrm7N+QqsVZkj++OVqaTsmzBf1B8KHpxmkBjvavZe+0EnmaDbau/awVqmJJJAferlUp0xnP4S/x3CnUp2n68CfSDepiQQ9BgptZ1kWaJ2NJfdtAXS4EzIN+7h+ejUJ5crYA3vo3tA2dFtLatE+tJtTyRq1+JoL/uhKnSQAA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649393/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20Hello%20World/file_ujb316.webp`}
+  captionText={"컴파일 된 index.js"}
+/>
+
+이렇게 컴파일 된 자바스크립트 코드는 node를 이용해 실행합니다. 다음 명령어를 터미널에 입력해 src/index.js를 실행합니다.
+
+```shell
+> node src/index.js
+Hello Typescript
+```
+
+물론 지금은 아주 단순한 타입스크립트 코드를 컴파일 했기 때문에 컴파일 이전과 이후의 코드가 동일합니다. 만약 다음과 같은 복잡한 타입스크립트 코드를 작성하고 컴파일하면 복잡한 자바스크립트 코드가 생성됩니다.
+(아래 코드는 지금 따라 작성할 필요도 이해할 필요도 없습니다)
+
+<NImage
+  width={546}
+  height={441}
+  blurDataURL={
+    "data:image/webp;base64,UklGRgwDAABXRUJQVlA4TAADAAAvYwAUABdwAxAFbduwob49FLsByPzHX3CAlrJtlSTJAPveHyL2Y8Dn/QjxCi7A6MN+DDAXMIdapxExpwVE9B9hwCQBG6GffP2f/evz+8+pveoz5t/Pz18vOn//ebU6tZf4jHrVMn9+PmuM3toAgPa8OykU6uTzsQ5OOJjdx4NKKUBKysrKdfx102e0BvlQ1mp57e3hfkGSzNKa1yR6n/XrrHCsKcrtfvdG+cx11FKSWTCf/O4V6H1Mu7PBlvw3F5zz0TkYP7++vn59WmHLClOPzu+5c42/vsaoFFbz3t0s6hjnGPWq5D1Gd/dKb2Oc51lhS355kGCMMUbvIAX34JA7bYx6VtJmT+l00K4xBqWR/WNxBq2enB1M95zRe+uDQlqXx4w6qNdoDUjPCILeaikVsyW8orfeAdvdow16rWcFM/9SROlTJsV3tFobHH55VAwZSikFksILErW1StnsOV2MB5SrVUjyr6BVIK1vCJl29dFgDy9j/F0EiXr1Wti++Xd0TiDLPTtGQWM00NvkzHkNwOwN4YBGLaCXdRC0egLyb5DonbOwmT3DCcqErBcEy/TGBcnby0qZesdziTronVpIZvG5KEMdAArLczXolA4y0wsO6mgFtuR3PUVUogMFpBDc8gzGaJA3s13hCZmb82rmTfcxaL3VwrYlKcj5e8lQZ2QzW+SWWQZwNWDbNrMsH+aQoECFIyvJL8sMCWi1MEWWpBss06ADKee0ml/ivNZ8aQDpMDPNuWRB5QI4jiT5xaZDMKBXAFJat2+7nxGUaZVaCnBkSTFMiDqgN4CNtJoFP0ewBIUBsOWUpehm5wztpAJHWm1ZvA/OOScdNKhA3nJS2O+wxN1Kv3kL3i13UK8ObFiSX9zNOd+wZUkhhtsn2HovKWmXd3crAQ3QJpOL95GOgwqw7WYm75bb2W7rdKwmv8R7iVECIJuZhXBbP8GSpLAsbr8pBLMM+chS8CGGB+w6NrPtm9nud7fMb0YSpCyFGHwID4td2szMbNm9j27xtwc="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649395/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20Hello%20World/file_rmo3nc.webp`}
+  captionText={"컴파일 이전의 타입스크립트"}
+/>
+
+<Blank />
+
+<NImage
+  width={331}
+  height={233}
+  blurDataURL={
+    "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAACQBQCdASpkAEYAPp1OoE2lpCKiIOh4sBOJaQDVuAKaoTjkHUG5kkoz9NKsRbCQF38pO4lmAAD+8KHZ1PzUxcdaYdO+s5jjcPoJVSwzR2HjAPj9rvDLytQ3EazdHrQ3s2IKYsKTDE94YMJjFgAAAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649397/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20Hello%20World/file_nwhjqq.webp`}
+  captionText={"컴파일 된 자바스크립트 파일"}
+/>
+
+### 타입스크립트 실행하기 2
+
+앞서 타입스크립트 코드를 실행하기 위해 tsc를 이용해 타입스크립트 코드를 자바스크립트로 변환한 다음 변환된 자바스크립트 코드를 Node.js로 실행시켰습니다. 정리하면 tsc 그리고 node 2번의 명령어를 사용해 타입스크립트 코드를 실행했습니다. 이번에는 명령어 한번으로 타입스크립트 코드를 바로 실행시켜주는 도구 ts-node에 대해 살펴보겠습니다.
+
+ts-node는 한번에 타입스크립트코드를 컴파일부터 실행시키는 도구입니다. 타입스크립트를 설치할 때와 동일하게 npm에 -g 옵션을 붙여 글로벌로 설치합니다.
+
+```shell
+sudo npm i -g ts-node
+```
+
+```shell
+npm i -g ts-node
+```
+
+<Blank />
+
+설치가 완료되었다면 다음 명령어를 터미널에 입력해 제대로 설치 되었는지 확인합니다. 정상적으로 설치 되었다면 버전 코드가 출력됩니다.
+
+```shell
+ts-node -v
+v10.9.1
+```
+
+<Blank />
+
+설치 확인까지 마쳤다면 ts-node를 이용해 타입스크립트 파일을 실행하겠습니다. 다음 명령어를 터미널에 입력합니다. 앞서 tsc를 이용했을 때와 비교해 tsc 명령어를 ts-node로 교체한 것 과 같습니다.
+
+```shell
+ts-node src/index.ts
+```
+
+그 결과 자바스크립트 파일을 생성하지 않고 한번에 타입스크립트 파일을 실행합니다. 이렇듯 ts-node를 이용하면 보다 쉽게 한번의 명령어로 타입스크립트를 실행할 수 있습니다. 언제 tsc를 사용하고 ts-node를 사용하는지에 대해서는 이후에 더 자세히 다룹니다. 지금은 두가지 방법으로 타입스크립트를 실행할 수 있으며 두 방법에 어떤 차이가 있는지만 알고 있으면 됩니다.
+
+<Blank />
+
+이렇게 타입스크립트 프로그래밍을 위한 개발 환경 설정부터 타입스크립트를 설치하고 직접 작성한 타입스크립트 코드를 컴파일하고 실행하는 방법에 대해 살펴보았습니다. 다음에는 타입스크립트 컴파일러의 옵션을 직접 설정하는 방법에 대해 살펴보겠습니다. 감사합니다.

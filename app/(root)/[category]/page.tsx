@@ -1,9 +1,8 @@
 import { getMetaTag } from "util/metatag";
-import { allPages, allPosts, allQnas } from "@/contentlayer/generated";
+import { allPAGEs, allPOSTs, allQNAs } from "@/contentlayer/generated";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import MDXContent from "@/components/MDXContent";
-import { useMDXComponent } from "next-contentlayer/hooks";
+import MDXContent from "@/components/mdx/MDXContent";
 import PostItem from "@/components/PostItem";
 import QnaItem from "@/components/QnaItem";
 
@@ -39,15 +38,17 @@ export default async function Page({ params: { category } }: Props) {
   switch (category) {
     case "about":
     case "work": {
-      const page = allPages.find((page) => page._id === `page/${category}.mdx`);
+      const page = allPAGEs.find((page) => page._id === `page/${category}.mdx`);
       if (!page) notFound();
       return <MDXContent code={page!.body.code} />;
     }
     case "post": {
-      return allPosts.map((post) => <PostItem key={post._raw.flattenedPath} {...post} />);
+      allPOSTs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      return allPOSTs.map((post) => <PostItem key={post._raw.flattenedPath} {...post} />);
     }
     case "qna": {
-      return allQnas.map((qna) => <QnaItem key={qna._raw.flattenedPath} {...qna} />);
+      allQNAs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      return allQNAs.map((qna) => <QnaItem key={qna._raw.flattenedPath} {...qna} />);
     }
     default: {
       notFound();

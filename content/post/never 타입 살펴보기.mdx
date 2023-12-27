@@ -1,0 +1,73 @@
+---
+id: 4dff379c-03c9-4b9c-8bbc-5717c8336d13
+type: POST
+title: never 타입 살펴보기
+date: 2023-02-21
+subtitle: never 타입에 대해 살펴봅니다
+tags:
+  - 타입스크립트
+---
+
+## 개요
+
+안녕하세요 이정환입니다 😃
+
+이번에는 타입스크립트의 never 타입에 대해 살펴봅니다.
+
+## never 타입
+
+이번에 살펴볼 never 타입은 타입스크립트에서 제공하는 특별한 타입입니다.
+
+never는 ‘절대’라는 의미로 ‘불가능’을 뜻하는 타입입니다. 보통 절대 정상적으로는 종료되지 않는 함수의 반환값의 타입으로 주로 사용됩니다.
+
+절대 정상적으로는 종료되지 않는 함수에는 어떤 것이 있을까요? 예를 들어 다음과 같이 예외를 던지는 함수는 절대 정상적으로 종료되지 않습니다.
+
+```typescript
+function errorFunc() {
+  throw new Error("오류");
+}
+```
+
+neverFunc 함수는 절대 정상적으로 종료되지 않습니다. `throw new Error()` 으로 예외를 발생 시키기 때문입니다. 자바스크립트 프로그램은 예외가 발생하면 프로그램을 종료합니다.
+
+타입스크립트에게 자동으로 타입을 추론하게 하면 neverFunc가 아무것도 반환하지 않는 것으로 간주해 자동으로 void 타입으로 추론합니다. 그러나 void 타입은 단순히 반환값이 없음을 의미하기 위해 사용하는 타입입니다. 따라서 불가능 또는 모순을 의미하는 never 타입과는 다릅니다.
+
+따라서 앞서 만든 neverFunc 함수처럼 다음과 같이 절대 정상적으로 종료되지 않을 함수라면 다음과 같이 반환값에 never 타입을 선언해 주어야 합니다.
+
+```typescript
+function errorFunc(): never {
+  throw new Error("오류");
+}
+```
+
+이렇듯 함수의 반환값을 never 타입으로 선언하는 것은 다음과 같은 뜻으로 해석할 수 있습니다. 이 함수가 무언가를 반환한 다는것은 불가능하며 모순이다.
+
+예를 들어 다음과 같이 무한 루프를 도는 함수도 절대 정상적으로는 종료되지 않는 함수입니다. 따라서 반환값에 never 타입을 선언 해 주어야 합니다.
+
+```typescript
+function infiniteFunc(): never {
+  while (true) {}
+}
+```
+
+추가로 변수의 타입을 never로 선언하는 것 또한 당연히 가능합니다. 그러나 never 타입의 변수에는 그 어떤 값도 할당할 수 없습니다. 심지어 undefined이나 null도 할당이 불가능합니다.
+
+```typescript
+let neverVar: never;
+
+neverVar = 1; // 오류
+neverVar = "123"; // 오류
+neverVar = true; // 오류
+neverVar = null; // 오류
+neverVar = undefined; // 오류
+neverVar = []; // 오류
+neverVar = {}; // 오류
+```
+
+tsconfig.json의 strictNullCheck 옵션을 false로 설정해도 never 타입의 변수에는 null을 할당할 수 없습니다.
+
+never 타입은 지금 시점에는 그 필요성을 크게 공감하기 어렵습니다. 물론 설명하기도 어렵습니다. 따라서 이후에 다른 개념들을 먼저 살펴본 다음 어떤 상황에 never가 사용되는지 자세히 살펴보겠습니다.
+
+지금은 “불가능을 의미하는 타입이다” 따라서 “절대 종료되지 않는 함수의 반환값 타입으로 사용된다” 정도만 알아두어도 괜찮습니다.
+
+<Blank />

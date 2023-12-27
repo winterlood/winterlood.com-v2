@@ -1,0 +1,49 @@
+---
+id: c3dda890-0f40-4273-8351-f4a83af8ecf3
+type: QNA
+title: 유니온 타입에서 특정 타입을 추출하는 방법
+date: 2023-10-10
+tags: 
+ - 한입 크기로 잘라먹는 타입스크립트
+---
+
+
+### 질문
+
+
+다음과 같이 유니온 타입이 선언되어 있을 때
+
+
+```typescript
+type BadgeTypes = | "ing" | "d-day" | "end" | "vq" | "new" | "hot" | "pick" | "start" | "pass" | "test";
+```
+
+
+특정 파일에서만 "ing" | "d-day" | "end" 이렇게 3가지 케이스만 포함된 유니온 타입을 쓰고 싶다면
+
+
+어떻게 해야 할까요?
+
+
+<Blank/>
+
+
+### 답변
+
+
+안녕하세요 이정환입니다.
+
+
+다음과 같이 T로부터 K만 추출하는 유틸리티 타입인 Extract 타입을 이용하시면 됩니다!
+
+
+```typescript
+type tBadgeType = Extract<BadgeTypes, "new" | "hot" | "pick">;
+```
+
+
+<Blank/>
+
+
+<Blank/>
+

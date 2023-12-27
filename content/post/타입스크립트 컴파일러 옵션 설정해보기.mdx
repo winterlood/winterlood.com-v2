@@ -1,0 +1,491 @@
+---
+id: eaf40913-aa9f-47cb-a275-063fbf17fc12
+type: POST
+title: 타입스크립트 컴파일러 옵션 설정하기 with tsconfig.json
+date: 2023-02-05
+subtitle: 타입스크립트 컴파일러 옵션에 대해 살펴봅니다.
+thumbnail: https://res.cloudinary.com/winterlood/image/upload/v1703649367/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20%EC%BB%B4%ED%8C%8C%EC%9D%BC%EB%9F%AC%20%EC%98%B5%EC%85%98%20%EC%84%A4%EC%A0%95%ED%95%B4%EB%B3%B4%EA%B8%B0/file_adqu6w.webp
+tags:
+  - 타입스크립트
+---
+
+<Blank />
+
+### 개요
+
+안녕하세요 이정환입니다 😃
+
+앞선 내용에서 타입스크립트 코드를 작성하고 컴파일 과정을 거쳐 실행하는 방법에 대해 살펴보았습니다.
+
+이번에는 타입스크립트 컴파일러의 옵션을 설정하는 방법에 대해 살펴보겠습니다.
+
+<Blank />
+
+### 컴파일러 옵션
+
+타입스크립트의 컴파일은 프로그래머가 작성한 코드에 타입 오류가 없는지 먼저 검사하고, 오류가 없다면 자바스크립트 코드로 변환하는 과정을 거칩니다. 이러한 컴파일 과정에서 아주 세부적인 사항들(타입 오류의 범위는 어디까지인지, 변환된 자바스크립트 코드의 버전은 어떻게 할 것인지)를 컴파일러 옵션 이라고 부릅니다.
+
+컴파일러의 옵션을 설정한다는 건 이런 세부 사항을 프로그래머가 자신의 입맛에 맞게 자유롭게 변경하는 행위를 말합니다. 이렇게 자유로운 환경 설정을 제공하는 덕분에 진행하는 프로젝트의 성격에 따라 해당 프로젝트에 최적화된 설정을 만들어 사용할 수 있습니다.
+
+컴파일러 옵션을 설정할 수 있다는 사실이 장점이 되는 몇 가지 상황을 예시로 들어 보겠습니다.
+
+여러분이 만약 기존에 잘 운영되고 있는 매우 거대한 자바스크립트 프로젝트를 모두 타입스크립트로 전환 하라는 임무를 받았습니다. 이런 상황이 닥치면 타입스크립트로 전환하기 위해 모든 파일, 변수, 함수, 객체의 타입을 일일이 찾아 선언해주어야 합니다.
+
+타입스크립트 컴파일러는 실행 이전에 타입 검사를 수행하기 때문에 수십 또는 수백개의 파일에 타입 오류가 하나도 없어야 코드가 실행됩니다. 따라서 모든 타입을 선언하기 전까지는 실행 자체가 불가능합니다.
+
+이럴 때에는 타입스크립트 컴파일러에게 매우 유연하게 타입 검사를 수행하도록 옵션을 설정할 수 있습니다.
+
+> 내가 직접 만든 타입만 오류가 없는지 검사하고,  
+> 아직 타입 선언이 안된 코드는 오류가 없다고 판단해라!
+
+<Blank />
+
+또는 반대로 처음부터 타입스크립트를 사용해 프로젝트를 개발한다면 매우 엄격하게 타입 검사를 수행하도록 설정할 수도 있습니다. 여담으로 보통 이렇게 설정하는게 가장 안전한 방법이긴 합니다.
+
+> 모든 파일, 변수, 값, 함수, 객체의 타입을 검사해라  
+> 타입 오류는 하나도 허용하지 말라!
+
+<Blank />
+
+또는 조직에 따라 특정 부분은 유연하게 특정 부분은 엄격하게 하는 등 부분적으로 엄격함을 다르게 설정하는 것 또한 가능합니다. 예를 들면 이런 식입니다.
+
+> 매우 엄격하게 타입 검사를 수행해라!  
+> 근데 함수 매개 변수의 타입은 검사하지 마라!
+
+<Blank />
+
+이렇듯 타입스크립트는 다양한 상황에 맞게 컴파일러 옵션을 적절히 설정할 수 있습니다. 따라서 자바스크립트 코드를 타입스크립트로 전환(마이그레이션)하기도 용이하고 애초에 타입스크립트를 이용해 견고한 프로젝트를 개발 하기에도 용이합니다. 타입스크립트는 유연성과 엄격함을 동시에 갖춘 매력적인 언어입니다.
+
+<Blank />
+
+### tsconfig.json
+
+컴파일러 옵션이란 무엇인지 그것이 어떤 상황에 어떤 효용이 있는지 대략적으로 알아보았습니다. 이제 실습을 통해 직접 느껴볼 차례입니다. 이번에는 컴파일러 옵션을 직접 설정해 보겠습니다.
+
+컴파일러 옵션은 Node.js 패키지 별로 설정할 수 있습니다.
+
+컴파일러 옵션은 반드시 패키지 루트 파일에 `tsconfig.json` 이라는 이름의 파일 내에 작성해야 합니다. 따라서 이전에 만들어둔 Node.js 패키지의 루트에 `tsconfig.json` 파일을 만들고 해당 파일 안에 옵션을 작성해야 합니다.
+
+직접 파일을 생성해도 되나 타입스크립트 컴파일러는 이 옵션 파일을 자동으로 생성하는 기능을 제공합니다. 이번에는 이 기능을 이용해 설정 파일을 생성하겠습니다. 다음 명령어를 터미널에 입력합니다.
+
+```shell
+tsc --init
+```
+
+<Blank />
+
+프로젝트 루트 경로에 자동으로 타입스크립트 컴파일러 옵션 설정 파일인 tsconfig.json이 생성됩니다. 생성된 tsconfig.json을 열고 내용을 확인해 보겠습니다.
+
+<NImage
+  width={1229}
+  height={904}
+  blurDataURL={
+    "data:image/webp;base64,UklGRi4DAABXRUJQVlA4TCIDAAAvY0ASABegIG0DFu47mYK2bVjcPyBT0LYNi/uHY/Mf/y/F7oB2A7pxJIkG1P8WIE4AVx5VADm7+zds6Bmjzz0koCaS2QBswBVAX2FaVFXvEUBE/x1Ikho3oAzFBlRn8oi3/4O3dn2nXV9fX5/eZT+e9tZ+vC+WBWXf32P7XlvbLk9v7W5eAax12fZyz9aylYqyl6Xdiw0Ayor7WOG9VsCfwb77OI6lYlh6ezr6Ntz04XAu1/3SZwNHcwEuXttWW+sai4RbeNrrvu+lFOAco0k39t9swFI3QEWIupQm19kO3wuASCSSYow6d7v0G1trq+iRLGmMk6vc130tC5QP0KwSTcjNVcqB73i0Hilq0ole397atS4LCgriQ4eJyImuPS+1VlRAT4edJGkM9HT4jgVYAUjouZgI0fVyxAYsywpYxxw1ToEux6hAAS/QdGAOljhOtF1aW7YVqPgC6ZBvJjTT076X6u7xu2o8EPpcQlRa67NiAR49QrYwEa3r6oEFqWM+R/UoG1Zg/QLo5A48mVBHxegcI51mUaSOgs3b3zkHomOYnIkIB6p7qYp47m2SE0eiW9oXaCBf4lCGjkWR+kImyZYO4IZ/ZCV3RQOwDmZQcSXKfAe/uQ+Fs+VAN+13Q5z9i4oaRmNAB8ySIANYzXJHcMMk3kF/gu78VEdYMnZX5C5Pkj1MzhKgGUAmf36q80xkULDLwexwStaXzAoziwpAHE6S1Z+fMhg5A6zDSB1qGWwGmI5IA2DGSK7NF5qHKkMMBjaP4CoJ+WBSAXAjze5gGcgGQDmO8sN0hARVVumCDuNbih3mJAU03WrrJTDWAxnQ4NvEZg8cAN+onNmtTJHMVBIY0ctncVMhg9kAG2UKrD3JrONfnQafWNLD3PEZGKNMokOJMVQyMMqStL8cY5iaO3Ud2pR9wgCiAmzBw3ybQU0AYMBs2cGQAP+kkpcjIwXXZhlwlzT5u/MrACtYxW4gJFMQkRoMgweHzBD302BYlrz+BKuX/dIsQQEA/JvHDFU9e6gB+Pk7zMkDWM21lUfFw9Rlw282Ed3o+fLxg8Oc3csm"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649367/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20%EC%BB%B4%ED%8C%8C%EC%9D%BC%EB%9F%AC%20%EC%98%B5%EC%85%98%20%EC%84%A4%EC%A0%95%ED%95%B4%EB%B3%B4%EA%B8%B0/file_adqu6w.webp`}
+  captionText={"자동 생성된 tsconfig.json"}
+/>
+
+기본적으로 매우 많은 옵션이 설정되어 있습니다. 주석으로 처리된 옵션 들도 꽤 보입니다. 이렇게나 많은 옵션들을 한번에 살펴보기는 무리입니다. 또 굳이 그럴 이유도 없습니다. 우리는 지금 시점에 딱 필요한 핵심 옵션 들만 빠르게 살펴보겠습니다. 나머지 옵션 들은 이후 중간 중간 필요한 상황에 다룰 예정입니다.
+
+<Blank />
+
+기본 설정값을 모두 제거하고 처음부터 옵션을 적용해 보겠습니다. 다음과 같이 tsconfig.json 파일의 기본 내용을 전부 제거합니다.
+
+```json
+{}
+```
+
+<Blank />
+
+### include 옵션
+
+가장 먼저 살펴볼 옵션은 `include` 옵션입니다. `include` 옵션은 타입스크립트 컴파일러에게 컴파일 할 타입스크립트 파일들의 위치를 알려주는 옵션입니다. 우리는 src 폴더 아래에 모든 코드를 작성할 예정입니다. 따라서 다음과 같이 tsconfig.json에 include 옵션을 추가합니다.
+
+```json
+{
+  "include": ["src"]
+}
+```
+
+include 옵션을 설정하면 tsc 명령어 뒤에 컴파일 할 파일명을 입력하지 않아도 자동으로 옵션에 설정된 경로의 모든 타입스크립트 파일이 컴파일됩니다. 다시 말해 터미널에 tsc 만 입력해도 src 폴더 아래의 모든 타입스크립트 파일이 컴파일 됩니다.
+
+<Blank />
+
+옵션이 잘 적용되는지 확인해보기 위해 앞서 index.ts를 컴파일 해 생성된 자바스크립트 파일인 src/index.js를 삭제합니다. 그 다음 새로운 타입스크립트 파일 hello.ts를 생성하고 다음과 같이 작성합니다.
+
+```typescript
+// src/hello.ts
+console.log("hello Test");
+```
+
+<Blank />
+
+다음으로 터미널에 tsc를 입력해 src 폴더 아래의 모든 타입스크립트 파일을 컴파일 합니다.
+
+```json
+> tsc
+```
+
+src/index.js 그리고 src/test.ts가 각각 잘 생성되는지 확인합니다.
+
+<Blank />
+
+이 옵션은 왜 필요한 걸까요? 실무에서는 보통 다수의 타입스크립트 파일을 사용합니다. 적게는 10개에서 많게는 200개도 넘게 사용하는 경우도 있습니다. 그런데 방금 살펴본 include 옵션이 없다면 컴파일 해야 하는 모든 타입스크립트 파일명을 일일이 tsc 명령어와 함께 입력해주어야 합니다.
+
+```shell
+tsc src/index.ts
+tsc src/module1.ts
+tsc src/module2.ts
+tsc src/module3.ts
+...
+tsc src/module99.ts
+tsc src/module100.ts
+```
+
+이것은 매우 비 효율 적입니다. 파일명이 수정되거나 파일이 추가, 삭제 되는 상황까지 생각하면 더 생각하고 싶지도 않습니다. 만약 정말 이런 상황이 존재한다면 진지하게 타입스크립트 도입을 고민해 봐야 할 것입니다. 그러나 우리는 이미 include 옵션을 알고 있고 잘 활용할 수 있기 때문에 다행히 이런 수고를 겪을 필요가 없습니다.
+
+<Blank />
+
+### target 옵션
+
+다음으로 살펴볼 옵션은 `target` 옵션입니다. `target` 옵션은 타입스크립트 컴파일 결과로 생성되는 자바스크립트 코드의 버전을 설정합니다. 실습을 통해 직접 옵션의 필요성을 느껴보겠습니다. 다음과 같이 target 옵션을 설정합니다.
+
+```json
+{
+  "compilerOptions": {
+    "target": "es5"
+  },
+  "include": ["src"]
+}
+```
+
+앞서 살펴본 `include` 옵션과 다르게 `target` 옵션은 `compilerOptions` 내부에 설정합니다. 보통 컴파일의 세부 동작을 변경하는 옵션들은 `compilerOptions` 내부에 그렇지 않은 옵션들은 밖에 선언합니다.
+
+target 옵션은 보통 인터넷 익스플로러 등 구식 자바스크립트 엔진을 사용하는 브라우저들을 위해 “es5”로 설정 합니다. 옵션이 잘 작동 하는지 직접 확인해보겠습니다.
+
+src/index.ts에 다음과 같이 es6 버전 부터 추가된 화살표 함수를 하나 작성합니다.
+
+```typescript
+// src/index.ts
+
+const func = () => "hello";
+```
+
+tsc 명령어를 터미널에 입력해 컴파일합니다.
+
+```typescript
+> tsc
+```
+
+컴파일이 완료되면 index.ts의 컴파일 결과인 index.js를 열어 컴파일 결과를 확인합니다.
+
+```typescript
+// src/index.js
+
+var func = function () {
+  return "hello";
+};
+```
+
+index.ts에 화살표 함수로 작성한 함수 func가 es5 버전으로 변환 되며 함수 표현식으로 바뀐 걸 볼 수 있습니다.
+
+이번에는 target 옵션을 ‘ESNext’로 설정하고 다시 컴파일 해 보겠습니다. 참고로 ESNext 버전은 es6 이후의 버전을 의미합니다.
+
+```typescript
+{
+  "compilerOptions": {
+    "target": "ESNext"
+  },
+  "include": ["src"]
+}
+```
+
+tsc 명령을 터미널에 입력해 다시 컴파일 합니다.
+
+```typescript
+> tsc
+```
+
+index.js 파일을 열어 컴파일 결과를 확인합니다.
+
+```typescript
+// src/index.js
+
+const func = () => "hello";
+```
+
+아까 target 옵션을 “es5”로 설정 했을 때와는 달리 화살표 함수를 그대로 화살표 함수로 변환하는 걸 확인할 수 있습니다. 이렇듯 target 옵션을 이용하면 타입스크립트를 컴파일 했을 때 생성할 자바스크립트의 버전을 설정할 수 있습니다.
+
+<Blank />
+
+### module 옵션
+
+다음으로 살펴볼 옵션은 `module` 옵션입니다. `module` 옵션은 컴파일 이후 생성되는 자바스크립트 코드의 모듈 시스템을 설정하는 옵션입니다. 이번에도 동일하게 직접 사용해보겠습니다.
+
+tsconfig.json의 module 옵션을 ‘CommonJS’로 설정합니다.
+
+```json
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS"
+  },
+  "include": ["src"]
+}
+```
+
+> 💡 **자바스크립트 및 Node의 모듈 시스템 (CommonJS 또는 ESM)에 대해 모른다면**  
+> 아래 링크를 참고하세요
+>
+> Common JS : [https://nodejs.org/api/modules.html](https://nodejs.org/api/modules.html)
+>
+> ES Module : [https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Modules](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Modules)
+
+    아래 링크를 참고하세요
+
+
+    Common JS : [https://nodejs.org/api/modules.html](https://nodejs.org/api/modules.html)
+
+
+    ES Module : [https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Modules](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Modules)
+
+다음으로 앞서 만든 test.ts 파일은 제거하고
+
+모듈로 사용하기 위한 새로운 파일 hello.ts를 만들고 다음과 같이 작성합니다.
+
+```typescript
+export const hello = () => {
+  console.log("hello");
+};
+
+export const helloWithName = () => {
+  hello();
+  console.log("my name is 이정환");
+};
+```
+
+그 다음 index.ts에서 hello.ts에서 내보낸 hello 와 helloWithName 함수를 불러와 호출합니다.
+
+```typescript
+import { hello, helloWithName } from "./hello";
+
+hello();
+helloWithName();
+```
+
+hello.ts 모듈에서 내보낸 두 함수를 index.ts에서 불러와 사용하는 형태로 코드를 작성했습니다. 이제 tsc 명령을 통해 컴파일하고 결과를 확인 해 보겠습니다. 앞으로도 특별한 설명이 없다면 tsc를 이용해 컴파일 하겠습니다.
+
+```typescript
+tsc;
+```
+
+컴파일이 끝나면 index.js와 hello.js를 열어 컴파일 결과를 확인합니다.
+
+```typescript
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const hello_1 = require("./hello");
+(0, hello_1.hello)();
+(0, hello_1.helloWithName)();
+```
+
+```typescript
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.helloWithName = exports.hello = void 0;
+const hello = () => {
+  console.log("hello");
+};
+exports.hello = hello;
+const helloWithName = () => {
+  (0, exports.hello)();
+  console.log("my name is 이정환");
+};
+exports.helloWithName = helloWithName;
+```
+
+앞서 tsconfig의 module 옵션을 ‘CommonJS’로 적용 했기 때문에 변환된 두 자바스크립트 파일은 모두 Common JS 모듈 시스템을 사용하는 걸 확인할 수 있습니다.
+
+이번에는 변환된 자바스크립트 코드가 ES 모듈 시스템을 사용하도록 module 옵션을 ‘ES2015’로 설정합니다. 다음과 같이 tsconfig.json의 module을 수정합니다.
+
+```typescript
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ES2015"
+  },
+  "include": ["src"]
+}
+```
+
+<Blank />
+
+컴파일한 다음 결과를 확인합니다.
+
+```typescript
+import { hello, helloWithName } from "./hello";
+hello();
+helloWithName();
+```
+
+```typescript
+export const hello = () => {
+  console.log("hello");
+};
+export const helloWithName = () => {
+  hello();
+  console.log("my name is 이정환");
+};
+```
+
+컴파일 결과 ES 모듈 시스템을 사용하는 자바스크립트 코드로 변환되었습니다. 이렇듯 module 옵션을 설정해 변환된 자바스크립트 코드의 모듈 시스템을 자유롭게 설정할 수 있습니다.
+
+<Blank />
+
+### outDir 옵션
+
+tsc를 이용해 타입스크립트 파일을 컴파일 하면 그 결과물인 자바스크립트 파일이 동일한 폴더에 생성됩니다.
+
+아무래도 별로 좋은 현상같지는 않습니다. 지금은 파일의 개수가 많지 않아서 괜찮을 수 있지만 향후 복잡한 대규모 프로젝트를 개발할 때에는 폴더 및 파일 관리가 어려워질 수 있습니다.
+
+<NImage
+  width={658}
+  height={334}
+  blurDataURL={
+    "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAABwBQCdASpkADMAPp1OoE2lpCKiISiYsBOJaQZ6nZbAM+iGNd0Cn9QBUYqh1UHkNkzybm6gAP7vX4tJJ1Sy43gftEsXhinvjtgUP8V+Fbt229C3mAQG+dq6j9AIP0ghFwAAAAAA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649370/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20%EC%BB%B4%ED%8C%8C%EC%9D%BC%EB%9F%AC%20%EC%98%B5%EC%85%98%20%EC%84%A4%EC%A0%95%ED%95%B4%EB%B3%B4%EA%B8%B0/file_qkgdfk.webp`}
+  captionText={"이름도 동일해서 생성 이후에는 친구처럼 붙어있다."}
+/>
+
+이럴 때에는 `outDir` 옵션을 설정하여 생성될 자바스크립트 파일의 위치를 변경할 수 있습니다.
+
+다음과 같이 tsconfig.json을 수정합니다.
+
+```typescript
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ES2015",
+    "outDir": "dist" // 생성되는 자바스크립트 파일을 dist 폴더에 저장해라
+  },
+  "include": ["src"]
+}
+```
+
+<Blank />
+
+옵션이 잘 적용되는지 확인해보겠습니다. 이전에 컴파일 했을 때 생성된 자바스크립트 파일들을 삭제하고 다시 컴파일 합니다. 그 결과 dist 폴더가 생성되고 해당 폴더 내에 컴파일 결과인 자바스크립트 파일이 생성됩니다.
+
+<NImage
+  width={1700}
+  height={980}
+  blurDataURL={
+    "data:image/webp;base64,UklGRoQCAABXRUJQVlA4THgCAAAvY0AOACcgFkzxtTRSkLYBi7unY2LBFF9Lo/mPf0PR1BgcRJIkNOAg4ODzDggOEv+i+N37gILZiP47kCQ1boRYw3IkUqT4D78n5MxX5HMKf3twgjKF3FuTiubeHJz5Sj9Ua+NI5rFSZvlHT94k+WO7BvGRJSXJ162r9iABJhsmqzn9+50EYy5FZDasPl/EKvds6H9jWJlK/7x7FWvs733mz+eRnrixA22jGlXs6BlbkGEVaVdtkmv+6imGMX3I6OEZl+5JUnFm6fKDAB2ZDY1Nhh1Z/YLYJgSmutZwzW6r75IX1N7fzaxXkhK0f/2bFxVbM13BnxIfFvyjIFXAK0uRaTN/jAZVNMs681MspmCHus0CTBzl2lgOm7ZrI0qyRlhYJtU5zJYl2acQh0WgjHSBJudQQEjj1H8BdWTU7IzaFgkRt3NFqeEMeBddjf70eNSgdD6xzG0vdsyPsNaMtGqcAumHxPeY1BpXJpVy/f4SsVYzRo/Yf+27y8ma25ZUgExAT1p1sILUg9rg8ws//DB79aqbtqxJmINkVJGt2YqSXEbdv3C+DLpotHPpuIACutEa+gvUMmDsGHCpVJUDLH65luLXQwJjpyeUvMUgiV2Y0SVaazKlR5XFi4Nj2xzCKjB3VLsozi03RF470tXvWBKZK/+W6tup+G95CmJqmZEPumN8LCmRuWFX5BYY1+MgZ/fWqG3swuRehMKv3gSvNbehR+6wRFoecD/y9xjEt+ybEZwz3xvdhST63Nv2CK1nppuSrA806oWP3eMst8E58MhNZfgy23g+RNuhAXn1PwazZ/IAHKqj6zNgXbTmKVoym3RueYgubstjNA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649372/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20%EC%BB%B4%ED%8C%8C%EC%9D%BC%EB%9F%AC%20%EC%98%B5%EC%85%98%20%EC%84%A4%EC%A0%95%ED%95%B4%EB%B3%B4%EA%B8%B0/file_hwfqpl.webp`}
+  captionText={"컴파일 이후 생성된 dist 폴더와 자바스크립트 파일들"}
+/>
+
+<Blank />
+
+### strict 옵션
+
+이번에 살펴볼 옵션은 `strict` 옵션입니다. `strict` 옵션은 타입 검사를 엄격하게 할 것인지 유연하게 할 것인지 설정하는 옵션입니다. 이 옵션은 키거나(true) 또는 끄거나(false)만 할 수 있습니다. 키면(true로 설정하면) 엄격하게 검사하고 끄면(false로 설정하면) 유연하게 검사합니다. 참고로 기본값은 false 입니다.
+
+옵션을 설정하고 직접 코드를 작성해 보며 직접 차이를 느껴보겠습니다. 다음과 같이 tsconfig의 strict를 true로 설정합니다.
+
+```typescript
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ES2015",
+    "outDir": "dist",
+    "strict": true // 엄격한 타입 검사 적용
+  },
+  "include": ["src"]
+}
+```
+
+이번에는 엄격하게 타입을 검사할 경우 검사에 실패하는 코드를 작성 해보겠습니다.
+
+hello.ts에 새로운 함수를 하나 추가합니다.
+
+```typescript
+...중략
+
+export const helloWithMessage = (message) => {
+//                               ^^^
+//  'message' 매개 변수에는 암시적으로 'any' 형식이 포함됩니다.ts(7006)
+  hello();
+  console.log(message);
+};
+```
+
+helloWithMessage 함수는 매개변수 message에 제공된 값을 콘솔에 출력하는 함수입니다. 그러나 이렇게 작성하면 에디터에 빨간줄이 나타나며 오류가 발생 함을 알려 줍니다. 이는 타입 검사가 실패할 코드를 작성했기 때문입니다.
+
+왜 실패하는 걸까요? 엄격한 타입 검사를 적용한 타입스크립트 에서는 다음과 같이 매개 변수의 타입을 반드시 명시해주어야 합니다. 매개 변수의 타입은 작성된 코드만 보고는 추론할 수 없기 때문입니다.
+
+```typescript
+...중략
+
+export const helloWithMessage = (message: string) => {
+  hello();
+  console.log(message);
+};
+```
+
+매개 변수에 타입을 명시하면 그제서야 오류가 사라집니다. 이것은 strict 옵션을 true로 설정하여 엄격한 타입 검사가 적용 되었기 때문입니다. 엄격한 타입 검사가 적용되면 마치 함수 매개변수 처럼 코드만 보고 타입을 추론할 수 없는 상황에 타입이 명시 되어 있지 않으면 무조건 타입 오류로 판단합니다.
+
+차이점을 직접 느껴보기 위해 이번에는 strict 옵션을 false로 변경합니다.
+
+```typescript
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ES2015",
+    "outDir": "dist",
+    "strict": false // 엄격한 타입 검사 끄기
+  },
+  "include": ["src"]
+}
+```
+
+그 다음 hello.ts의 helloWithMessage의 매개변수에 명시된 타입을 제거 합니다.
+
+```typescript
+...중략
+
+export const helloWithMessage = (message) => {
+  hello();
+  console.log(message);
+};
+```
+
+아까는 매개변수의 타입을 명시하지 않았기 때문에 에디터가 이것은 오류라는 의미로 빨간줄을 그어 주었는데 지금은 아무런 불평 불만도 없습니다. 엄격한 타입 검사 옵션이 꺼져있기 때문입니다. 이렇듯 strict 옵션을 이용해 타입 검사를 엄격하게 할 것인지 유연하게 할 것인지 프로그래머가 직접 선택할 수 있습니다. 보통은 안전한 코드를 작성하기 위해 strict 옵션을 켜 두고 개발합니다.
+
+<Blank />
+
+### 정리하며
+
+이렇게 타입스크립트 컴파일러 옵션이 무엇인지, 어떻게 설정 하는지 그리고 어떤 설정들이 있는지 알아보았습니다. 물론 지금은 핵심적인 옵션 들만 살펴보았기 때문에 지금까지 살펴본 옵션들 외에도 매우 많은 컴파일러 옵션이 존재합니다.
+
+다양한 컴파일러 옵션을 활용할 줄 아는 것은 매우 중요합니다. 그러므로 향후 타입스크립트 문법과 기능을 살펴보며 관련된 옵션들을 꾸준히 하나씩 살펴볼 예정입니다.
+
+참고로 아래의 공식 문서 링크로 접속하면 모든 타입스크립트 컴파일러 옵션을 확인할 수 있습니다. 그러나 이 모든 옵션을 지금 살펴보는 건 추천하지 않습니다. 아직은 이해하기 어려울 것 입니다.
+
+<Bookmark
+  url={"https://www.typescriptlang.org/tsconfig"}
+  title={"TSConfig Reference - Docs on every TSConfig option"}
+  description={
+    "From allowJs to useDefineForClassFields the TSConfig reference includes information about all of the active compiler flags setting up a TypeScript project."
+  }
+  favicon={"/favicon-32x32.png?v=8944a05a8b601855de116c8a56d3b3ae"}
+/>
+
+<Blank />
+
+감사합니다.
+
+<Blank />

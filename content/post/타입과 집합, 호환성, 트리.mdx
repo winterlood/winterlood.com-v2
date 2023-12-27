@@ -1,0 +1,541 @@
+---
+id: 7e7f56ae-91c8-4aab-9494-fbf7ae7e4805
+type: POST
+title: 타입과 집합, 호환성, 트리
+date: 2023-02-21
+subtitle: 타입과 집합, 타입간의 호환성 그리고 타입 계층도를 이해해 봅시다
+thumbnail: https://res.cloudinary.com/winterlood/image/upload/v1703649252/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_hgu9ip.webp
+tags:
+  - 타입스크립트
+---
+
+## 개요
+
+안녕하세요 이정환입니다 😃
+
+앞선 섹션에서 여러가지 타입에 대해 살펴보았습니다. 그 중에는 number나 string같은 이미 익숙한 타입 들도 있었지만 never, unknown, any, void 같은 생소한 타입들도 있었습니다. 어떤 상황에 어떻게 쓰이는 타입인지 살펴보았지만 사실 아직 조금 혼란스럽습니다. 이미 기억에서 지워졌을 수도 있습니다.
+
+괜찮습니다. 이번 내용을 통해 타입과 집합, 그리고 여러 타입들 간의 관계에 대해 잘 알게되면 이제 더 이상 never, unknown, void, any와 같은 타입들이 혼란스럽지 않을 것 입니다. 그렇게 되면 이제 여러분은 이런 생소한 타입들과 많이 친해지게 될 것이며 적재 적소에 활용할 수 있게 됩니다.
+
+따라서 이번에는 타입과 집합, 그리고 타입간의 관계에 대해 깊게 살펴보겠습니다.
+
+## 타입은 집합이다.
+
+여러번 이야기 했지만 아주 중요한 개념이므로 다시 반복합니다. 타입은 값의 집합입니다.
+
+예를 들어 1, 2, 3과 같은 숫자 값의 집합은 number 타입이라고 할 수 있습니다.
+
+<NImage
+  width={1015}
+  height={814}
+  blurDataURL={
+    "data:image/webp;base64,UklGRk4CAABXRUJQVlA4TEICAAAvY8ATAA/wA5AfhNxgZv7jAXJdW1sr59iaMDMzc8lwlYo5wzxVOB0zQ8VJOUwOM8d5CAaP6zD7l65lf5L/8/sZIvrPwG0jRdlV9hgGPgEaNlLGyNzcfikcanHqUlj9wevX2eT4zoc3YJBZ7cnmXHPeDyPPNq/8IOI65pU7RKSfzeR8Fzl41VQoIgMMWuKE7e2YKkko7mUEIUp4mMPapOV3Zr3SHBzDeqJx+3JIPmtkgkUhfUA7/UinvpCaiZos0ZlYHBHl7ehwSOSSLgbEXFIN79zsqXkVi5jhOlQnxEMK8Qbe8ScBGPma5ZLu8WFxKD4h/2wXrSLhsRbA6v/MwQ5a143DuRZQ80+YyQA6OgYjtIz9g40AMq8Nzc0BTu0xuAKg5ptBrg30Dg1mWInexMYO54GZb+vcGeRbwPrQe8DBzwEynhykGG0G4ATqK6naTvS9rew1qSPQokRtS9ETVfox5fB3Vz1PUTYq/xmLSD6As9t/fvmgdR2J/ou7kwq1HdD3w3PVplUK4GUgLv35FAvo6YWBHyc0AajZ5PuBShgCIOefSEhZyUl0Pdjhx2bZZ426WIpEa5/7SjPOAvBNxbFZ6KfqYkVpXQMgc89zKQ9UtEsVJcnvDeDQhv20s/mw1vk3oplJ/dAS+ZobFoDMIieg5OeQgoMi4i4bRYXemhWRg+NsbvufkcjbM9y2jXtEZP8U7pp730Uk/1gOzY5P74vv9OaGXLtVvB35nYieDS256roD8HInvq56j2bWLM0Ni1oBAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649252/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_hgu9ip.webp`}
+  captionText={""}
+/>
+
+위 그림에서 표현된 것 처럼 1, 2, 4, -20 등의 숫자 값들은 number 타입이라는 집합에 포함됩니다. 이렇듯 타입은 여러개의 값을 포함하는 집합입니다. 반복합니다 타입은 집합입니다.
+
+그렇다면 number 리터럴 타입은 어떻게 생겨먹은 집합 일까요? 예를 들어 다음과 같은 number 리터럴 타입을 생각해 보겠습니다.
+
+```typescript
+let a: 20 = 20;
+```
+
+변수 a의 타입은 20입니다. 그러므로 a에는 20이외의 다른 값을 할당할 수 없습니다. 앞서 타입은 모두 집합이라고 했습니다. 따라서 이 20이라는 타입은 다음과 같이 딱 하나의 값만 포함하는 아주 작은 집합입니다.
+
+<NImage
+  width={918}
+  height={712}
+  blurDataURL={
+    "data:image/webp;base64,UklGRhIDAABXRUJQVlA4TAUDAAAvY0ATABcgFkzxtThS0LYNi/uHYwrSNmDhvqHNf/wv0Q1oKdtet7UScO8tsOfTgHRfgd8f/gH8Wof5yKDc7x4yTOuX1h5CRP8duG3jSPGuctOupOz94XYJavt5OX0qvN0GrZnW/jr7+/dT2e6DvVPt8zXoWdiXweJBe03UYMQH9ndipWhah/HCMPZ7hLcJ2nRQlHVYyPCa2VNIAzY+f6aDwjJMf2Bz6ARQntNLuPuDa+S/nyka+31Aba+pCsHfj49/QUesUP4BGQMbOV//F3U+eJ2EIYDQPqf4M0Gu88B+IngsUKYb/xTSrKJ+fibjZ4PFDSN2ts+ZF1LwZXCg5dnd80rps1wYIg5WSgEMSimiAzbsrEWfKpxNRS88hjJASzVAoFoR2AZwVhUBMG3VdH+7e6gWw6ui54hErQiD9DRwWDcw57eEk5HdloiKKMSUI1hTYVt8fVCBtOe4ZR/F4FKRaaqw5ZhzAkXhwvuaHPYUQogfB5z4tMbMiXHdjxhTxlCySyugQo4xrmFN0CopjICt+5gPnHyDu+kUumI8qrUBB0XZQ4jr8ogzrB2Qc/Q6sNMjH9UK+1twygcCuKzi3fJYQnhsQGP34DTSEkJ4rB1lBoW+0UXQRXNEvRAHZZeKASJwrV7jsAGVEXZh66cXN60wAibDGeKFRoprf6OwD+nuyAhA7CcfMUODjgXsZH8sIa4dVSEsvvsA9jS8F9WGLYnThNxf96waIw6HFFzIdyiF3SH6qt9CXMKeAVjGaYXkF8BUYOzLqhAvnziQjnvHA6QC5JgjUHRPQ1/6CISUtz4e8R4PpKnrsgyVE4anRXYgJ8AHILrnznKANdjJBzR6+EY00EmLQ3a4LRHX8H7OkAHvHxtUbIQw+YfoUHFDU6u+kYe3AqsAcqGfHKYz1URNql2gV5rHmjxMlAq+jydPMVGVyqkqfcVbCIC5M7641tuAmEGsCKLnbOxLGhNMHFIcb99biNhFiMtymw/NfNhTeNxGC/FgouzG88Ooa9y3+zKx9ZbjzHvcAAA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649255/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_mchqtn.webp`}
+  captionText={""}
+/>
+
+## 부모(슈퍼)타입과 자식(서브)타입
+
+그런데 이 20이라는 값은 20 number 리터럴 타입 외에도 number 타입에도 속하는 값입니다.
+
+사실 모든 number 리터럴 타입들은 number 타입에 속합니다. number 리터럴 타입이 포함할 수 있는 값의 종류는 숫자 값 이외에는 없기 때문입니다.
+
+따라서 두 집합 number 리터럴 타입과 number 타입간의 관계를 표현하면 다음과 같습니다.
+
+<NImage
+  width={771}
+  height={603}
+  blurDataURL={
+    "data:image/webp;base64,UklGRhoCAABXRUJQVlA4TA0CAAAvY0ATAA/wA5AfhNxgZv7jAXKm/1/kdFmf2wgO8bS4XObewxK0jO1EcKmiFVDeDlWGyt39BHfflqFyl6uj1UkC7P6K/+8f0f8JAFhYGGrCfvT238ezLe7Iv2BThaXqYSRBu8WdEMkdsCwsikjC0vFbJJl1NL8kItvQvVBEHtVo70REtpUrbiYSkaGY4r8TEcnFFXqNZIXi/zCCtNKSN8RR+G0Et5Sro4ZUKsORsqnCuFhQlmOmIuWFY6wrKLdmGikxk50O4O8ODRmqAEiLummV8amo5Bzg4H1R960C6Ne2VQD+B02yQMugdmc2wHdN2oGLRS2ojMHMH5p4wMW/ljjg3rJccGC4oCWXAS2RJpti4BcsCaAtsnRWwJvQMg84WLRsisHVyNJZDu4/SyIGmUlLJ0BoeeVASqydgFuw1M+CjFjvABf/WjwHqsS6IAZuwfII6AgtG8qBMctpoCWyrAD8UcsxB1oKWrIJ4Icm64CLeS2IAzN7tKE5gDuiBYtiQJuWmw34nyLlSR1QdS1UNjUDbPynDMwyFk/Ik4F/yawD+KkXSRGRxnIAd+J3KLnbPdVGPFN6MvCvtMwx3D2hSPDiMGZVJhuJ3I4r/ttok+dl1zqG2+GFIudqMGcu+tu5ycuWK3R4YTFocxUXL7vl86oKhY7Le8fi+9H9jh7vRLxKo211IuWjH5yZaG6qdwAA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649257/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_revdbm.webp`}
+  captionText={""}
+/>
+
+number 타입은 number 리터럴 타입을 포함하는 더 큰 집합입니다. 바꿔 말하면 number 리터럴 타입은 number 타입의 부분 집합입니다.
+
+이렇듯 타입스크립트의 타입들은 모두 집합이기 때문에 서로 포함하거나 포함되는 관계를 갖습니다. 이 때 number처럼 다른 타입을 포함하는 타입을 부모 타입 또는 **슈퍼 타입** 이라고 합니다. 반대로 number 리터럴 처럼 다른 타입에 포함되는 타입을 자식 타입 또는 **서브 타입** 이라고 합니다.
+
+<NImage
+  width={1036}
+  height={774}
+  blurDataURL={
+    "data:image/webp;base64,UklGRiYDAABXRUJQVlA4TBkDAAAvY4ASAB8gFkzxtTgSC6b4Wh4pSNuAxd1TtPmPfyalgSRV26w4M1CZW9DuJw3lPIKvYOYWtPsxUM5b8BXMXP/LfnKx592goFVfthDRf9aSpEZZ4pDTByT4D9FhOdD09KwAkii0WAtP2xcwKtQZcJb8XMa9VcBT6FWGipzm+WtkXRepUQIa1/PrtqzzQAs8C9MZek7bum3rxLaACZXh2vGxbNt2u7G2iQ4WXmI0/fRvO2weWUqvynHh58PTbeQ7BBg0XFZP61y/wcQBDLr+09f/L9ZIQpx2zJtv/+iQBV5lO+6rry++IVFB+AyciEuRht9C48r7Q4IOA57DchTQIdECKt6DYwMLKCmwDfnwNdet8CITw/WTP75xh5YCC3LyMdYWSjpWdZ+Lp3EgkIbHXjI40ts4sC1TFQmA5XRs/BhpgbOQnpmXnV5YWUJCrFG1XO6HrwskcainHM2VHPlJutLLjzCnMrienAdy98/CQJ0BOB5mLY7kFJpGU3WHSojjKI5zoLwc/h0wsYrkhebqOldW8PJGOHgslN2ltgVSdY4kKA001XEG2R49sb0CKNCUSFIjSqnUAD509AtioCrRAFprJT/6WHAlAKV+cwAsqgI6OcvSmTla4eEXf/LGlUWanGNJscoyoOneAJhfcN7h+ktnCyT6SYzfKQPebWt3l6byiwxQXXhhZ5HoX8IHuK4nXVkgNeJKjqbiYR2Qi9OnFI6e6lbGi8mbqvOLm4W4rA3Q7s8yDWwtTCRMAa7n+H/+fyNLQIDJ0PFzXbfb47gCqfQlUDkuN+8is4NwaeIsbzr+94vbQCtteUHJKSgjI0u5VF2FajGzhoBXOC7bFtQRW6RBM3nTf4Z6kEhCpOi4hfhokQnH0E2PsJGlVHIrfm6h5rqACZDukAYsUhlr2Ma2hJawCBpYJEqCdGyfTp8k3EUAsVAnyUeg2z6tQ2SNk7aQgJTNvfCN5tFKaWhQCWX9Y6gLLV2xd36GRVrMg+gVFRmIu5R4AboggsNQ20RrqUg7eps/SCv+TYPKuqwzSSfeAHNC2dE3C2THDYgAAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649259/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_pvrqe9.webp`}
+  captionText={""}
+/>
+
+부모, 자식 타입보다는 슈퍼, 서브 타입이 더 자주 사용되는 표현이므로 앞으로 우리는 부모를 슈퍼, 자식을 서브 타입이라고 표현하겠습니다.
+
+그러므로 number는 number 리터럴의 슈퍼 타입이며. number 리터럴은 number의 서브 타입이라고 할 수 있습니다.
+
+마찬가지로 string 타입과 string 리터럴 타입의 관계도 슈퍼-서브 타입 관계를 갖습니다. 또 boolean 타입과 boolean 리터럴 타입간의 관계도 동일합니다.
+
+<NImage
+  width={1033}
+  height={785}
+  blurDataURL={
+    "data:image/webp;base64,UklGRvIBAABXRUJQVlA4TOYBAAAvY8ASAA9wA5AbhNxgZv7jAXK2bVvedE/Xl6M+YTmY3OUHuLtTS4KzOkxu30c3NnerN4K7VyZmd7LjbiG5l/fJQUT/DSZt4yDQnQLQ+9LoUuwdePMm5hlB/Y9fyQKbFZJvM+GqFCuz46/U2mAM/iApT3JS61kjmZU0LOSqzUla6rneZiTFCgAI4jlJ602uStLyQjMk6ddgAMqf/0dahwBQe0+SVANA4MSPAZDMOSMMQPkPSdLZEMB9ORcFoL+b4aVA8MB5a24IIO6O6wVAsMq1uDPAo6zjUwFQu9XN8jDAY9evEFD7Pn82uFQDxD+6zoeB4LvJLKD8pavVyT+TZqA6Y4RDMOGDy58PxGUuAXT6YfQE6m0agPhfo4cHbTkjWgCDM0YK6LDpTt4sKsz7HgTEs8ZxYNIvIwqU2xwOQaN9DwVmZGzyDJNdzjDv+F+XHwH2/DQJA7U2s4GCD670gPwJe8Bj8y4D4ibLBwAkXa1dgOCRKzYV4GrO4ZcCvU1mewCVWce1/kDQ+NMxzEl5RpJaz5YANDnxuzrZs0iSlp8FYMaPrORfnVQA0CeSltLpoQAE1RteXtsQKfUA+ic+5vx0qj8AVF5Nfbgb9QAIGhftSEcjMwDoPePxk1Wrd4fc0Tt59XYkAgA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649261/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_vvuhei.webp`}
+  captionText={""}
+/>
+
+이렇듯 타입스크립트의 모든 타입들은 모두 집합이기 때문에, 다른 타입에 포함되거나 또는 다른 타입을 포함하게 됩니다. 타입스크립트에서는 이를 부모-자식 관계로 정의합니다.
+
+## 타입 호환성
+
+타입스크립트에서는 다음과 같이 어떤 변수에 선언된 타입과 동일한 타입의 값이 아니더라도 할당할 수 있는 경우가 존재합니다.
+
+```typescript
+let num1: 10 = 10;
+let num2: number = num1;
+```
+
+num1의 타입은 ‘10 number 리터럴 타입’ 입니다. 반면 num2의 타입은 number 타입입니다. 그런데 num1에 저장된 값을 num2에 저장해도 아무런 오류가 발생하지 않습니다.
+
+num1과 num2는 다른 타입인데도 오류가 발생하지 않습니다. 둘 다 똑같은 숫자 이기 때문에 number 리터럴 타입과 number 타입 간에는 타입 검사를 아예 하지 않는 걸까요?
+
+```typescript
+let num3: number = 20;
+let num4: 20 = num3; // 오류 : number 타입은 20 타입에 할당 불가
+```
+
+그렇지는 않습니다. 반대로 number 타입의 값을 number 리터럴 타입의 변수에 할당하려고 하면 오류가 발생합니다. num3의 값이 20임에도 불구하고 오류가 발생합니다. 이상하죠
+
+상황을 정리하면 다음과 같습니다.
+
+- `number 타입 변수` ← `number 리터럴 타입 값` : ✅ 할당 가능
+- `number 리터럴 타입 변수` ← `number 타입 값` : ❌ 타입 오류
+
+왜 이런 상황이 발생하는 걸까요?
+
+그 이유는 number가 number 리터럴의 슈퍼 타입이기 때문입니다. 이렇듯 타입스크립트에서는 서브 타입의 값을 슈퍼 타입의 변수에 할당할 수 있습니다. 반면 슈퍼타입의 값을 서브타입 변수에 할당하는 것은 불가능합니다.
+
+### 타입 호환성이란?
+
+타입스크립트에서는 타입 호환성이라는 개념이 존재합니다.
+
+타입 호환성, 말은 되게 어려워 보이는데 천천히 살펴보면 그닥 어렵지 않습니다.
+
+먼저 호환이란 무슨 뜻일까요? 호환이란 “서로 교환한다”라는 뜻 입니다. 일상 생활에서도 자주 쓰이는 단어 인데요 예를 들어 A라는 기계의 부품을 B 라는 기계에도 끼워서 쓸 수 있으면 우리는 이를 흔히 ‘호환된다’ 라고 표현합니다.
+
+반대로 아이폰 충전기로 아이폰은 충전 할 수 있지만 삼성 핸드폰은 충전할 수 없습니다. 이렇게 바꿔 쓸 수 없는 상황을 호환되지 않는다 라고 합니다. 호환은 이렇게 “서로 교환해서 사용해도 무리가 없는 또는 이상이 없는” 정도의 뜻으로 이해할 수 있습니다.
+
+타입 호환은 타입을 바꿔도 괜찮은 경우를 의미합니다. 타입스크립트에서는 서브타입의 값을 슈퍼타입의 변수에 할당하는 것은 호환됩니다. 그러나 반대로 슈퍼타입의 값을 서브타입에 할당하는 것은 불가능합니다. 앞에서 살펴본 예제를 다시 보겠습니다.
+
+```typescript
+let num1: 10 = 10;
+let num2: number = num1;
+
+let num3: number = 20;
+let num4: 20 = num3; // 오류 : number 타입은 20 타입에 할당 불가
+```
+
+서브타입인 number 리터럴 타입의 값 10을 슈퍼타입인 number 타입의 변수 num2에 할당하는 것은 되었습니다. 이렇듯 타입스크립트에서는 서브타입의 값을 슈퍼타입에 할당하는 것은 가능합니다.
+
+반대로 슈퍼타입인 number 타입의 값을 서브타입인 number 리터럴 타입의 변수에 할당하려고 하면 오류가 발생합니다. 이렇듯 슈퍼타입의 값을 서브 타입에 할당하는 것은 불가능합니다.
+
+### 업캐스트와 다운캐스트
+
+왜 서브타입의 값은 슈퍼타입에 할당할 수 있는 걸까요?
+
+그 이유는 간단합니다. 서브타입은 슈퍼타입의 부분집합이기 때문입니다.
+
+서브타입의 값을 슈퍼타입의 변수에 할당한다는 것은 서브타입 값을 슈퍼타입 값으로 생각하겠다는 것 과 의미가 동일합니다. 위 예제에 빗대어 보면 number 리터럴 타입 값 10을 number 타입으로 생각하겠다고 이해할 수 있습니다. 이것은 전혀 문제가 되지 않습니다. 10은 애초에 number 타입에도 속하는 값 이기 때문입니다.
+
+<NImage
+  width={721}
+  height={584}
+  blurDataURL={
+    "data:image/webp;base64,UklGRvoBAABXRUJQVlA4TO4BAAAvYwAUAA/wg5AXiPyAZv7jAZKtbTtz50n2rq2RbRyCbRtTW6Mfw3Zm2+3vUd3mFGpj7Iw2s5JnrX7Pm9VDiOg/A7dt46iDgLTdkSz9BNy4OawD7Li59vNKz7K4YcepekvhOcOlhsk/It7vaLWcZNk3KxEZ9IWSb3Qy4d2E5KHBytWYZGBUIMlwhfLCBblTyla6MdaXO98IpiqtQrVeVBAe9BQ1CBtmSHo/hbCPBIkQjElVbp4HYHEsUILDjcL3ig+gZrRC/kmibGoDoNCgFKTaTNVbExSlphFJU+PJB0ywygPwJjbq/U+faaZ9IL/fTOc8YNAvo2pH4OjTMEWYbLWqDXC1NROpOgCzv/L7u8RNA1jcRDI0mc/OkHRTuzzg6l8GOyTzemC5yZUTnWLDd6em/9dcGiY5/TG8d9NWmwBca7Cl81PVt72rlsOU4Y3VWACD7PQVHygkhhWw+Zmizm4y9DHdk9KakxtSdfcbTZchVWMAHP1k1MnJPCgYDqC7bZLeTiaoTgWQ32qmpU0LsXBGmtnU7kFHUSKs89z04kgot0+dHuPJQqPcuQqOuV8l8SP1euxFK/QM/9RfJwxbIelJz2NyQY+gBptjkgUfMpZGJFe0V2b/cYdOlR/2ltw1A9CrkPBCT88Ey+Pcio4AAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649263/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_yd3qoy.webp`}
+  captionText={""}
+/>
+
+결론적으로 서브타입의 값은 슈퍼타입에 할당 가능합니다. 이것을 업캐스트라고 부릅니다.
+
+반대로 슈퍼타입 값을 서브타입의 변수에 할당하는 건 불가능합니다.
+
+<NImage
+  width={736}
+  height={604}
+  blurDataURL={
+    "data:image/webp;base64,UklGRgQCAABXRUJQVlA4TPgBAAAvY0AUAA/wg5AbiPyAZv7jAXJu2zY1eUHnvXJFrkrt3Lbadud2d2iF7k5t2/gJNl7UVlSu9/YY39nnjo7oPwO3beMogIDdm5vsEaK1r8gTW1OW369wcPL9rJOWljN/PlWmGja/jjZdtMobADbONux+DwRFhiMR8Pigz8wYA1Bp9DQmfDIXngOA2fl8r5fKymzWEmVxMTOgYKZHKfwk9cfT7lFSFSnvFbE0gTZC4nGGcmaQmNXp1KZsp95Q4ifM7oOkiADp5BAz0dMYzQYl+QpcF32RzTcGmf/QkRsRQ4v03qkp60MmV2N8HzAfVBuH3AJvLk/QsB4NEYd1hUfx+FwIoN4TmXF5KOLvY324/wfAZT+mf9j0jzJhAUMAFnsi5wJwFWvzDSAAaLfpCrv76ajhcoxp/wzZvsiZ0C1Y6e6fhvO6dm6dcV82458hQzMJDf0icm4QribZY9WnPWKVoGk9hKsVOj4YxVOO5vMyteMCs9GhAa0x8mlZmdvJ2r9/nGqZx8yUGGlfQlaqS5vKaQBOjHFr0wSwHheTnvykjYNCMmfycJJWdhK9lN38FB7oL9yXRMdC6v8iIu15BGya7fEf4ewYEBzQsMw8zC4WZuor4P4+4Y3dS7BpYor9WcwceDMt3tAz7eK5inwxdXbazB1iSIs/N6NMNwQ="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649265/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_tcu43y.webp`}
+  captionText={""}
+/>
+
+큰 집합을 더 작은 집합으로 간주하는 것은 불가능하기 때문입니다. 이것은 문제가 됩니다. 예를 들어 number 타입 값 99를 1 number 리터럴 타입의 값으로 간주 하겠다고 하는 것과 동일합니다. 이것은 불가능합니다 1 number 리터럴 타입에는 99라는 값이 존재하지 않기 때문입니다.
+
+이것은 다운캐스트라고 합니다. 타입스크립트에서 업캐스트는 모두 가능하며 다운 캐스트는 기본적으로 불가능합니다. 그러나 몇몇 예외 경우에는 가능한데 나중에 자세히 다룹니다.
+
+정리하자면 다음과 같습니다.
+
+<NImage
+  width={975}
+  height={522}
+  blurDataURL={
+    "data:image/webp;base64,UklGRn4BAABXRUJQVlA4THEBAAAvY0ANAA9AIECZKgxBIECZKhxBIECZKjwy//H/NpC6bdv598Lvr4ZPGjuT8qJtG9lLy2Zjt22jLttb/dn84nOHFxH9nwAA6CC9oS7x8FTjGxnrUAw9kl+hjP9EnhsKP5KcVVw4SZYpCkky0lcysWCSXLdLjBKSLBkRFop/e0jWpQiJs5UkeRdpAB1jj3+F9hILENLQ/CKcLxcD8TfHf4Wva1Ygf9ektK3EgjGT8rdgIP2j4rzWgS2qS4BrU1UVjA9Ut1pQr3FmwKlxF4EbjXYbnBpvQbjRaHfAqbGegRsNBuCTRp0DvzXewrCk0eqLdxr7dixprAfgUmMXWDBVWVYkU9ke448hp+JrIZDsURwbdvj9kJ3PRVgQPyhrjfIFUGxK9sfiAYROSqqyfAB0FHuE1RArAGR8EMoMiEOSpXjBLz6fZHuWXQBuSDIY8mSTZIRVtuAh43oh7YCHZIAMC05yHOp35HqQIv43WQb1ABlsFQAA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649268/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_agd1ov.webp`}
+  captionText={""}
+/>
+
+- 서브타입의 값을 슈퍼타입에 할당 : 업캐스트 (가능 ✅)
+- 슈퍼타입의 값을 서브타입에 할당 : 다운캐스트 (대부분 불가능 ❌)
+
+이렇게 타입스크립트의 타입 호환성과 함께 타입간의 호환(업캐스트, 다운캐스트)이 어떻게 이루어지는지 살펴 보았습니다.
+
+다음에는 모든 타입의 부모-자식 관계를 나타내는 타입 계층도를 살펴보며 void, any, unknown, never 타입에 대해 이해해 보겠습니다.
+
+## 타입 계층도
+
+아래는 타입스크립트가 제공하는 모든 타입간의 관계를 표현한 타입 계층도입니다.
+
+<NImage
+  width={1913}
+  height={663}
+  blurDataURL={
+    "data:image/webp;base64,UklGRtAAAABXRUJQVlA4TMMAAAAvY4AIAA9AkG0b2naPE2TbhrYd5ATZtqFt9/n8x//bAE61bc+TO6H3icMYAbSVrftASS87EuIACUQCEn4H9A7fTfny/BYi+j8BtNxajBq7yZMTyZebwXHRAHUJvpf/bakHlKvSAY7VWz89Wh/iq3oEDP5VR7KJbB9ugk1oAlv1kzEGyUg2k42wlcxwnIy0IenAd1aGXQNf2uv/O6pdTBd1HbhTuFMXgMYeHKtd4NgR4M1N/m9MAnt2KqcAl4xWqltd2gMA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649270/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_tt9jcc.webp`}
+  captionText={""}
+/>
+
+앞서 우리는 모든 타입은 집합이며 슈퍼-서브 타입 관계를 갖는다는 사실을 알았습니다. 또 서브타입은 슈퍼타입으로 언제나 업캐스트 할 수 있다는 사실도 함께 살펴봤습니다.
+
+따라서 이 타입 계층도의 맨 밑바닥에 있는 never 타입의 경우 모든 타입으로 업캐스트 할 수 있고, 맨 위에 있는 unknown의 경우 어떤 타입의 변수에도 할당할 수 없다는 것 또한 알 수 있습니다.
+
+이번에는 이 타입 계층도를 통해 우리가 헷갈렸던 never, void, unknown, any와 같은 타입들에 대해 확실하게 알아보겠습니다.
+
+### unknown 타입 (전체 집합)
+
+unknown 타입은 타입 계층도의 최 상단에 위치합니다.
+
+<NImage
+  width={972}
+  height={561}
+  blurDataURL={
+    "data:image/webp;base64,UklGRkgCAABXRUJQVlA4TDsCAAAvY0AOABfwAhAFaRuwuHtCpiBtAxZ3T9HmP/51rCBJtfYsmixwAQbK/Xw/cd4BbyA9zwu6nwhv5h3wXWajppYQ0X+FadswSeOuT4a71xXADX17B7AE39XkAgDL+AFWAHDdk/+zkiXilj4ckBT8+HrWl19DUY3gvnv48iDSEsvY3QO5aYrMH4AktgvOdTQ5+HdKU/BTrwIiVoVlfHX3oma7RHynj1MgN7P6GeoVrnf2a/5nZjXNy9jJFbZH3Pezpjf5NLMq89zBt0fbDe65pkA5zcyU3nlcEDMzE2b3euxTQC/a4vIaHv0N7bIc4P2T/BTKFXtkfj2OAdr1HFm9H8fbx82U0y4QlnmYbuPoA6neF/z8fR2n7zd3WAU802V8rQH0f26Y8fhpGPzkWGk3WAJmN4/D8IJAllskARCWYfLeQ773KgIwOz8CcNyxy5GBheHLBSgP2KsmibB8vYGSWrObN5FD4T35AFn1Dqu27SLgA6jm3R6stWmK89cKR6r6sJxmttfEuqB6ng+x3U6zLeFXokg9reN6sFL03Fpt9uxdcGStzbqwLULZPojZwYzqee79tsXAcdbdmvUsBHI97QPXRNHNWtu6Ujy5VqtVuyBwbFbb2XvskkBVt6p6dkpwlLO1U+WW/YoYV9Kh21/RcpW264KnpKr5uK1V6mWPhJVSVDNZzWwXzc1sryyeoluKSBQzkyMnMbOcZu+h5JzIFJUEHNmOxDJBTgDklCk5pywk5uD9yt3xAIhlOxIOAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649272/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_ubcusp.webp`}
+  captionText={""}
+/>
+
+따라서 unknown 타입 변수에는 모든 타입의 값을 할당할 수 있습니다. 바꿔 말하면 모든 타입은 unknown 타입으로 업 캐스트 할 수 있습니다.
+
+```typescript
+let a: unknown = 1; // number -> unknown
+let b: unknown = "hello"; // string -> unknown
+let c: unknown = true; // boolean -> unknown
+let d: unknown = null; // null -> unknown
+let e: unknown = undefined; // undefined -> unknown
+let f: unknown = []; // Array -> unknown
+let g: unknown = {}; // Object -> unknown
+let h: unknown = () => {}; // Function -> unknown
+```
+
+unknown 타입이 타입 계층도에서 가장 위에 위치한다는 뜻은 unknown 타입은 모든 타입의 슈퍼타입이라는 뜻 입니다. 그러므로 모든 타입은 unknown 타입의 부분집합입니다.
+
+결국 unknown 타입은 모든 타입을 부분집합으로 갖는 타입스크립트 전체 집합 입니다.
+
+<NImage
+  width={1075}
+  height={838}
+  blurDataURL={
+    "data:image/webp;base64,UklGRk4CAABXRUJQVlA4TEECAAAvY0ATAA9AIECZKhxBIECZKhxBIECZKkwy//H/NpBzbdvatsN6TGHGteAw/YSoKdkuhZSUu4emwtRjlWEKZ2X6QhPj2tMRw+nKzLaj5xzrkwoR/XfgNpIiZVZePlj4BAD8JJkIeXSvkf48U4pBjZkAyQKbXDUN7JZcMCF2SY465YZ1kivyiiZI8li63LMAyQUZpc6g1oTYNfBJlb/5Sfpn8qWa6wzGfdIf7J8P83JZpvL9EjmzKuzSJVn4qZMTQvrrTz4sfaT4rhpodQur82Lm3GoMAGXq4+5q45nts3kA9mzrTQs1q9PXYk0X+8N23eaSarpwCzNnG1c7AXTvhmkc3+Q5AJdJriwH9eszduAZSb6dfCtd/TdGKwGdk05o3yhNJO3AhtT7XV5yAd9pHg5AN+dPhxawwAXQogwoVsRak45u3aJEa9Q/oVlRAMWKTGtK/sD/2txlTQFAyxVl9++vlhayxmolxvoKZ1neIr8L+CW1STLaxIrQWWoHXhlN9gf4MswTI3i/syTMI5KlauUAZwD0k7yjYYonwnh0ruTnD3umBIA9uxzVFNuTunQA2hfW5qeJ4bNZNqD88aSmKagcSDGoLi9Q00bE2Wjpoa9VccB5qMNtMCxS1LQKVbUblIlqTYkRrVFGuWpHfke32yvRXV15aE+MNwtGUa35Iw/LRZL0Piler6vCl3UY0nCLyof7WqQjoXla+t3tbpvMHl9+pdfnlitr8WRlJUMuyZ3V0uw0rWgejy8rBaaR0uG+rwAAAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649275/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_qewpsw.webp`}
+  captionText={""}
+/>
+
+앞서 다운캐스트는 예외적인 경우가 아니면 허용되지 않는다고 배웠습니다. 따라서 unknown 타입의 값은 any를 제외한 어떤 타입의 변수에도 할당할 수 없습니다.
+
+```typescript
+let unknownValue: unknown;
+
+let a: number = unknownValue;
+// 오류 : unknown 타입은 number 타입에 할당할 수 없습니다.
+```
+
+예외적으로 any 타입의 변수 에는 unknown 타입의 값을 할당할 수 있습니다. 즉 다운캐스트가 가능합니다.
+
+```typescript
+let unknownValue: unknown;
+
+let a: any = unknownValue;
+```
+
+이것이 허용되는 이유는 any는 일종의 ‘치트키’ 타입이기 때문입니다.
+
+### any 타입 (치트키)
+
+any 타입은 사실상 타입 계층도를 완전히 무시합니다. any는 일종의 치트키같은 타입입니다.
+
+<NImage
+  width={1310}
+  height={762}
+  blurDataURL={
+    "data:image/webp;base64,UklGRlgCAABXRUJQVlA4TEsCAAAvY0AOABfwAhAFaRuwuHtCpiBtAxZ3T9HmP/61bCBJ2faggf5CZm+g3kch2VfwFTL7/KD3UUj2E/A/Z2vmCBH9N5i0TVuydftEvvwBYJS+5zcAi+9riFBgfLmeJoG8FYh9hIVU8oZ79c9w2l+gjzfnrqr4/vmz5nLfMHbKN26tSuw+5g85W0sbvochkqodSpTuYyWbtgrxP3CpHbqNr6EjB/k2UxhfPSxcWktJOPecKUC5zQ7Ad/BZ0dr0Urz3j2MO5NIOqwBu8P7hw4oeVndl9NGJeO9fIjK5wJlbu/UCFkIIIoOIyAJZzWxX4L0A+NnJEMIKpe21JQUIIYTVDyIeaLuZVd34ccRJ+EQ4S227lfwQ/0ckrpxlNzOtJScARlimsEIupZpZ04c1RvlEuMphZrbX4yrpZ5nDCkmbmZm1YlxZLyAOQMntNjOrhxUrhXRlcAEou33FmqnZfuUNPt9o9u1qqlVVwS2w7Yc9uba75MQHSq63PXqvtcC8Qimtk7ZrYgVtuz271lZOBjhTPazjH6S2t07XqhvDcp6pWs+t5C+odnLUXWFaOXO7OzhqTgSglF5tJW3/ib0mcJGctHV7Jg4rnLlb0sYyBeiipgvi8AbO/VlaE6OXZeEs/+7nswJuEgDtYNvwXoKH1J5RMkQ3DesCqT2p6gZBJAwjZ34uCbyfReYA5/mIk3H0IpMbIdVHJQjuJa9pClDuBylE/xKZ3LJw5varI228vRORaXgvUB76xhiDiAwyBygPVTNLGERE3OA9nL8jQQxOBAA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649277/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_vsiqee.webp`}
+  captionText={""}
+/>
+
+any는 뭐든지 예외입니다. 모든 타입의 슈퍼타입이 될 수도 있고 모든 타입의 서브 타입이 될 수도 있습니다.
+
+```typescript
+let anyValue: any;
+
+let num: number = anyValue; // any -> number (다운 캐스트)
+let str: string = anyValue; // any -> string (다운 캐스트)
+let bool: boolean = anyValue; // any -> boolean (다운 캐스트)
+
+anyValue = num; // number -> any (업 캐스트)
+anyValue = str; // string -> any (업 캐스트)
+anyValue = bool; // boolean -> any (업 캐스트)
+```
+
+각각 number, string, boolean 타입을 갖는 변수 num, str, bool에 any 타입의 값을 할당합니다. 이는 any 타입이 각각 number, string, boolean 타입으로 다운 캐스트 된다고 이해할 수 있습니다.
+
+또 any 타입 변수 anyValue에 num, str, bool 변수에 담긴 값을 할당합니다. 이는 number, string, boolean 타입이 모두 any 타입으로 업 캐스트 되는 것으로 이해할 수 있습니다.
+
+이렇듯 any 타입은 모든 타입으로 다운캐스트 할 수 있으며 또 모든 타입은 any 타입으로 업 캐스트 할 수 있습니다. any 타입은 심하게 말하면 타입 시스템을 무너뜨리고 있으며 치트키 타입입니다.
+
+### never 타입 (공집합 타입)
+
+never 타입은 타입 계층도에서 가장 아래에 위치합니다.
+
+<NImage
+  width={1106}
+  height={609}
+  blurDataURL={
+    "data:image/webp;base64,UklGRpwBAABXRUJQVlA4TI8BAAAvY4ANAA9wA5EbiLygZv7jAXJs21Yb6eqbHRXmzJNgDL3qV1XTBDhiMjR3xN0h4y+KmkFpDYA5bVbUZC/pBn5fDSOI6P8EAHXeqRjsc6+XtscsOfM1+2LIgvnAn27R7cKd3eRhrQoXLgDoWiXdyd3tzc0aeFIk+V5rMxp1kFskuTRtjDHA7hLJ7OE1Y6piuByQ5Nb+F3qfwoJf5r/ZeH8jigxF7/nSosrNB2VZbh3bEcMzim5p9oXqmpe45c+k8SmQstk11aUpZkufp9P4IDHrPld3xiyevyOGJ5bj49Oq66Dkeu8mo5gLBL5ZNCqXoeguPutI4okveG+MUXgYCK4xVcBQSZjVzRcV7hQFd2SkCaj4LjzuqHSAO0VhV09fFMAnobnSqQDuzJdldTTpABCY7kb507LbTRDvBSQPpJQwRJK36iBeLpLsjEkN30k2Qc59Id1LlqFVchz2ep/pZtuo1hlY64Z1bUpZcNnc6YK9r6o2GaJ9+AxCdlU4YZL9TWHyFQhbUQjVhfDJcE64/xIA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649279/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_wmr8n2.webp`}
+  captionText={""}
+/>
+
+앞서 never 타입은 불가능, 모순을 의미하는 타입이라고 설명한 적이 있습니다. 타입이 집합임을 이해한 지금 never 타입을 다시 표현하자면 never는 공집합을 뜻하는 타입입니다. 수학에서의 공집합은 아무것도 포함하지 않는 집합이라는 뜻 입니다.
+
+<NImage
+  width={1036}
+  height={786}
+  blurDataURL={
+    "data:image/webp;base64,UklGRuoBAABXRUJQVlA4TN0BAAAvY8ASAA9wA5AbhLxgZv7jAXJu2zY1Wf8u21VRtY0fUGnb7i47a4a2EdmRbdtObdtR8Y337TG+u8+N6L8Dt5EUKbvyHsPAJwCgQ+PCPNhjY+Xr6hhTn/qQM+ItZ8jjPU1r/5ELE0wdXpHvD9uHgygFpvUhyeOx2hCSLDZ8ipC8bjgTkCyN18aS5Ptc7ZXrurLoj4tDpTGtrtrOyjMhVeoSuhYW639tErKkHQIPSRMCqVA+qk45KuNwiNIUuXMiItXKGD9Vnstgl2nXUwEs+qUdlxk7EkpzCwD0aVBq4wAkP9PYC8COVvOSRAD4bSgGMCb0f1CDn3fawiwAy/wciGjvU2OAG62GUgA9adoED1w4Oh6Y4EGG3lQLYGNg6h0bhabNDs+fhZc1jtBU6R6W+TYrcK3lPIC9EdNIAD1+24mIBW5YBjsC03bv5C3sDmCMvTPMO/bX82KiHDN3RgJYZEb4fY57yRNDGoDk6WaR5DteGvp7l1ypA19bpbex3lVWFOO4qxzu4pr4X/+rsPaSjEKR7IY9v4ShKQCQXR2QfN5NN6dQuxpC+TSSk7sqp5oCnq9MiZHz4aX356bpbgAm/I3wekEXs9crDh+aXByjDw87G7JEXwmsfVRSfDg3BQAA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649281/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_ngn1aj.webp`}
+  captionText={""}
+/>
+
+따라서 never 타입에 해당하는 값은 말 그대로 아무것도 없습니다. 따라서 다음과 같은 상황에 never 타입이 주로 사용됩니다.
+
+```typescript
+function errorFunc(): never {
+  throw new Error();
+}
+```
+
+errorFunc 함수는 에러를 발생시킵니다. 따라서 이 함수는 정상적으로 종료되지 않습니다. 그러므로 어떤 값도 반환할 수 없습니다. 만약 이 함수가 어떤 값을 반환한다면 그것은 불가능하며 모순입니다.
+
+또는 다음과 같이 인터섹션 타입으로 만든 number와 string 타입의 교집합 타입 또한 never 타입을 갖습니다.
+
+```typescript
+type thisIsNever = number & string;
+// never 타입으로 추론된다.
+```
+
+number와 string은 타입은 서로 공유하는 값이 하나도 없습니다. 그 어떤 값도 문자열이면서 숫자일 수는 없습니다. 따라서 이 둘의 교집합은 공집합이 되므로 never 타입을 갖게 됩니다.
+
+<NImage
+  width={1066}
+  height={466}
+  blurDataURL={
+    "data:image/webp;base64,UklGRngBAABXRUJQVlA4TGsBAAAvY8AKAA/wAhKCbNvQtrP8BTfzH78BOba1HdtzfhuxbZdpbbv82jgDsFW5sm07GYKt1qn8/ut9T/E8b8YQ0f8J4KcNAA9dBavf2BTMSi8UQeqQIuCiq8pYnbmqDPimxRxs0mLgl5ZxMPNBKyBxVRseqmWwOtUypqlDYFiiHTiotoJhahseqXPhYKZDmKcOgUfqRB6pb+FopkP5pBaKeaU2cFC9UcRpdTGv1FVl/FLbcFD92P9Rohb4pK56efq7OoBpqssWq87lZHDhTlDDsMAfwQ2upkF0Agez/xjEOPNXtWDavzwnM+xPXqE5fZ/n3ZjMsGt5F5rTdXaac7qaYQv+xB687Q7nkpizqzh48nvswulSmH0t5pximPE8i8zdXcnqo9eNLp1dDOOeZ5E9W4Hup5PI8xnAuFO/I3OqiqFxxvNI/+7AsFGngsLuSoBuPdOge1GweUeiHqkk/lBXVRHf1jL1wPochj2yOyEA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649283/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_po90b1.webp`}
+  captionText={""}
+/>
+
+또 공집합은 모든 집합의 부분 집합입니다. 그러므로 never 타입은 모든 타입의 서브 타입입니다. 따라서 never 타입은 모든 타입으로 업캐스팅 할 수 있습니다.
+
+```typescript
+let neverVar: never;
+
+let a: number = neverVar; // never -> number
+let b: string = neverVar; // never -> string
+let c: boolean = neverVar; // never -> boolean
+let d: null = neverVar; // never -> null
+let e: undefined = neverVar; // never -> undefined
+let f: [] = neverVar; // never -> Array
+let g: {} = neverVar; // never -> Object
+```
+
+반면 그 어떤 타입도 never 타입으로 다운 캐스팅 할 수 없습니다.
+
+```typescript
+let a: never = 1; // number -> never ❌
+let b: never = "hello"; // string -> never ❌
+let c: never = true; // boolean -> never ❌
+let d: never = null; // null -> never ❌
+let e: never = undefined; // undefined -> never ❌
+let f: never = []; // Array -> never ❌
+let g: never = {}; // Object -> never ❌
+```
+
+한 가지 놀라운 점은 타입스크립트의 치트키 타입인 any 타입 또한 never 타입으로 다운 캐스팅 할 수 없습니다. never는 유일하게 any가 다운캐스팅 할 수 없는 타입입니다.
+
+```typescript
+let anyVar: any;
+let neverVar: never = anyVar;
+// 오류 : any 타입은 never 타입에 할당할 수 없습니다.
+```
+
+### void 타입
+
+다음으로 살펴볼 타입은 void 타입입니다.
+
+<NImage
+  width={1101}
+  height={766}
+  blurDataURL={
+    "data:image/webp;base64,UklGRpoCAABXRUJQVlA4TI0CAAAvY0ARABegIG0DFnfPxwgEKFOFIwgEKFOFR+Y//k9rG0hStT1orq/gnRv43Y+FOK/gE0jnCeh+LHyZN+C3zIuaLiGi/waTtmnajW6fiIgA3wBIE8+u5chMbb3gOEoMPJqaSaXYBv+aWtgPM40MLY0L1cwsQHNAMrOt0HyMp24WG49zUTOzLTTXfOpmFYbGe7mULcMMgHPXXk8rAM455wARES7FNHJhmBEZodoZ7vD/5AV6OlvJ4c6LLOznmK16p0kmKBeVt8YbC6Tr2GrYVVUBGOFT7cJmG4BqhBcku6GomeVAgh7qYXeo6mEWAwvsds9Wc84l4tHVGmxmeuwAX2tSLb+ZSaW2XTQF4GhnM3szk38Zpspvw6rFOKPZfiAXIB32AxqYoXmua6lbDqCpPbai4OEojcuWq67KQvy0HmXNNQQ8+7f1rXV9K7wg1nvlEj8pJHqgcV5zzvEDI2ij5hxjAGSG9VZF97QnQCB9jjttORIIIB7uS44hACAviPVOMQDAJD1wV7acEgCDjKB6o7JzphOZId19zn3mIQLcnSMADvcQ8aT9+nh/Eni/gIgsEK+rAMMwucGJSA/5ki1F8PMf0z8ReXHjHGCavXPuISLjgupZEfgbnHOIiIzA9zAze++JYXr+nbeMCylXM3unAN45N/teREQAXc1KCjAMbu660xaZ2b+qGgOn/egf/qwFYqnrZz/tZ+/6y/CkupasgO+f3XPs5D+XoaoxMrmp77ub0cOnriGAc3I/XpBSVhhm73uRa6RnV9WUmLvHo3v2cukyQoohwp/zo9wyevakO9NzlE7uATQGBuekhQcA3zW3LMsODFPfjPSQIoNrR+QJ4J7yA/MCg3v8MKSfYPZ9IwA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649285/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_vh1vcd.webp`}
+  captionText={""}
+/>
+
+void 타입은 앞서 다음과 같이 아무것도 반환하지 않는 함수의 반환값 타입으로 주로 사용된다고 살펴본 적 있습니다.
+
+```typescript
+function noReturnFunc(): void {
+  console.log("hi");
+}
+```
+
+타입 계층도에서 void 타입을 찾아보면 void 타입은 undefined 타입의 슈퍼타입임을 알 수 있습니다.
+
+<NImage
+  width={995}
+  height={759}
+  blurDataURL={
+    "data:image/webp;base64,UklGRsoCAABXRUJQVlA4TL0CAAAvY8ASABfwApAXhChI24DF3VO0+Y+fYgBJtfagVQU7V6j7qWDnT/AG0nkCzX4s/Jm/gFlmzf+7hYj+O3Akt23IaKnikoTtDzelDxqdbpc6L60s46UMQIwOluFqLCvyXwWm7goj7FmSY+27i5ON/TiqRF6XixVfaj2XY3dxcq5rzclN96uTdf/Un0aY5qs1/7X9rL0pzwchn5Ii09hbY4D9aPB2vEwsK6VB/TB11o39qJGjY1qsxQaltgtYzRNru0Reo3UCod1OGXhal6zsoiC87tosC/h25OzhYdlt30NR2876z4cT+ci1ppR3eN30Pwjs//moueb4jqC2n8tKiA0+MYcfFst1+BCLSM4xe7gbTz0hUlOMGcc0D62HhhW3/9cqP/0tnY7Q56YQS03ZO9CRMIBIjOVojsRDi/HFTsg5x59WCVYWbCCfH0Rqjs0f2OuwkVCyfGqNMYtgOPwB33S6qJyrjzDNvUIQkeM46pFSk2oKQIw110bl+OGuXRTlKO046mnGTudqibWVlD9O3zZv59rQIqgcXMBL0ZJT8jy6JpE2vja8Y269CnIkQ1L0TM1tf9u+izVycvSd2o65XGDVuSdHtdQ7Hs1t84qL1UIJ3NvFhj7RObvcGsBXbNDeNpw4jovtvlNw2UTyKv3/fijVhkr/nn0XE1lvzyu+HKaPdFEaNoK5ncVz19G52/+4M8oYhGBJjLR49ssPpvOE16CTyZvIDlSKn7AOPt7A34a53UStUdq+BtI7MPUq90GKjUVXiw2ygS/cdX15If+GfTPpGnaBGmC2Os0ezJNXr8e6WfH5hodRw55A0Vd6C7dxJYiOG7D6UA+7ujHCNA56/VzAG8G8ticqDrUJ8DCr97LCV1nudrfZwJfTtu3JNFuTta5ppxf9CcDtgcZzlnTjCCF4D+PcNAj7ZgCmaWhxAwA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649287/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_xdjcbd.webp`}
+  captionText={""}
+/>
+
+따라서 반환값을 void로 선언한 함수에서 undefined을 반환 해도 오류가 발생하지 않습니다. undefined 타입은 void 타입의 서브 타입이므로 업캐스팅이 가능하기 때문입니다.
+
+```typescript
+function noReturnFuncA(): void {
+  return undefined;
+}
+
+function noReturnFuncB(): void {
+  return;
+}
+
+function noReturnFuncC(): void {}
+```
+
+void 타입의 서브타입은 undefined 타입과 never 타입 밖에 없습니다. 따라서 void 타입에는 undefined, never 이외에 다른 타입의 값을 할당할 수 없습니다.
+
+```typescript
+let voidVar: void;
+
+voidVar = undefined; // undefined -> void (ok)
+
+let neverVar: never;
+voidVar = neverVar; // never -> void (ok)
+
+let anyVar: any;
+voidVar = anyVar; // any -> void (ok)
+```
+
+추가로 치트키 타입 any 타입 또한 never를 제외한 모든 타입으로 다운캐스팅 할 수 있다고 했으므로 void 타입 변수에 any 타입 값을 할당할 수 있습니다.
+
+### null 타입
+
+타입 계층도를 살펴보면 null 타입은 never 타입 이외에는 어떠한 타입의 슈퍼타입도 아닙니다.
+
+<NImage
+  width={1128}
+  height={750}
+  blurDataURL={
+    "data:image/webp;base64,UklGRv4BAABXRUJQVlA4TPIBAAAvY0AQAA9wA5EfiNyAZv7jAXK27V/rdFtvciW9wpnwuS7pB2ANDplq6cFh9omV/MvUMtW74hwS3L0yMbrLWXGvN3mH/P6J6P8EADjtIqdqC+wclRd+OjnU1Pb2HKWLoZ0Dk7cu5iilXGnqJuYZQ19KudPMQRYN3bWUowXdY/JAne4muXuF7jNJ35BUJxnGpoQvJDvPS+o/ye1DUWQBqLxI8tfeYP21AqDmSO4eiTrO1Bqo/EqSc0Ec9QNekikeOnCx04TzMsObt1+7No7PZcrld/cCwJvKhPOjHy9VoJRkWJ66HSwCvgoc/bHLRikRRudHb5rwJgX+OrLdxuBPKX1/0YE3K4XhbRvdU9LU+20mvB9S+dZlC42TQhiWIxPenMB4X2Cg96uUfnItqBfCoXhvYGDxpDD6MaizoF4Iv2J3hQEvEkYjbzOAL0JciGoBRMLO1hVdgGrJhEV/TSOAKMOh2m7ThHqSkhz1j1YDgJ+QDPuc7nUAjqckL7snkfXnSa7qgdiSkIxrnXUOgNNfSfpdEJ2EDOsalbDnJXl5k2EKSybJ5qUWvMymiwzX93gQKw8nl10TsveyGPQ6mt4b95ptpfFeHhpqg7a2I1gPS6OiUdeGtvJlVAW96giOLdah362Dvrd2DfK2NtUZOU77yOv0Who="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649289/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_tnuzjm.webp`}
+  captionText={""}
+/>
+
+<NImage
+  width={1034}
+  height={789}
+  blurDataURL={
+    "data:image/webp;base64,UklGRtIBAABXRUJQVlA4TMUBAAAvY8ASAA9wA5AbhLxgZv7jAZIl2TZta+xz9WzbRtO2bdvv7fcHZs+2bdto2urbOpoRa4+x3i9E9F9h27aNCqh7t08AwLaUbYSGJ59nh1nKYLNBRYTWn8yuehQ3m11b6P3MzDoFzBwnqyPaZ46tmcyElONgzKtQxjoR8S4Pt3yZdsyuzNFPr3q/sUgrWb8jbCArQeTlJqSrAwPaXorUjLZ+O00cpq1P/kMMouLdRlwtAqD1LC5+RsWHRVT8nQkHANh2SET7+8VYiUhvmdnVHblUxemCRVUBtP4t6hEAq0RWN8p8Fno5lsWFDZHMzHNcXVNC2eC/6qxq6HTfrwNphh7aNc2EmcA+E9YCuKWZRgHQW3UU/gNyGq0alelVSb+GAViW8jbZkdbTchRKqGLAPVUWgEoJf5PfQvXAKSX0BDDnvQpA56SQx6urhQFUuiQXvtCrd8Xozfof1hO5rix4bs/eVaJPI6dNWvaLWI2IXXGiRgzAnEKHqSer9VRqWYUocvqXmYW5Wfff/k7bUNacrqevhmdrLAVAZxxPvRkQYw4MHXX0yAFwcevd7+On88gnLvR86KAB28G0rT5gwIA8gDQ8cCBP4AAA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649291/blog/post/%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%A7%91%ED%95%A9%2C%20%ED%98%B8%ED%99%98%EC%84%B1%2C%20%ED%8A%B8%EB%A6%AC/file_te1sjv.webp`}
+  captionText={""}
+/>
+
+그런데 tsconfig.json의 strictNullCheck(엄격한 널 검사) 옵션을 끄면(false로 설정) 모든 타입에 null을 할당하는게 가능합니다. 이는 앞서 null에 대해 살펴볼때 다룬 적 있습니다.
+
+다음과 같이 tsconfig.json의 strictNullCheck 옵션을 false로 설정합니다.
+
+```json
+{
+  "compilerOptions": {
+    ...
+    "strictNullChecks": false,
+    ...
+  },
+  ...
+}
+```
+
+이제 타입 계층도를 무시하고 null을 모든 타입 변수에 할당하는 것이 가능합니다.
+
+```typescript
+let num: number = null;
+let str: string = null;
+let bool: boolean = null;
+let object: { name: string } = null;
+let arr: string[] = null;
+
+let voidVar: void = null;
+let undefinedVar: undefined = null;
+```
+
+그러나 any와 마찬가지로 never 타입의 변수에는 할당할 수 없습니다.
+
+```typescript
+let neverVar: never = null;
+```
+
+<Blank />

@@ -1,0 +1,182 @@
+---
+id: 0ba32451-ea82-4307-a1b4-d6be3caa03fd
+type: POST
+title: any 타입 살펴보기
+date: 2023-02-14
+subtitle: any 타입에 대해 살펴봅니다
+thumbnail: https://res.cloudinary.com/winterlood/image/upload/v1703649353/blog/post/any%20%ED%83%80%EC%9E%85%20%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0/file_tjovbk.webp
+tags:
+  - 타입스크립트
+---
+
+## 개요
+
+안녕하세요 이정환입니다 😃
+
+이번에는 any 타입에 대해 살펴봅니다.
+
+## any 타입이란?
+
+any 타입은 타입스크립트에만 존재하는 매우 특별한 타입입니다. any 타입은 특정 변수의 타입을 확실하게 지정할 수 없는 경우 사용하는 타입입니다.
+
+특정 변수의 타입을 확실하게 지정할 수 없는 상황은 어떤 상황일까요?
+
+예를 들어 string 타입의 값으로 초기화 된 변수가 있다고 가정하겠습니다. 그리고 우리는 이 변수에 number 타입의 값을 할당해야 한다고 추가로 가정합니다. 왜 그래야하는지 이유는 몰라도 됩니다. 대충 아주 무섭고 까다로운 상사의 지시라고 생각해보겠습니다.
+
+```typescript
+let something = "hello";
+something = 123; // 오류 : number는 string에 할당 불가
+```
+
+위 코드는 오류가 발생합니다. 타입스크립트는 something 변수를 string 타입의 값 “hello”로 초기화 하는 순간 something 변수의 타입을 string으로 추론합니다. 따라서 그 아래에서 변수 something에 number 타입의 값 123을 할당 하려고 하는 경우 오류가 발생합니다.
+
+그런데 만약 something 처럼 여러 타입의 값을 바꿔가며 저장해야 한다면 어떻게 해야 할까요? 오직 이 변수를 위해서 자바스크립트로 다시 돌아가야 하는 걸까요?
+
+아뇨 그럴 필요는 없습니다. 이럴 때에는 any 타입을 이용하면 됩니다.
+
+```typescript
+let something: any = "hello";
+something = 123;
+```
+
+변수 something의 타입을 any로 선언했습니다. any 타입은 어떤 타입이든 호환됩니다. 즉 이제 something 변수에는 어떤 타입의 값이든 마구 바꿔가며 넣어도 오류가 발생하지 않습니다.
+
+```typescript
+let something: any = "hello";
+something = 123;
+something = true;
+something = [];
+something = {};
+something = () => null;
+```
+
+이렇듯 any 타입이 지정된 변수에는 어떤 타입의 값이든 다 할당할 수 있습니다.
+
+## any 타입으로 추론되는 변수 선언
+
+위 예제 처럼 변수의 타입으로 any를 직접 명시하지 않고 변수의 타입을 자동으로 any로 추론하도록 선언하는 것 또한 가능합니다.
+
+다음과 같이 변수를 초기화 없이 선언하면 됩니다.
+
+```typescript
+let something; // any로 추론된다.
+something = "string";
+something = 123;
+something = true;
+something = [];
+something = {};
+something = () => null;
+```
+
+타입스크립트는 변수가 초기화 되는 과정에 타입을 추론합니다. 따라서 초기화 없이 변수를 선언하면 타입을 확정할 수 없기 때문에 any로 자동 추론하게 됩니다.
+
+## 함수의 매개변수와 any
+
+any 타입은 함수의 매개변수와도 관련이 있습니다. 다음과 같은 함수가 있다고 가정하겠습니다.
+
+```typescript
+function add(a, b) {
+  // 오류 : a와 b에는 암시적으로 any 타입이 지정됩니다.
+  return a + b;
+}
+```
+
+함수 add의 매개변수 a와 b는 정확히 타입을 추론할 수 없습니다. 함수의 매개변수에는 어떤 값이든 제공될 수 있기 때문입니다.
+
+따라서 타입스크립트는 매개변수 a와 b를 ‘암묵적’ 또는 ‘암시적’으로 any 타입으로 추론합니다. 암묵적으로 any로 추론한다는 뜻은 “정확히 any 타입을 명시 하지는 않았는데 타입을 추론할 수 없으니까 일단 그렇게 추론하겠다” 정도로 이해할 수 있습니다.
+
+그런데 이 코드는 오류가 발생합니다. 타입스크립트 컴파일러 옵션이 엄격한 타입 검사 모드(strict: true) 일 경우 암시적으로 매개변수를 any 타입으로 추론하는 것을 허용하지 않기 때문입니다.
+
+```typescript
+{
+  "compilerOptions": {
+    ...
+    "strict": true,
+    ...
+  },
+  "include": ["src"]
+}
+```
+
+엄격한 타입 검사 모드일 경우 매개변수가 자동으로 any타입으로 추론되도록 코드를 작성하는 것을 허용하지 않습니다. 따라서 매개변수의 타입으로 정말 any를 지정하고 싶다면 다음과 같이 명시적으로 any 타입을 선언 해 주어야 합니다.
+
+```typescript
+function add(a: any, b: any) {
+  return a + b;
+}
+```
+
+### noImplicitAny
+
+noImplicitAny 옵션을 사용하면 타입스크립트 컴파일러가 함수 매개변수의 타입이 암시적으로 any로 추론 되는것을 허용할 지 허용하지 않을지 설정할 수 있습니다.
+
+예를 들어 만약 strict 옵션이 true로 설정되어 엄격한 타입 검사가 실행되고 있더라도 다음과 같이 noImplicitAny 옵션을 false로 설정하면 암시적으로 매개변수에 any 타입이 추론되는 것을 허용합니다.
+
+다음과 같이 tsconfig.json을 수정합니다.
+
+```json
+{
+  "compilerOptions": {
+    ...
+    "strict": true, // 엄격한 타입 검사 모드
+    "noImplicitAny": false, // 암시적 any 비 허용 해제
+    ...
+  },
+  "include": ["src"]
+}
+```
+
+위와 같이 컴파일러 옵션을 설정하면 엄격한 타입 검사 모드로 작동하지만 매개변수의 암시적 any는 허용됩니다. 따라서 아래 코드에 오류가 발생하지 않습니다.
+
+```typescript
+function add(a, b) {
+  return a + b;
+}
+```
+
+매개변수 a에 마우스 커서를 올려보면 추론된 타입을 확인 할 수 있습니다.
+
+<NImage
+  width={737}
+  height={137}
+  blurDataURL={
+    "data:image/webp;base64,UklGRhIBAABXRUJQVlA4TAUBAAAvY4AEABfwghIFaRuwuHtORiZtm7raTsnmP/4NPIDd2Hbc5jlJAaKXfrbH/xDgJcACHr1U4gZIgPr3xjbfk2uI6P8EEBEA7Bwt72DSFDgCwTtrzyEqJvqDDlun9n8uwCSanEJgJiL+Zx+Upz1H9A7A/znnVj5G6EhEDiLXhBh44sgepifiKK08Bbud884hWiCawl2et5EBMMPji32U+TaXBnhgi2+I6+MzxjUDCPhqCvUzxpgblqsYFGXo61LNydhz/4wx5lIWMiQpCjL0nJNRIUmM2I1bEVVzh8A4iPGcs8oVJZWk7m/jVloXKQ0ZAqh9N8atJCSgpNKkqfq2eu5ZSoIAGQAA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649353/blog/post/any%20%ED%83%80%EC%9E%85%20%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0/file_tjovbk.webp`}
+  captionText={""}
+/>
+
+또는 strict 옵션을 false로 설정했더라도 noImplicitAny를 true로 설정하면 매개변수의 암시적 any를 허용하지 않습니다.
+
+다음과 같이 tsconfig.json을 수정합니다.
+
+```json
+{
+  "compilerOptions": {
+    ...
+    "strict": false,
+    "noImplicitAny": true,
+    ...
+  },
+  "include": ["src"]
+}
+```
+
+위와 같이 컴파일러 옵션을 설정하면 엄격한 타입 검사는 수행하지 않지만, 매개변수가 암시적으로 any형식으로 추론되는 것을 허용하지 않습니다. 따라서 아래의 코드는 오류가 발생합니다.
+
+```typescript
+function add(a, b) {
+  // 매개변수 a와 b에는 암시적으로 any 타입이 포함됩니다.
+  return a + b;
+}
+```
+
+## any 타입은 최대한 사용하지 마세요
+
+any 타입은 사실상 타입 검사를 무시하는 타입입니다. 따라서 any 타입을 많이 사용할 경우 사실상 타입스크립트를 사용할 이유가 없습니다.
+
+타입스크립트는 타입 검사를 통해 프로그램을 실행하기 전에 오류를 찾아내 더 견고한 프로그램을 만들 수 있다는 장점을 갖고 있습니다. 그런데 any 타입을 많이 사용하면 사실상 이런 타입 검사는 무용지물이 되므로 결과적으로 타입스크립트를 사용할 이유가 없어지게 됩니다.
+
+따라서 자바스크립트 프로젝트를 타입스크립트로 마이그레이션 하는 상황이 아니라면 any 타입은 최대한 지양하는게 좋습니다.
+
+<Blank />

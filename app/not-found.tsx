@@ -1,3 +1,3 @@
 export default function NotFound() {
-  return <div>Not Found is me!!</div>;
+  return <div>그런 페이지는 없는 것 같아요 😢</div>;
 }

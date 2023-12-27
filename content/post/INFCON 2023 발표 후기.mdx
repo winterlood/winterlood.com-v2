@@ -1,0 +1,342 @@
+---
+id: 250798cb-7760-4567-a9ca-0871e5228695
+type: POST
+title: INFCON 2023 발표 후기
+date: 2023-08-16
+subtitle: INFCON 2023에서 “타입스크립트는 왜 그럴까?”를 발표한 이정환의 인프콘 발표 후기
+thumbnail: https://res.cloudinary.com/winterlood/image/upload/v1703649061/blog/post/INFCON%202023%20%EB%B0%9C%ED%91%9C%20%ED%9B%84%EA%B8%B0/file_y2osbp.webp
+tags:
+  - 회고
+---
+
+<NImage
+  width={2000}
+  height={1126}
+  blurDataURL={
+    "data:image/webp;base64,UklGRgwBAABXRUJQVlA4IAABAACwCACdASpkADgAPrlInkq8r6mnLtncQ5AXCWMtgFgGyjRUAcDz0k/Qthv0dsifen3CGahfp0hi3/5br+adtfJfFNv5r9VFMNXiTb0nomAA/vFmMIAfByQwW1BffAhpXvCLaBmsdmGrmpTNoomx4969Oxt+iy1BQXget4HErM2IjBcpsEA02modzAi/i2JJTgJQnpi4uGvF72Ou9F7/d8NOwAEL6iOdlgRrQ6z2lY6No4wLLA+Dsl2HqeRlWXJnhqo9vYRtasIfXpknXiQsOH/nkwTQupAcW+pnMXZ0gbkLBuZHvNhSJQniXChUcQ2T5HbHPzJBzriTfOZ8kMq0AAAA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649061/blog/post/INFCON%202023%20%EB%B0%9C%ED%91%9C%20%ED%9B%84%EA%B8%B0/file_y2osbp.webp`}
+  captionText={""}
+/>
+
+> 💡 발표 자료부터 보고 싶으시다면?
+>
+> <Bookmark
+>   url={"https://www.slideshare.net/ssuser2d52a5/pdf-259921603"}
+>   title={"인프콘-타입스크립트는 왜 그럴까?-이정환.pdf"}
+>   thumbnail={
+>     "https://cdn.slidesharecdn.com/ss_thumbnails/infconpdf-230816125949-f4e72530-thumbnail.jpg?width=640&height=640&fit=bounds"
+>   }
+>   description={
+>     "인프콘-타입스크립트는 왜 그럴까?-이정환.pdf - Download as a PDF or view online for free"
+>   }
+>   favicon={"https://public.slidesharecdn.com/_next/static/media/favicon.7bc3d920.ico"}
+> />
+
+    <Bookmark url={"https://www.slideshare.net/ssuser2d52a5/pdf-259921603"} title={"인프콘-타입스크립트는 왜 그럴까?-이정환.pdf"} thumbnail={"https://cdn.slidesharecdn.com/ss_thumbnails/infconpdf-230816125949-f4e72530-thumbnail.jpg?width=640&height=640&fit=bounds"} description={"인프콘-타입스크립트는 왜 그럴까?-이정환.pdf - Download as a PDF or view online for free"} favicon={"https://public.slidesharecdn.com/_next/static/media/favicon.7bc3d920.ico"}/>
+
+인프콘 2023에서 “타입스크립트는 왜 그럴까?” 라는 주제로 발표 했었다.
+
+개인적으로 올해 인프콘은 나에게 특별한 여러 의미를 갖기에
+
+발표를 준비하면서, 발표를 진행하면서, 행사를 즐기면서 느꼈던 생각들을 글로 정리해보고자 한다.
+
+## 왜 발표하게 되었나?
+
+먼저 왜 발표하게 되었는지 이야기 하자면
+
+사실은 작년에 열린 인프콘 2022에서도 발표를 하고 싶었다.
+
+그러나 자신감이 부족했다.
+
+발표자 신청 기간 내내 신청폼을 썼다 지웠다 망설이기만 했고 그 결과 아예 신청 자체를 못했다.
+
+<Blank />
+
+그리고 도전도 해보지 못하고 포기했다는 생각에 나는 스스로에게 크게 실망했다.
+
+차라리 신청이라도 해보고 떨어질 걸 후회도 많이 했다.
+
+자신감이 부족해 무언가를 시도조차 해보지 못했다는게 처음이라 더 그랬었던 것 같다.
+
+<Blank />
+
+그래서 스스로 특별한 목표를 세웠다.
+
+내년에는 나도 꼭 저 자리에서 발표하겠다고,
+
+발표까지는 못하더라도 신청이라도 꼭 해보겠노라고 다짐했다.
+
+일종의 북극성을 설정한 것이다.
+
+<Blank />
+
+이 목표를 주변 사람들에게도 여러번 주기적으로 선포했다.
+
+일단 내뱉으면, 저질러 놓으면 미래의 내가 알아서 잘 수습할 걸 알기에 일부러 더 그렇게 했다.
+
+<Blank />
+
+그렇게 목표를 가지고 1년간 열심히 살았다.
+
+[도서](https://product.kyobobook.co.kr/detail/S000201352991)도 출간하고, 오프라인 세미나도 뛰고 또 3시간 짜리 부트캠프 특강도 뛰었다.
+
+또 [신규 강의](https://inf.run/xBwH)도 하나 출시 했다.
+
+그렇게 열심히 살다 보니
+
+대망의 인프콘 2023 발표자 신청 기간이 다가왔다.
+
+<NImage
+  width={730}
+  height={338}
+  blurDataURL={
+    "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAACQBACdASpkAC4APp1Ook2lpCMiIYgAsBOJaQDOsASSnYU5XARQXMyNjnBqAgAA/vOUYbcJBjdO/vahI1a0KDITyNosBrjKpkDlDUWeVUkVvWwl1go3sg/UKX60zFMGCe+7fCKuOYETxAnCAAA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649068/blog/post/INFCON%202023%20%EB%B0%9C%ED%91%9C%20%ED%9B%84%EA%B8%B0/file_pfptgk.webp`}
+  captionText={""}
+/>
+
+발표자 모집 공고를 보자마자
+
+1초의 망설임도 없이 바로 신청폼을 작성해 제출했다.
+
+<Blank />
+
+<NImage
+  width={652}
+  height={259}
+  blurDataURL={
+    "data:image/webp;base64,UklGRpACAABXRUJQVlA4TIQCAAAvY8AJAC9ApG2D5l/u0H4bAoLi/2ghmKSh/0+ujfmP+5rcHMFlkN3adt1G4sAFkIQaeKQCC/oPA08FsvvvRfeQSjo4O6L/ECTJjdsAiyWwgI4qQ8kfpj95ToXGa+xz4U+WnAvz1401/mZONJhf8P8Nr/8v+JndJjtNKU/8JoOSSwTvaAVM+2vB3CBmr1MI21M2yXa5TzEuuSEUktw2KKu73EvwnWe/LrwDr7eEmZKtSPgXRMjvXkIosgKQ4RZQ2nd7/YBkghbW9QqXWMaXCUAu08vlshxJtf/JG0xpuDZ8Q5E1uCr6upXIgAUSJttDutm1t2yOBF7rulCXK81ArzgmG1/95gD2oyz4UkKvONH9YBYvFzUY7r8vYrHX8MCS5PYyOkU0yuzh/hcS1OhtgrUscftepWQtR2GbdVmfbDtP23Ut1Nz9yhT1GXdoFDLTsm7sANuuAJ2VvhCSNMpjfthc+d75M1ALZpA3EdwKUeUUtO5wnB8O69QSYrWhL76uXpMK0iP5GeYTiCnWGmLni3Rwr/Kdp+QdTj624bgQqa/x6tiMtrgARIh6xXTF8cHGR5e6imLXtdqRzHR7m0KXU/2wd9bNnUvLlhvE2JQkpjgHLs9hHXsnyf7JX68oPgOSZBsK1atYIk9a+44OUJGNlS5ZJIBJfWcYn1MgrQ3ZCy9Va+0KSTGaUnS3DRv2xc79c3ccDJINRojzjoaPGkMiE5ND+bbNfsLwo+g6Izt+gf2ADldZ5BjbeRNH+I45u6LaSSj3dttAyHhMN/+l9puD41d0Kz/juF+d4+zl1S41j0O+/ZtrBkr3zS3dZBrYNkC/m6OIs8oajMnybnSfpTxiEPJZL7mMww=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649071/blog/post/INFCON%202023%20%EB%B0%9C%ED%91%9C%20%ED%9B%84%EA%B8%B0/file_l1rryd.webp`}
+  captionText={""}
+/>
+
+그리고 약 1주 정도의 시간이 지난 이후 메일로 합격 소식을 받게 되었다.
+
+사실 메일을 받고 너무 기쁘면서도 동시에 믿기지가 않아서
+
+스팸인지 아닌지 발신자 주소를 수차례 확인해보기도 했었다 ㅋㅋ…
+
+<Blank />
+
+## 발표 준비는 어땠나?
+
+우선 발표 주제 선정은 어렵지 않았다.
+
+마침 타입스크립트 신규 강의를 출시한지 얼마 지나지 않은 시점이라
+
+이미 강의에서 한 번 다뤘던 내용을 기반으로
+
+집합의 관점에서 타입스크립트의 각 개념을 다시 돌아보자는 의미로
+
+`타입스크립트는 왜 그럴까?` 라는 제목으로 발표를 준비했다.
+
+<NImage
+  width={776}
+  height={972}
+  blurDataURL={
+    "data:image/webp;base64,UklGRsgFAABXRUJQVlA4TLsFAAAvYwAfACdQfgFJ8n+zBeWf/3AJBgkBGIdt1DBIzMAJA6cMOv6gcpLs/BOQIvrv0LZVwJIuEm/miRqf8PlvtElaeKadaPYwB5E/uxbE28M+pi+xP7XnaULjdifHM1/Na/uIgw+VCN6OCe0H/AF+ukA/+Pz19CRDbiWnQVJvQiiCObrPftq9GQXYt09rxNXfXJLC5lMKMBkJ/qfKWFfU6z1Fst2M7/xk0cb5rkGVZpcezFQSoxxXHWY+2yO5M67bF6sfZy/KaXpvyDAJyEZyjzvXfUVU6vkt2KWAAxOoF1UewWmoTxIpVzqfkhILV6kZUzeUX1sJ11I1KJ2+k99DKBgXEiX1FNwR4L+fA1XMQ843arkDDVTpAA+nwJCjAPkKD9wJvn9VGJhfPjU2yMOVWaVG/wDi+4vK5wVaIQsMm1NSDYKU0CAjO00M7zSKqdxY5Ye5OKivbGFMJvoUQFuVBTOzmZQk/haHNM91uylNBGj8UHaqem9qv7hbnBZlztyoGcW7w2Z0P6rFG9lWwP1k6RYE+zPA2fNBYGsmpdbt+QmjT6QOKv4TZUmayE0chXAWM0ARKvvhLNEGMgm2oWwPL/bVyRIJXy5742ebEWQCOF3Q9snKq29bqBUR1FTIl5uBN0tP9sFf2zh110SQLyo35dtC820aqoE8aOs9RE9WecFXdmwEe44WkGjPiQ8uoRfAbqGewLvTsqyBGQaOhAXRz4dvOhPnjoQdFuZBqHvOPto5giw3OFQ3pTMF3xq2Ksg9b0adFQieXTQRGHt1QQ0nmQ0jxcGeJhxplBGTqWUOfNh1iiNwevglsII5XOVJU0yuvFo7LRdvAZlw1+Apr8+JPRBJTAMr8o1IFBPMIp0Ej6LtwMT+F4rKrQ66TAU0XAEURt/TKy8cYpvhz+HUXX3lSzCDFsQzkyPG3mXD2uU2DFAgyrFVji1gpnw26KJghaalJeYA6hwWzVmAIoZGRFzej94QFjxWF4FU6/K8T4F9KVpyciLiciU0hJELw5SFt+xGvQ6FgBHMoWlxmVW1zqoSKfBF0RMdZwNe81aVTuHQBolVhO5V45KJOrmCHRKUKzQ4zhk8CBX3tAPgXiOaOuS3Ky/ALy6fpOiBUD4aNrqp/Lq8KpGI2QLrdkNTwg3ezn40iOoRxM/hFGgKaJ1XiP33DVJVaOoL1i0UoFIDnfb3TzahIn4MrZaAekoXpFxUZKiETwZLwMgcPfCfMyGMLVgLXQ4BRyt/U3IiRZA05G+FcM24OigKprl+oDlvOgx1XBNs5LhQttANQnKdAjCmtdeaATZMehdsqZO1F/ytEcRJBGAIpHIOEL+owC9c4DqNKhjTrhFsBO4osYQsA6pIcUF7AzZkT8Wn0ZpXAZWVOB8CIVuyaSnW8CrjpCx+C18ABxnFRvjZ78Qiej2i4V1OYAe0fwI4Feap+G1ptWc+ryGmbw8R8DK86sHBV1D8YTt4l/mEncC7Npz/JZ7BdznZNnJQvCM87d8rQM2CSnyGrYtLZjrDwHEBvDssUFOKX8NXVAaEr0r8Zph9Kzik+PvGcMQRpsXrDbUtkxPEG8ELFQtjzi3h1TnJ25i86czWloFYfOPQsOWB0msNNIOC/R2omSH3Ou7fQZ12P2J5URO4DFosHGYKKTsnn9dSeiTE9fWhbl3Yxy81/dUxRNBwKlZhmBbCtQdmuwg+FAmOlUKsJt5S2fQBSTHwQsGjysRQSi6oQtrgFxxU5Q8Snx76KmgzRs3GSIImN0snkX3HD4AqDvryKVuYBJnJUBIbyv0zCbRnNX15yh8mO9/4dlfVkYGvUUNdxWJYTterWHjQVVwix09udnZsy8x6F+sLXTEDZrzanX+5nAuX0JPr8fTm2U2x1s2OFx366xWEaSWvlvgL8Ot7fsWxoU4SuptyxJokpoumGEnoYJ78Bx9YE1qWbcoxV5Q+X4zEi1TfTJtYDtRf1jUA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649074/blog/post/INFCON%202023%20%EB%B0%9C%ED%91%9C%20%ED%9B%84%EA%B8%B0/file_g7rrlg.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+주제를 정하는 데에는 큰 어려움이 없었지만
+
+세부 내용을 구성하는데는 꽤나 오랜 시간이 걸렸다.
+
+중간에 집안에 큰 일이 있기도 했고 (양해해주신 관계자 분들 정말 감사합니다)
+
+빨리 집중해서 준비해야 하는데 쓸데없는 걱정이 자꾸만 떠올라 꽤나 애를 먹었다.
+
+대충 이런 걱정들을 했었는데
+
+- 내가 준비하는 주제가 과연 재미가 있을까?
+- 아무도 궁금해 하지 않는 주제를 준비하면 어떡하지?
+- 하 … 괜히 한다고 했나?
+
+대부분 자신감으로 극복해야 하는 걱정들이 주를 이루었는데
+
+다행히 이런 고민을 한다는 것을 알게된 소중한 사람들이 많이 도와줬다.
+
+<Blank />
+
+그리고 이번 발표에서는 다른건 몰라도
+
+나의 스피치 능력 만큼은 꼭 증명하고 싶었다.
+
+<Blank />
+
+나는 어렵고 복잡한 내용을 쉽고 재미있게 풀어서 설명하는 사람이니까
+
+발표 내용이 좀 쉽더라도 아니면 살짝 빈약할 수 있더라도
+
+최고로 훌륭한 스피치를 보여드리고 싶었다.
+
+<Blank />
+
+그래서 프롬프트가 있지만 대본을 작성하지 않았고
+
+모든 내용을 머리속에 외워서 처음부터 끝까지 청중의 눈을 마주보면서 발표하기 위해
+
+정말 열심히 준비했다.
+
+<Blank />
+
+발표 일주일 전 부터는 하루에 최소 3번씩은 셀프 리허설을 했다.
+
+이것도 부족한 것 같아서 가장 소중한 분께 매일 매일 하루 2번씩은 리허설을 봐달라고 부탁드렸고
+
+구글 밋으로 화면을 공유하면서 실제 현장에 있다고 상상하면서 추가 리허설도 했다.
+
+그리고 커피사러 갈 때도, 양치할 때에도, 샤워할 때에도
+
+잠에들기 전에도 계속해서 해야할 이야기들을 머리속으로 되뇌었다.
+
+그러면서 사람의 목이 이렇게 빨리 쉴수도 있다는걸 발견하기도 했다 ㅋㅋ!
+
+<Blank />
+
+<NImage
+  width={1440}
+  height={1081}
+  blurDataURL={
+    "data:image/webp;base64,UklGRigBAABXRUJQVlA4IBwBAABQCgCdASpkAEsAPqVGnEs5rzIiqvVbezAUiWUGcGawLcja1WnF7h8oEV6XlMNhNwY8S2h+fm7X3Mi/mfzO452udz8RdRafcIR+ajusk9NaBePV/KBfaK7m/YNAAP7syh9EO+WmIVRecQCxfDlV7PmtJx6lCUXRooBPaRa0rjl7aAOl2oUZK3eBHx/mFn4KTH8AiMfx95H7WhtN8PVaqDAy4IhFIN2kFv/W3eOQmjpMim3oA2Rhb0iI0Wx//m61t/2wcnPDiUP+oGccBg3wxjveTzPSJi/lE1jbMyWRAbkN9ooZbc7NdwrNGaWkejs7ANv1EL4DpZ7hCDBi2ogRlK1+WRsRDLbD8kzAVMrBcaN3gTHDqTjqfEB8cLgAAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649082/blog/post/INFCON%202023%20%EB%B0%9C%ED%91%9C%20%ED%9B%84%EA%B8%B0/file_dijxu5.webp`}
+  captionText={""}
+/>
+
+발표 직전날에는 코엑스에서 찐 현장 리허설이 있었다.
+
+이 날 내가 발표하게 될 103호를 처음 보게 되었는데
+
+그 크기와 웅장함에 너무 놀랐다.
+
+그러면서 동시에 이렇게 큰 무대에서 발표할 수 있다니 무척 설레이기도 했다.
+
+<Blank />
+
+<NImage
+  width={1440}
+  height={1081}
+  blurDataURL={
+    "data:image/webp;base64,UklGRiIBAABXRUJQVlA4IBYBAACQCQCdASpkAEsAPp1Em0o4taYkrNSZixATiWUGcDwHeAPZQvEB7OheM0V425YUEYNlvEJ8WOT3Ag12v39Z4S80nHBaVvRUdvyrHYiTEsclrzgMqu/IAP6/nwf81v+LuxHGTw4wmknOCEutU2ZionnTk1Bi/9/V9goEjLcbvexL/O+S8dcacOQEb2ttnjDnuDN/1t59bGlWRhjIsYMzyQS5we1bpLvnfv5/Q3U9MEAt6D9isXLQuQzVxH7fLppaRunm96LStzCTgp7jh+uIvsiZb/P9qOSKvQV5WaBSd2ma8+DorOYNWeZ5GksFgy80hUAOzwlaWx6zW3lsJ/0qDwDcbWVpL+MCvEuyKa6/q1dADCeNgQaAAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649089/blog/post/INFCON%202023%20%EB%B0%9C%ED%91%9C%20%ED%9B%84%EA%B8%B0/file_wyfyon.webp`}
+  captionText={""}
+/>
+
+무대에서 바라보는 객석은 이렇다.
+
+이 사진은 실제 103호 포디움에 서서 관객석을 바라보고 찍은 사진인데
+
+리허설을 마치고 현장감을 가지고 또 연습하기 위해 찍어봤다 ㅋㅋ
+
+아 그리고 조명이 생각보다 눈이 부신다. 이 부분은 꽤나 걱정했는데
+
+나중에 실제 발표할 때에는 햇살처럼 느껴져서 오히려 좋았다 (?)
+
+<Blank />
+
+이렇게 현장 리허설을 마치고 코엑스에서 가까운 호텔에 머물렀다.
+
+집을 오가는 시간을 아껴 한번이라도 더 셀프 리허설을 하고자 그렇게 했는데 꽤나 잘 한 선택인 것 같다.
+
+저 객석 사진을 쳐다보면서 발표 연습을 하니 꽤나 현장감 있고 좋았다.
+
+## 발표 당일
+
+<NImage
+  width={1600}
+  height={901}
+  blurDataURL={
+    "data:image/webp;base64,UklGRgIBAABXRUJQVlA4IPYAAADQCQCdASpkADgAPrlQn0s8rK2lLJdMO5AXCWMDvrxD4HCTgvBi/kH6T8XA6r8pp+0Qm4muc95rX8dni9+aBD4bh1grBT745rbWyf/BDTqV0JKAvke1CgAA/vNBjLnnuVx44663PgTTAbt5Zd9+chyLdMROxyMkthAYux/mgeetSPdzYbNK1WUO8iALVlKYycd1t2qfYwdy+pBFqZSl+ColpX0Hv9KoUA00/DLdwjjCujOnsJn7dfMcQ1u5vVjQXhLortgWqxVWOyQL+VgKOU2m/gXKiG/TiZF9H/QburAp5n0hpTU8SKUj3euTSo8zU2Nin6DdAAA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649095/blog/post/INFCON%202023%20%EB%B0%9C%ED%91%9C%20%ED%9B%84%EA%B8%B0/file_xfnr49.webp`}
+  captionText={""}
+/>
+
+<NImage
+  width={1496}
+  height={1496}
+  blurDataURL={
+    "data:image/webp;base64,UklGRmABAABXRUJQVlA4IFQBAABQDACdASpkAGQAPp1Em0qoOSkiKJTs4yATiWcG+Ia8DPMeC7gQQJ6Tu1ymi5jy1irKev174+Tfu7j48YbL0mRWmvw/qF9C4XoE7ceWPXMYRf6TV7rRd1x+ZYl4B8g/8UWIzw+tlIXdDqlaAAD+9NKEblqWMcGy/WLImYly817mZEntw3fIcvNEOaPdw2oS5mLiBJx6cCABAJvUkai/vsx1B/N7MZqRUAMlQdPAScyHKpXflTvtqCum0XjyJNtFOyPuHQbbPlzX8PEcKw1RUk+QrlMvjuSpn1Tq8xzX622xzb0I1pTblMEdPO2Me4AJyxYTN3LnKdrAO1ZjJ00ZiORQSyvmRXaRQmhMN1UX4PyxNm6Ph125QWH7jYUDxsHEVDitHUrMTW2JGwxkSxnzlFDRtj2fvKQEn97Yx9X7jjhWyAImz2AXCLqZaOLAtaWxFtBZSXAA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649099/blog/post/INFCON%202023%20%EB%B0%9C%ED%91%9C%20%ED%9B%84%EA%B8%B0/file_v37hui.webp`}
+  captionText={""}
+/>
+
+대망의 발표 당일
+
+열심히 준비했으니 한마디 한마디 잘 내뱉기만 하면 되었다.
+
+<Blank />
+
+긴장해서 벌벌 떨 것만 같았지만
+
+무대에 올라서 나를 보러 와주신 분들과 눈을 마주하니
+
+모든 긴장은 사라지고 그 자리에는 기쁨과 설렘만이 남았다.
+
+<Blank />
+
+그래서 다행히 하나도 떨지 않고 아주 잘 해낸 것 같다.
+
+40분이 마치 4초 처럼 빠르게 흘렀다.
+
+준비해둔 유머 포인트도 뇌절없이 잘 소화했던 것 같고
+
+시간도 딱 맞췄고 다 좋았다 모든 부분이 만족스러웠다.
+
+<Blank />
+
+발표를 잘 마치고 후련한 마음으로 내려와
+
+굿즈도 받으러 다니고 다른 연사님들의 세션도 들으러 다니며 행사를 끝까지 잘 즐겼다.
+
+또 사인을 요청하시는 분들도 계셨고 사진을 찍어달라는 분들도 계셔서 너무 너무 감격스럽고 감사했다.
+
+정말 처음부터 끝까지의 모든 과정이 다 즐거웠다.
+
+<Blank />
+
+## 끝으로
+
+인프콘에서 발표하길 정말 잘했다.
+
+그리고 발표하게 되어 너무 다행이고 영광이다.
+
+처음부터 끝까지 모든 과정이 다 만족스러웠다.
+
+<Blank />
+
+인프랩 분들은 한분 한분 정말 모두 친절하시고 따뜻하셨고 또 정확하셨다.
+
+그래서 굉장히 규모가 큰 행사임에도 아주 사소한 혼란도 느낄 수 없었다.
+
+정말 최고 수준의 운영을 보여주시지 않았나 싶다.
+
+너무 너무 감사하다. 인프랩 또 놀러가고 싶어졌다.
+
+<Blank />
+
+또 다른 연사님들과 만나뵙게 되어 너무 좋았다.
+
+평소에 그분들을 글과 영상으로만 존경해오다 보니
+
+나에게 별로 호의적이지 않으실거라고 생각했는데
+
+다들 너무 환한 웃음으로 맞이해주시고 따뜻하게 반겨주셔서 너무 행복하고 좋았다.
+
+사실 조금 더 다가가고 싶었지만 아직 그럴 자신감은 없는것 같다 … ㅋㅋㅋ
+
+다음번에는 조금은 더 가까워질 수 있다면 좋겠다.
+
+<Blank />
+
+[https://s3-us-west-2.amazonaws.com/secure.notion-static.com/538984e5-0acd-4bdd-9c5a-200b99c784cf/thumb2.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/538984e5-0acd-4bdd-9c5a-200b99c784cf/thumb2.png)

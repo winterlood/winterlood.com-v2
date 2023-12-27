@@ -3,10 +3,9 @@ import classNames from "classnames/bind";
 import Link from "next/link";
 import Icon from "@/components/Icon";
 import { PageCategory } from "types";
-import { allPosts, allQnas } from "@/contentlayer/generated";
-import { notFound } from "next/navigation";
-import MDXContent from "@/components/MDXContent";
+import MDXContent from "@/components/mdx/MDXContent";
 import PageViewCounter from "@/components/(detail)/PageViewCounter";
+import { getPageBySlug } from "../get-page-by-slug";
 
 const cx = classNames.bind(style);
 
@@ -16,12 +15,7 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const { category, id } = params;
-
-  const page =
-    category === "post"
-      ? allPosts.find((post) => post._raw.flattenedPath === `${category}/${id}`)
-      : allQnas.find((qna) => qna._raw.flattenedPath === `${category}/${id}`);
-  if (!page) notFound();
+  const page = getPageBySlug({ category, slug: id });
 
   return (
     <div className={cx("container")}>

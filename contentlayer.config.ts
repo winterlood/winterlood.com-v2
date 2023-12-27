@@ -2,12 +2,11 @@ import { defineDocumentType, makeSource } from "contentlayer/source-files";
 import { rehypeCloudniaryImage } from "@winterlood/rehype-cloudinary-image";
 
 export const Page = defineDocumentType(() => ({
-  name: "Page",
+  name: "PAGE",
   filePathPattern: `page/*.mdx`,
   contentType: "mdx",
   fields: {
     title: { type: "string", required: true },
-    date: { type: "date", required: true },
   },
   computedFields: {
     url: { type: "string", resolve: (post) => `/content/${post._raw.flattenedPath}` },
@@ -15,14 +14,15 @@ export const Page = defineDocumentType(() => ({
 }));
 
 export const Post = defineDocumentType(() => ({
-  name: "Post",
+  name: "POST",
   filePathPattern: `post/*.mdx`,
   contentType: "mdx",
   fields: {
+    id: { type: "string", required: true },
     title: { type: "string", required: true },
     date: { type: "date", required: true },
     subtitle: { type: "string", required: true },
-    tags: { type: "list", of: { type: "string" }, required: true },
+    tags: { type: "list", of: { type: "string" }, required: false },
     thumbnail: { type: "string", required: false },
   },
   computedFields: {
@@ -31,14 +31,16 @@ export const Post = defineDocumentType(() => ({
 }));
 
 export const Qna = defineDocumentType(() => ({
-  name: "Qna",
+  name: "QNA",
   filePathPattern: `qna/*.mdx`,
   contentType: "mdx",
   fields: {
+    id: { type: "string", required: true },
     title: { type: "string", required: true },
     date: { type: "date", required: true },
-    subtitle: { type: "string", required: true },
-    tags: { type: "list", of: { type: "string" }, required: true },
+    subtitle: { type: "string", required: false },
+    tags: { type: "list", of: { type: "string" }, required: false },
+    thumbnail: { type: "string", required: false },
   },
   computedFields: {
     url: { type: "string", resolve: (post) => `/content/${post._raw.flattenedPath}` },
@@ -48,7 +50,7 @@ export const Qna = defineDocumentType(() => ({
 export default makeSource({
   contentDirPath: "content",
   documentTypes: [Page, Post, Qna],
-  mdx: {
-    rehypePlugins: [[rehypeCloudniaryImage]],
-  },
+  // mdx: {
+  //   rehypePlugins: [[rehypeCloudniaryImage]],
+  // },
 });

@@ -1,0 +1,109 @@
+---
+id: 3ea6c36c-c425-434c-9dd3-5dfd6dfdc4be
+type: QNA
+title: 합집합과 교집합이 잘 이해되지 않습니다
+date: 2023-10-12
+tags: 
+ - 한입 크기로 잘라먹는 타입스크립트
+---
+
+
+### 질문
+
+
+**교집합(Intersection) 타입이 잘 이해되지 않아 질문 드립니다.**
+
+
+```typescript
+type Dog = {
+  name: string;
+  color: string;
+};
+
+type Person = {
+  name: string;
+  language: string;
+};
+
+type Intersection = Dog & Person;
+
+let intersection1: Intersection = {
+  name: "",
+  color: "",
+  language: "",
+};
+```
+
+
+intersection1은 왜 이렇게 되는 걸까요?
+
+
+교집합이라고 하면Dog와 Person 겹쳐진 name 만 가져와야 하는 게 맞지 않나요?
+
+
+합집합과 교집합의 의미를 검색해봤는데
+
+
+합집합 - 집합의 원소를 "모두 포함"하는 집합
+
+
+교집합 - 두 사건에 "모두 속하는"원소로만 이루어진 집합
+
+
+자세한 설명 부탁 드립니다
+
+
+<Blank/>
+
+
+### 답변
+
+
+안녕하세요 이정환입니다.
+
+
+타입스크립트에서 객체 타입의 교집합은 '집합'을 기준으로 만들어집니다.
+
+
+따라서 두개의 객체 타입의 교집합은 두 타입에 모두 속하는 요소들만 포함하는 집합으로 만들어지게 됩니다.
+
+
+예를 들어 다음과 같은 두개의 타입이 존재할 때
+
+
+```typescript
+type Dog = {
+  name: string;
+  color: string;
+};
+
+type Person = {
+  name: string;
+  language: string;
+};
+```
+
+
+Dog 타입과 Person 타입의 교집합 타입은 Dog에도 포함되고 Person에도 포함되는 값들을 포함하는 집합이 되어야 합니다.
+
+
+그렇기 때문에 교집합은 `{ name : string }` 이 아닌 두 타입의 모든 프로퍼티를 갖는 `{ name : string, color: string, language: string }` 으로 생성됩니다.
+
+
+`{ name : string }` 으로 교집합이 생성되면 안되는 이유는 다음과 같습니다.
+
+- 값 `{name : "이정환"}`은 이 교집합에는 속하지만 Dog와 Person 타입에 속하지 않습니다(모순)
+- 값 `{name: "이정환", color:"갈색"}`은 이 교집합과 Dog타입에는 속하지만 Person 타입에는 속하지 않습니다 (모순)
+
+`{ name : string, color: string, language: string }` 으로 교집합이 생성될 경우도 따져보겠습니다.
+
+- 값 `{name:"이정환", color:"갈색", language:"한국어"}`은 Dog타입에도 속하고 Person타입에도 속합니다. 그러므로 교집합입니다.
+
+<Blank/>
+
+
+<Blank/>
+
+
+<Blank/>
+

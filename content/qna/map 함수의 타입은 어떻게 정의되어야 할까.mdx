@@ -1,0 +1,88 @@
+---
+id: f5033aa1-d77a-4bdb-b146-db95181eada4
+type: QNA
+title: map 함수의 타입 작성 관련 질문입니다
+date: 2023-10-12
+tags: 
+ - 한입 크기로 잘라먹는 타입스크립트
+---
+
+
+### 질문
+
+
+안녕하세요 강의 잘 듣고 있습니다.
+
+
+```javascript
+function map<T, K>(arr: T[], callback: (item: any) => K) {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    result.push(callback(arr[i]));
+  }
+  return result;
+}
+```
+
+
+이렇게 map함수를 정의하였는데요
+
+
+<Blank/>
+
+
+```javascript
+map(['hi','hello'],(it)=>parseInt(it))
+```
+
+
+이게 가능하면 안되니까
+
+
+<Blank/>
+
+
+```javascript
+function map<T>(arr: T[], callback: (item: any) => T) {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    result.push(callback(arr[i]));
+  }
+  return result;
+}
+```
+
+
+이게 map함수 올바른 작성 양식 아닌가요??
+
+
+<Blank/>
+
+
+### 답변
+
+
+자바스크립트의 Map 메서드는 기존 배열 요소 타입과 다른 타입의 요소들로 이루어진 배열로 변환하는 기능도 제공합니다. 
+
+
+따라서 다음과 같은 동작이 가능해야 합니다.
+
+
+```coffeescript
+const arr = [1, 2, 3];
+arr.map((it) => it.toString());
+// ["1", "2", "3"]
+```
+
+
+위 코드는 number 타입의 요소들이 담긴 배열을 string 타입의 요소들이 담긴 배열로 변환하는 예 입니다.
+
+
+따라서 Map 메서드를 우리가 직접 구현할 때에도 위와 동일하게 동작할 수 있어야 하기 때문에
+
+
+타입 변수를 2개(T, U) 사용해 반환 배열 요소의 타입이 원래 배열 요소의 타입과 달라질 수 있도록 설정해주어야 합니다.
+
+
+<Blank/>
+

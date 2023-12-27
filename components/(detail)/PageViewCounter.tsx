@@ -15,8 +15,9 @@ export default function PageViewCounter() {
 
     if (res.ok) {
       const data: { path: string; pageView: string }[] = await res.json();
-
-      setView(parseInt(data[0].pageView));
+      setView(data[0] ? parseInt(data[0].pageView) : 0);
+    } else {
+      setView(0);
     }
   };
 
@@ -26,5 +27,9 @@ export default function PageViewCounter() {
     }
   }, [pathname]);
 
-  return <>{view ? `${view} 조회` : "? 조회"} </>;
+  if (view === undefined) {
+    return <></>;
+  } else {
+    return <>{view} 조회</>;
+  }
 }

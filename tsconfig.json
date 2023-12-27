@@ -30,6 +30,7 @@
     }
   },
   "include": [
+    "other/*",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",

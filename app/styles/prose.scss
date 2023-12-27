@@ -1,0 +1,218 @@
+.prose {
+  > * {
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+  }
+
+  h1,
+  h2 {
+    font-family: bold;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-family: medium;
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  > p {
+    font-size: 1rem;
+    font-family: regular;
+    line-height: 28px;
+    color: var(--fg-color);
+    caret-color: var(--fg-color);
+  }
+
+  .n_image {
+    .image_caption {
+      color: var(--fg-opacity-color);
+      font-size: small;
+    }
+  }
+
+  blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem;
+    border-radius: 0px 5px 5px 0px;
+    background-color: var(--bg-opacity-color);
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    > p {
+      line-height: 25px;
+    }
+  }
+
+  > img,
+  p > img {
+    width: 100%;
+    border-radius: 5px;
+  }
+
+  ul,
+  ol {
+    padding: 0;
+  }
+
+  ul {
+    list-style-type: disc;
+    padding-inline-start: 1.7em;
+    margin-top: 0;
+    li {
+      padding-left: 0.1em;
+    }
+  }
+
+  ol {
+    list-style-type: decimal;
+    padding-inline-start: 1.6em;
+    margin-top: 0;
+    li {
+      padding-left: 0.2em;
+    }
+  }
+
+  li {
+    padding: 6px 0;
+    white-space: normal;
+  }
+
+  details {
+    width: 100%;
+    padding: 3px 2px;
+  }
+
+  details > summary {
+    cursor: pointer;
+    outline: none;
+  }
+
+  details > div {
+    margin-left: 1.1em;
+  }
+
+  .blank {
+    width: 100%;
+    min-height: 1rem;
+    padding: 3px 2px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+  }
+
+  /* Divider */
+  hr {
+    border-color: var(--border-color);
+  }
+
+  /* Link */
+  > p > a {
+    color: var(--primary-color);
+  }
+
+  li > a {
+    color: var(--primary-color);
+  }
+
+  /* Inline Code */
+  .inline_code {
+    color: #eb5757;
+    padding: 0.2em 0.4em;
+    background-color: var(--bg-opacity-color);
+    border-radius: 3px;
+    font-size: 85%;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  }
+
+  /* Code block */
+  .code_block {
+    border: 1px solid var(--bg-opacity-color);
+    border-radius: 5px;
+
+    > .copy_block {
+      display: flex;
+      justify-content: right;
+      background-color: rgb(30, 30, 30);
+      padding: 0.5rem 0.8rem;
+      cursor: pointer;
+      font-weight: bold;
+
+      .copied {
+        color: var(--primary-color);
+      }
+    }
+
+    > pre {
+      margin: 0px !important;
+      padding: 0.2rem 1.5rem !important;
+      padding-bottom: 1.5rem !important;
+    }
+  }
+
+  .bookmark_container {
+    background-color: var(--bg-opacity-color);
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    font-size: 14px;
+    min-height: 120px;
+    border-radius: 5px;
+
+    .info_col {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex: 1;
+      overflow: hidden;
+
+      .title {
+        width: 100%;
+        line-height: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-height: 24px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        display: flex;
+        align-items: center;
+        gap: 0.2rem;
+
+        .favicon {
+          width: 16px;
+          height: 16px;
+        }
+      }
+      .description {
+        font-size: 12px;
+        opacity: 0.8;
+        height: 42px;
+        overflow: hidden;
+      }
+      .sitename {
+        font-size: 12px;
+      }
+    }
+    .thumbnail_col {
+      @media (max-width: 640px) {
+        width: 120px;
+      }
+      width: 180px;
+      position: relative;
+      img {
+        position: absolute !important;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}

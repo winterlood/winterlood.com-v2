@@ -1,0 +1,121 @@
+---
+id: 99dc6366-505d-4bef-89bc-151e42f11e03
+type: POST
+title: unknown 타입 살펴보기
+date: 2023-02-21
+subtitle: unknown 타입에 대해 살펴봅니다
+tags:
+  - 타입스크립트
+---
+
+## 개요
+
+안녕하세요 이정환입니다 😃
+
+이번에는 타입스크립트의 unknown 타입에 대해 살펴보겠습니다.
+
+## unknown 타입 이란
+
+unknown 타입은 ‘알수 없음’을 의미하는 타입입니다.
+
+unkown 타입은 프로그래머가 정확히 타입을 알 수 없는 상황에 사용합니다. 프로그래머가 타입을 알 수 없는 상황은 어떤 상황인지 살펴보며 unknown 타입이 어떤 상황에 유용하게 사용되는지 살펴보겠습니다.
+
+### any 타입의 위험성
+
+외부 서버에서 데이터를 랜덤으로 불러오는 함수가 하나 있다고 가정하겠습니다.
+
+```typescript
+function getRandomData() {
+  let data;
+  // ... 중략
+  return data;
+}
+```
+
+함수 getRandomData는 지금은 존재하지 않는 가상의 서버로부터 랜덤 데이터를 받아와 변수 data에 저장한 다음 반환합니다. 결론적으로 이 함수가 반환하는 값의 타입은 알 수 없습니다.
+
+물론 이런 상황에 앞서 살펴본 any 타입을 이용해도 됩니다. any 타입은 무엇이든 될 수 있는 타입이므로(모든 타입을 포함 합니다)
+
+```typescript
+function getRandomData(): any {
+  let data;
+  // ... 중략
+  return data;
+}
+```
+
+그러나 이렇게 타입을 모르겠다고 any로 선언하는 것은 절대 안전하지 않으며 심각한 문제를 초래 할 수 있습니다. 만약 다음과 같이 any 타입이 정확히 무슨 타입인지 확인하지 않고 연산을 적용하거나 메서드를 사용할 경우 문제가 될 수 있습니다.
+
+```typescript
+function getRandomData(): any {
+  let data;
+  // ... 중략
+  return data;
+}
+
+const randomData = getRandomData();
+console.log(randomData.toUppercase());
+```
+
+getRandomData에서 반환하는 값이 string 타입일 것이라 예상하고 toUppercase 메서드(문자열을 대문자로 바꿔주는 메서드, string에만 사용 가능)을 사용했습니다. 그런데 만약 getRandomData 함수가 number 타입 값을 반환하면 어떻게 될까요?
+
+```typescript
+function getRandomData(): any {
+  let data = 10;
+  return data;
+}
+
+const randomData = getRandomData();
+console.log(randomData.toUppercase());
+// [오류 발생] ^^^
+// TypeError: randomData.toUppercase is not a function
+```
+
+당연히 오류가 발생합니다. 사실 타입스크립트가 알려주는 타입 오류는 빨간줄로 표시되니 해결하면 됩니다.
+
+그런데 이번 오류는 타입스크립트가 몰랐습니다. randomData가 any 타입을 갖도록 선언 되었으므로 사실상 randomData 변수에 대한 타입 검사는 하지 않기 때문입니다.
+
+따라서 위 코드는 이상 없이 자바스크립트 코드로 컴파일 되었고 실제로 실행까지 되었습니다. 결국 프로그램이 실행되고 나서 중단되는 결과를 낳았습니다. 타입스크립트는 이런 프로그램 실행중에 오류가 발생하여 중단되는 상황을 막기 위해 존재합니다. 타입스크립트를 사용하는 의미가 사라진 순간이 되어버렸습니다.
+
+사실 이렇게 랜덤으로 데이터를 반환하는 서버는 아마 없을 겁니다. 그러나 외부 라이브러리를 사용한다던가 서버와 통신하는 경우 매우 다양한 타입을 갖는 응답을 처리해야 하는 경우가 존재합니다.
+
+### any보다 안전한 unknown 타입
+
+이렇듯 타입을 모르는 변수에 any를 선언하는 것은 매우 위험합니다. 타입 검사를 포기해버리기 때문입니다. 그러므로 다음과 같이 unknown 타입을 사용해야 합니다.
+
+```typescript
+function getRandomData(): unknown {
+  let data = 10;
+  return data;
+}
+
+const randomData = getRandomData();
+console.log(randomData.toUppercase());
+// 오류 : unknown 형식에는 toUppercase가 없습니다.
+```
+
+이번에는 getRandomData 함수의 반환값으로 any가 아닌 unknown 타입을 선언했습니다. 그러자 `randomData.toUppercase()`에서 타입스크립트가 타입 오류를 감지합니다.
+
+unknown 타입은 모든 값을 저장할 수 있지만, 어떤 연산도 수행할 수 없는 독특한 타입입니다. 그도 그럴것이 어떤 타입인지 모르는 변수를 위한 타입이기 때문에 모든 타입의 값을 저장할 수 있지만, 어떤 타입의 값이 저장될 지 알 수 없기 때문에 어떤 연산도 허용할 수 없는 것 입니다.
+
+예를 들어 다음과 같이 변수를 선언하고 unknown 타입으로 선언하면 어떤 값이든 변수에 저장할 수 있지만 연산 에는 활용할 수 없습니다.
+
+```typescript
+let a: unknown = 1; // ✅ 가능
+let b: unknown = 2; // ✅ 가능
+
+console.log(a + b); // ❌ 오류
+console.log(a - b); // ❌ 오류
+console.log(a * b); // ❌ 오류
+console.log(a / b); // ❌ 오류
+```
+
+이렇듯 unknown 타입은 any에 비해 타입스크립트가 감지할 수 없는 타입 오류가 발생할 일을 만들지 않습니다. 따라서 특정 변수나 함수의 값이나 반환값이 확실하지 않을 경우 any보다는 unknown 타입을 사용하는 것을 권장합니다.
+
+그렇다면 unknown 타입이 선언된 변수에 저장된 값은 어떻게 활용해야 할까요? 이것은 타입스크립트의 ‘타입 정제’를 이용하면 됩니다. 그러나 타입 정제는 지금은 아직 이해하기 어렵습니다. 따라서 이후에 더 자세히 다룹니다. 지금은 “unknown 타입은 값을 알 수 없는 경우 사용하는 타입”이라는 사실만 알아 두면 됩니다.
+
+<Blank />
+
+<Blank />
+
+<Blank />

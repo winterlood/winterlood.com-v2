@@ -1,0 +1,277 @@
+---
+id: 7045e27d-695d-4da2-8eb1-ed97c3e4fc13
+type: POST
+title: enum 타입 살펴보기
+date: 2023-02-13
+subtitle: 배열과 튜플 타입에 대해 알아봅니다
+tags:
+  - 타입스크립트
+---
+
+## 개요
+
+안녕하세요 이정환입니다😃
+
+타입스크립트의 enum 타입에 대해 살펴봅니다.
+
+## enum 타입이란
+
+enum이란 열거할 수 있는 이라는 뜻을 갖는 enumerable의 약자입니다. 따라서 enum 타입을 우리말로는 열거형 이라고 합니다. enum 타입은 앞서 살펴본 튜플 타입처럼 자바스크립트에서는 제공되지 않고 오직 타입스크립트에서만 사용할 수 있는 타입입니다.
+
+열거하다라는 말은 “여러가지 예나 사실을 낱낱이 늘어놓다” 정도로 해석할 수 있습니다. 따라서 enum 타입을 사용하면 다음과 같이 집합(관련된 값의 모음)을 선언할 수 있습니다.
+
+```typescript
+enum Color {
+  RED,
+  GREEN,
+  BLUE,
+}
+```
+
+위 코드처럼 enum 키워드를 사용해 열거형을 선언할 수 있습니다. 자세한 문법은 이후에 다룹니다.
+
+타입스크립트는 기본적으로 숫자와 문자열 기반의 열거형을 제공하며 종류를 나누자면 다음 세가지로 나눌 수 있습니다.
+
+1. 숫자 열거형(Numeric enums)
+2. 문자열 열거형(String enums)
+3. 이종 열거형(Heterogeneous enums)
+
+## 숫자 열거형(Numeric enums)
+
+숫자 열거형은 문자열 값을 숫자로 저장하는 숫자 기반의 열거형입니다.
+
+다음과 같이 enum 을 선언하면 기본적으로 숫자 열거형이 됩니다.
+
+```typescript
+enum Color {
+  RED,
+  GREEN,
+  BLUE,
+}
+```
+
+이렇게 선언한 enum은 보통 enum 키워드 옆의 이름을 따서 부릅니다. 따라서 지금 만든 enum을 우리는 Color enum이라고 부를 수 있습니다. 또 RED, GREEN, BLUE와 같은 enum 내부의 각각의 값들은 ‘멤버’ 라고 부릅니다.
+
+그렇다면 왜 이렇게 선언하면 숫자 열거형이 되는 걸까요? 그 이유는 위와 같이 enum 타입을 선언하면 enum 내부의 각 값에는 위에서부터 차례대로 0부터 시작하여 1씩 증가하며 숫자 값이 할당되기 때문입니다.
+
+```typescript
+enum Color {
+  RED, // 0이 저장됨
+  GREEN, // 1이 저장됨
+  BLUE, // 2이 저장됨
+}
+```
+
+첫 번째 멤버에 할당되는 숫자를 직접 설정할 수도 있습니다.
+
+```javascript
+enum Color {
+  RED = 10,     // 10이 저장됨
+  GREEN,        // 11이 저장됨
+  BLUE,         // 12가 저장됨
+}
+```
+
+이렇듯 첫번째 멤버에 할당되는 숫자를 직접 설정할 경우 그 아래의 멤버들은 차례대로 +1씩 더해진 숫자를 할당받습니다.
+
+또 멤버에 순차적으로 숫자를 할당하고 싶지 않다면 다음과 같이 일일이 지정 해도 됩니다.
+
+```javascript
+enum Color {
+  RED = 10,     // 10이 저장됨
+  GREEN = 1,    // 1이 저장됨
+  BLUE = 4,     // 4가 저장됨
+}
+```
+
+### 계산된 열거형(Computed enums)
+
+숫자 열거형의 멤버에는 계산된 값을 할당하는 것 또한 가능합니다.
+
+```javascript
+enum Color {
+  RED,            // 0
+  GREEN,          // 1
+  BLUE = 10 * 20, // 200
+}
+```
+
+이렇듯 멤버의 값으로 계산된 값을 갖는 숫자 열거형을 특별히 계산된 열거형이라고 부릅니다.
+
+## 문자열 열거형(String enums)
+
+문자열 열거형은 멤버의 값으로 숫자가 아닌 문자열을 할당한 enum을 말합니다.
+
+```javascript
+enum Color {
+  RED = "RED",
+  GREEN = "GREEN",
+  BLUE = "BLUE",
+}
+```
+
+문자열 열거형에는 숫자 열거형처럼 자동으로 멤버에 숫자가 할당되지 않습니다. 따라서 만약 다음과 같이 단 하나의 멤버라도 문자열 값을 할당 했다면 모든 멤버에 값을 직접 할당해야 합니다.
+
+```javascript
+enum Color {
+  RED = "RED",
+  GREEN = "GREEN",
+  BLUE, // 오류 : 열거형 멤버를 초기화 해야 합니다.
+}
+```
+
+단 다음과 같이 첫번째 멤버의 값만 할당하지 않고 나머지 멤버에는 문자열 값을 할당할 경우에는 오류가 발생하지 않습니다.
+
+```javascript
+enum Color {
+  RED,
+  GREEN = "GREEN",
+}
+```
+
+이건 또 무슨 현상일까요? 그 이유는 이렇게 enum을 선언하면 문자열 열거형이 아닌 ‘이종 열거형’으로 enum이 선언되기 때문입니다.
+
+## 이종 열거형(Heterogeneous enums)
+
+이종 열거형이란 멤버의 값으로 숫자와 문자열을 섞어 사용한 enum입니다. 예를 들어 다음과 같이 enum을 선언하면 이종 열거형이 됩니다.
+
+```javascript
+enum Color {
+  RED, // 0 자동 할당
+  GREEN = "GREEN",
+}
+```
+
+그러나 사실 굳이 이종 열거형을 사용해야 하는 상황은 없습니다.
+
+## enum 사용 방법
+
+enum을 사용하는 방법은 간단합니다. 점 표기법을 이용해 객체의 프로퍼티에 접근하듯 사용하면 됩니다.
+
+index.ts를 다음과 같이 수정하고 ts-node로 실행합니다.
+
+```typescript
+enum Color {
+  RED = 10,
+  GREEN = 1,
+  BLUE = 4,
+}
+
+console.log(Color.RED); // 출력 : 10
+console.log(Color.GREEN); // 출력 : 1
+console.log(Color.BLUE); // 출력 : 4
+```
+
+Color enum의 멤버들(Color.RED, Color.GREEN, Color.BLUE)을 순서대로 출력했더니 0, 1, 2가 출력되었습니다.
+
+## enum은 컴파일 결과 실제 객체로 변환됩니다.
+
+그런데 생각해보면 무언가 이상한 점을 느낄 수 있습니다. 타입스크립트의 타입들은 오직 타입 검사에만 활용되기 때문에 컴파일해 자바스크립트 코드가 생성될 때 제거됩니다. 따라서 타입스크립트의 타입들은 값으로 취급되지 않으므로console을 통해 출력하는 동작은 불가한 것으로 알고 있습니다. 예를 들어 다음과 같은 타입스크립트 코드는 에러가 발생합니다. 그런데 enum은 왜 가능한 것 일까요?
+
+그 이유는 enum은 컴파일 결과 제거되지 않고 실제 자바스크립트 객체로 변환되기 때문입니다. 이것은 enum을 사용한 타입스크립트 코드를 tsc를 이용해 직접 컴파일 해 보고 그 결과를 통해 확인할 수 있습니다. 따라서 tsc 명령을 입력해 index.ts를 컴파일합니다.
+
+그 다음 생성된 dist/index.js 를 열어 컴파일 결과를 확인합니다.
+
+```javascript
+"use strict";
+var Color;
+(function (Color) {
+  Color[(Color["RED"] = 10)] = "RED";
+  Color[(Color["GREEN"] = 1)] = "GREEN";
+  Color[(Color["BLUE"] = 4)] = "BLUE";
+})(Color || (Color = {}));
+console.log(Color.RED);
+console.log(Color.GREEN);
+console.log(Color.BLUE);
+```
+
+변환된 자바스크립트 코드를 살펴보면 var로 Color를 선언한 다음 아래의 IIFE(즉시 실행 함수)내부에서 RED, GREEN, BLUE 프로퍼티를 만들고 값을 각각 0, 1, 2로 할당한 것을 확인할 수 있습니다.
+
+이렇듯 타입스크립트의 enum은 특별히 컴파일 결과 자바스크립트 객체로 변환됩니다. 따라서 마치 값 처럼 접근해 사용할 수 있는 것 입니다.
+
+## 숫자 열거형의 역 매핑(Reverse Mapping)
+
+앞서 숫자 열거형에 해당하는 enum의 각 멤버는 자동으로 숫자를 할당 받는다고 살펴보았습니다. 그런데 enum에는 한가지 특별한 점이 더 있는데 바로 멤버에 할당된 값으로도 멤버에 접근할 수 있다는 점 입니다. 아직 무슨뜻인지 이해하지 못해도 괜찮습니다. 아래의 예제를 보면 쉽게 이해할 수 있습니다.
+
+index.ts를 다음과 같이 수정합니다.
+
+```javascript
+enum Color {
+  RED = 10,
+  GREEN = 1,
+  BLUE = 4,
+}
+
+console.log(Color);
+```
+
+다음으로 ts-node 명령으로 index.ts를 바로 실행하고 결과를 확인합니다.
+
+```javascript
+{ '1': 'GREEN', '4': 'BLUE', '10': 'RED', RED: 10, GREEN: 1, BLUE: 4 }
+```
+
+매우 신기한 결과가 나타났습니다. enum이 객체로 변환될 때 enum의 멤버인 RED, GREEN, BLUE 프로퍼티만 생성된것이 아니라, enum의 각 멤버들에 할당 되었던 숫자 프로퍼티도 동시에 생성되었습니다.
+
+쉽게 말하자면 RED, BLUE, GREEN 프로퍼티 외에도 “1”, “4”, “10” 프로퍼티도 함께 생성되었습니다. 또 “1”, “4”, “10” 프로퍼티에는 각각 이 값을 할당 받았던 enum 멤버의 이름이 값으로 저장되어 있습니다.
+
+이런 현상을 역 매핑(Reverse Mapping)이라고 부릅니다.
+
+## const 열거형 (const enums)
+
+만약 enum 앞에 const 키워드를 붙이게 되면 const 열거형이 됩니다.
+
+```javascript
+const enum Color {
+  RED = 10,
+  GREEN = 1,
+  BLUE = 4,
+}
+```
+
+const 열거형은 컴파일 결과 자바스크립트 객체를 생성하지 않습니다. 따라서 다음과 같이 enum 자체를 객체로 취급해 값으로 사용하는것은 불가능해 집니다.
+
+```javascript
+const enum Color {
+  RED = 10,
+  GREEN = 1,
+  BLUE = 4,
+}
+
+console.log(Color);
+// 'const' 열거형은 속성이나 인덱스 액세스 식, 또는 내보내기 할당이나 가져오기 선언의 오른쪽,
+// 또는 형식 쿼리에서만 사용할 수 있습니다.
+```
+
+대신 다음과 같이 각각의 멤버의 값들은 사용할 수 있습니다.
+
+```javascript
+const enum Color {
+  RED = 10,
+  GREEN = 1,
+  BLUE = 4,
+}
+
+console.log(Color.RED);
+console.log(Color.GREEN);
+console.log(Color.BLUE);
+```
+
+컴파일 결과 객체를 생성하지 않기 때문에 위 코드를 컴파일 하면 Color.RED, Color.GREEN, Color.BLUE와 같이 enum의 멤버에 할당된 값을 사용하는 코드들은 값으로 대체됩니다. 이것을 “인라인된다” 라고 표현하기도 합니다.
+
+tsc로 index.ts를 컴파일 하고 dist/index.js를 열어 결과를 확인해보겠습니다.
+
+```javascript
+"use strict";
+console.log(10 /* Color.RED */);
+console.log(1 /* Color.GREEN */);
+console.log(4 /* Color.BLUE */);
+```
+
+앞서 이야기했듯 별도의 Color 객체를 생성하지 않고 Color.RED는 10으로, Color.GREEN은 1로 Color.BLUE는 4로 대체되는 것을 확인할 수 있습니다.
+
+아무래도 객체를 만들지 않기 때문에 const 열거형을 사용할 때 일반 열거형에 비해 컴파일 결과 더 경량화 된 코드가 생성되긴 합니다만 그렇게 큰 차이를 불러일으킬 상황은 많지는 않습니다.
+
+그러나 이런 내용을 알고 있다면 만약 조금이라도 더 비용을 아껴야 하는 상황에 const 열거형을 사용해 조금이라도 비용을 아낄 수 있습니다.
+
+<Blank />

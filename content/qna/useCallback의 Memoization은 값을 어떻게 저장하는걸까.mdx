@@ -1,0 +1,51 @@
+---
+id: 834ed30c-b7f4-42f9-934a-150919adbd45
+type: QNA
+title: useCallback 의 Memoization 값 저장 방식은 참조가 아닌가요?
+date: 2023-10-10
+tags: 
+ - 한입 크기로 잘라먹는 리액트
+---
+
+
+### 질문
+
+
+강의 중에서 useCallback 에서 data 값 갱신 문제에 질문이 있습니다.
+
+
+우선, data 가 일반적인 값 참조처럼 일어나지 않는다는 점을 이해했습니다. 가장 마지막에 onCreate 가 업데이트되는 시점의 data 값을 기억해 두고 사용한다는 점도 이해했습니다.
+
+
+그런데 왜 이렇게 동작하는지 궁금합니다. 구체적으로 말하면 Memoization이 어떻게 구현됐기에 이런 문제가 발생하는 건가요? 이전 값을 그대로 가지고 있으려면 단순히 참조 주소를 복사하는 식으로는 안 되고 Deep Copy가 일어나야 하지 않나요?
+
+
+그리고 Deep Copy를 통해 Memo를 구현했다기에는 석연치 않은 부분들도 있습니다. 우선 매번 Deep Copy를 수행하는 식으로 Memo를 구현했다면 성능 문제가 발생하지 않을까요? 게다가 depth에서는 Shallow Compare 가 일어나니까 Deep Copy를 통해 구현하지는 않았을 것 같습니다.
+
+
+이전 상태를 기억해 둔다는 방식은 이전 상태에 state 변수들을 내부에 따로 복사해서 저장해 둔다는 개념으로 이해되는데, 제가 예상하는 대로 Deep Copy를 통해 이전 값을 저장해 두는 건지 아니면 제가 놓친 부분이 있는지 궁금합니다.
+
+
+<Blank/>
+
+
+### 답변
+
+
+안녕하세요 이정환입니다.
+
+
+먼저 깊은 수준의 질문 감사합니다 👍👍👍
+
+
+useCallback이 그렇게 동작하는 이유는 useCallback 을 포함한 대다수의 리액트 Hooks는 JS의 Closure(클로저)를 활용해 구현되었고 동작하기 때문입니다.
+
+
+클로저 또는 클로저를 이용한 Hooks들의 동작 원리에 대한 자세한 설명은 다음의 추천 아티클들을 확인해보시는것을 추천드립니다!
+
+
+<Bookmark url={`https://dev.to/wesamalqawasmeh/react-usecallback-and-js-function-closure-2h8c`} title={`React useCallback and JS function closure 🤔`} thumbnail={`https://res.cloudinary.com/practicaldev/image/fetch/s--CpyjRkX0--/c_imagga_scale,f_auto,fl_progressive,h_500,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9z13m1zua7oro1duyw8j.png`} description={`As many of you know that useCallback is a built-in hook in React, usually used to scale and...`} sitename={`DEV Community`} favicon={`https://res.cloudinary.com/practicaldev/image/fetch/s--E8ak4Hr1--/c_limit,f_auto,fl_progressive,q_auto,w_32/https://dev-to.s3.us-east-2.amazonaws.com/favicon.ico`}/>
+
+
+<Bookmark url={`https://itchallenger.tistory.com/629`} title={`리액트 훅의 클로저 트랩(closure trap) 이해하기`} thumbnail={`https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbtQnew%2FbtrHzodgh8J%2FcUb8utCAKF0liTmgKWUIN0%2Fimg.png`} description={`원문 주소 : https://betterprogramming.pub/understanding-the-closure-trap-of-react-hooks-6c560c408cde Understanding the Closure Trap of React Hooks Digging into the classic problem betterprogramming.pub 문제 import { useEffect, useState } from 'react'; export default function App() { const [count, setCount] = useState(0); useEffect(() => { setInterval(() => { setCount(count + 1); }, 1500); }, []); useE..`} sitename={`Development & Investing`}/>
+

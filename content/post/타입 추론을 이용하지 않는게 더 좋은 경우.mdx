@@ -1,0 +1,225 @@
+---
+id: c4e69bb5-a318-49d6-921a-da9f05b90c0d
+type: POST
+title: 타입 추론을 이용하지 않는게 더 좋은 경우
+date: 2023-02-28
+subtitle: 타입스크립트의 타입 추론에 대해 이해해봅시다
+thumbnail: https://res.cloudinary.com/winterlood/image/upload/v1703649211/blog/post/%ED%83%80%EC%9E%85%20%EC%B6%94%EB%A1%A0%EC%9D%84%20%EC%9D%B4%EC%9A%A9%ED%95%98%EC%A7%80%20%EC%95%8A%EB%8A%94%EA%B2%8C%20%EB%8D%94%20%EC%A2%8B%EC%9D%80%20%EA%B2%BD%EC%9A%B0/file_pc7agd.webp
+tags:
+  - 타입스크립트
+---
+
+## 개요
+
+안녕하세요 이정환입니다 😃
+
+앞서 명시적으로 타입을 선언하지 않아도 자동으로 타입을 선언하는 기능인 타입 추론에 대해 살펴보았습니다. 타입 추론은 확실히 좋은 기능입니다. 프로그래머가 일일이 모든 변수에 타입을 선언하지 않아도 되므로 타이핑 하는 양이 줄고, 코드의 가독성이 향상합니다. 실제로 숙련된 타입스크립트 프로그래머가 평균적으로 그렇지 않은 타입스크립트 프로그래머에 비해 더 적은 양의 타입을 선언하는 경우도 많습니다.
+
+그러나 그렇다고해서 모든 것을 타입 추론에 맡기는 건 좋지 않습니다. 몇몇 상황에는 타입스크립트가 타입을 잘 못 추론 하기도 하고 오히려 타입 선언이 없어 코드를 알아보기 더 힘들어 지는 상황도 존재합니다. 이번에는 어떤 상황에 보통 타입을 직접 선언하는게 좋은지 살펴보겠습니다.
+
+## 초과 배열 요소
+
+앞서 배열을 비 구조화 할당 할 때 할당받는 변수의 타입은 자동으로 추론된다고 배웠습니다. 그런데 타입스크립트의 타입은 배열에 저장된 요소들의 타입에 대한 정보만 알 뿐 몇개의 요소가 저장 되었는지 까지는 모릅니다. 따라서 만약 다음과 같이 배열에 저장된 요소의 개수 이상으로 비 구조화 할당을 받으려고 하면 타입이 잘못 추론될 수 있습니다.
+
+```typescript
+let arr = [1, 2, 3];
+let [one, two, three, four, five] = arr;
+```
+
+one 부터 five까지 모두 number 타입으로 추론됩니다. 그러나 four와 five에는 undefined이 저장됩니다. 따라서 다음과 같이 four에 toFixed 메서드를 사용해도 타입스크립트는 타입 오류를 감지하지 못합니다.
+
+```typescript
+let arr = [1, 2, 3];
+let [one, two, three, four, five] = arr;
+
+four.toFixed(); // 문제 없음
+```
+
+그러나 이 코드를 실행하면 오류가 발생합니다. four에는 undefined가 저장되어 있기 때문입니다.
+
+<NImage
+  width={867}
+  height={232}
+  blurDataURL={
+    "data:image/webp;base64,UklGRhQCAABXRUJQVlA4TAgCAAAvY4AGAFegpm0DNvSki0cJJG1jsO1FrqBtIzd2e989i5//+H9NkSCFAhQqcCaFsR4DhNq260TUAa2Dpg4+DggOGhw0dUBxQHEA42BGZt59GSTcG9F/CG4bOZJc7VA91b3p7hNhvKS8H+/P75+vX/KQdnLLUmKcpyF0rZoTVsGy7s/jwypfhx6F96xbWhwasor78/3x9iPgc2eh1nQ1KLRSRaYCa10k+dJRuEEPotAVExGcYirQhz9WhKEH0W9rigVhYN/qLEBfJOX9WZarN4GbsGdUERgkASbrXloSKcFeNk8E0RjYSs3ZwQbNXrL0AvKuQjJdFS+ThoDLI625GNTrgNdihko2qZmD1JGulV2VcjFheBAyDN0AmuABW+nsJKbS8gEJuGWguYCjAh5GscFiJJ8kgXDC1lVR8KcDUEMPZm27q3sGJkjwxAzbiixmcglfFffM4ZgcVNAjmKUtQ8Es3G5JF79NbHobBJN0h3t8gj3N5L+CB7lavPmJq6LteB9qIwhFXIkuxVpNlm0SrzoBxoIl+RLs1CYEp8WurY0Yrl+kmZPoab2xIhdci78PC/OgILo/Tp0MAnz3kaQBJoDuP4BeGJcIuXLWalTgMNLdIOnsBA5KFcKHkeBbI+myI4ourP0kgeTIf6qH3JBVgcVJGr941lYK6LY1kxSlsfLh2bedbIcU5hOS"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649211/blog/post/%ED%83%80%EC%9E%85%20%EC%B6%94%EB%A1%A0%EC%9D%84%20%EC%9D%B4%EC%9A%A9%ED%95%98%EC%A7%80%20%EC%95%8A%EB%8A%94%EA%B2%8C%20%EB%8D%94%20%EC%A2%8B%EC%9D%80%20%EA%B2%BD%EC%9A%B0/file_pc7agd.webp`}
+  captionText={""}
+/>
+
+이렇게 배열에 저장된 요소 개수를 초과해 할당받는 경우 타입 추론이 잘못 될 수 있으므로 각별한 주의가 필요합니다. 만약 위 코드처럼 배열을 비 구조화 할당 받거나, 배열의 인덱스를 이용하는 경우 차라리 다음과 같이 길이가 제한된 튜플 타입을 명시적으로 선언하는게 더 안전합니다.
+
+```typescript
+let arr: [number, number, number] = [1, 2, 3];
+let [one, two, three, four, five] = arr;
+// 오류 : 튜플의 길이는 3임
+
+four.toFixed(); // 오류 : four는 undefined일 수 있음
+```
+
+또는 이후에 배우는 as const 구문을 이용하는 방법도 있습니다. 이 방법에 대해서는 나중에 살펴보겠습니다.
+
+## 초과 프로퍼티 검사가 필요한 경우
+
+변수에 객체를 저장하는 경우 타입을 명시적으로 선언하지 않으면 초과 프로퍼티 검사가 발생하지 않습니다.
+
+```typescript
+type Person = {
+  name: string;
+  age: number;
+};
+
+function getPerson(p: Person) {}
+
+let person = {
+  name: "이정환",
+  age: 27,
+  hobby: "cook",
+};
+
+getPerson(person);
+```
+
+초과 프로퍼티 검사는 타입이 선언된 변수에 객체 리터럴을 할당하거나, 함수의 인수로 객체 리터럴을 직접 전달할 경우 발생합니다. 그러나 위 코드에서 변수 person에는 타입이 선언되어 있지 않기 때문에 아무런 검사가 일어나지 않고 person의 타입은 `{ name : string; age : number; hobby : string }`으로 추론됩니다.
+
+따라서 getPerson에 인수로 person을 전달해도 문제가 되지 않습니다. `{ name : string; age : number; hobby : string }`은 Person 타입의 서브 타입이기 때문입니다.
+
+> 💡 왜 추론된 person의 타입이 Person 타입의 서브타입이 되나요?  
+> 타입스크립트는 구조적 타이핑을 따르기 때문입니다.  
+> 더 자세한 내용은 아래의 이전 글을 참고 하시길 바랍니다.
+>
+> <Bookmark
+>   url={"https://www.winterlood.com/post/b4494f88-b74d-4aec-9780-275686952a02"}
+>   title={"구조적 타이핑과 객체 타입 이해하기 - Winterlood"}
+>   thumbnail={
+>     "https://winterlood.com/api/og?title=%EA%B5%AC%EC%A1%B0%EC%A0%81%20%ED%83%80%EC%9D%B4%ED%95%91%EA%B3%BC%20%EA%B0%9D%EC%B2%B4%20%ED%83%80%EC%9E%85%20%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0"
+>   }
+>   description={
+>     "구조적 타이핑과 객체 타입 이해하기 - 타입스크립트의 구조적 타이핑에 대해 살펴봅니다"
+>   }
+>   sitename={"이정환 블로그"}
+>   favicon={"/favicon.ico"}
+> />
+
+    타입스크립트는 구조적 타이핑을 따르기 때문입니다.
+    더 자세한 내용은 아래의 이전 글을 참고 하시길 바랍니다.
+
+
+    <Bookmark url={"https://www.winterlood.com/post/b4494f88-b74d-4aec-9780-275686952a02"} title={"구조적 타이핑과 객체 타입 이해하기 - Winterlood"} thumbnail={"https://winterlood.com/api/og?title=%EA%B5%AC%EC%A1%B0%EC%A0%81%20%ED%83%80%EC%9D%B4%ED%95%91%EA%B3%BC%20%EA%B0%9D%EC%B2%B4%20%ED%83%80%EC%9E%85%20%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0"} description={"구조적 타이핑과 객체 타입 이해하기 - 타입스크립트의 구조적 타이핑에 대해 살펴봅니다"} sitename={"이정환 블로그"} favicon={"/favicon.ico"}/>
+
+그런데 만약 hobby 같은 초과 프로퍼티가 존재하면 안되는 상황이라면 다음과 같이 타입을 명시적으로 선언하여 초과 프로퍼티가 허용되지 않도록 막아야 합니다.
+
+```typescript
+type Person = {
+  name: string;
+  age: number;
+};
+
+function getPerson(p: Person) {}
+
+let person: Person = {
+  name: "이정환",
+  age: 27,
+  hobby: "cook", // 오류
+};
+
+getPerson(person);
+```
+
+## 함수의 반환 값
+
+앞서 살펴 보았듯 타입스크립트는 기본적으로 함수 반환 값의 타입을 자동으로 추론됩니다. 그러나 아주 간단한 함수가 아니라면 보통 함수의 반환값 타입은 명시적으로 선언하는 걸 권장합니다.
+
+다음 예제와 함께 어떤 이유가 있는지 살펴보겠습니다.
+
+```typescript
+type User = {
+  id: number;
+  name: string;
+  loc: string;
+};
+
+type TUser = {
+  id: number;
+  userName: string;
+  idWithName: string;
+};
+
+function transUserArray(users: User[]) {
+  return users.map((user) => ({
+    ...user,
+    idWithName: `${user.id}-${user.name}`,
+  }));
+}
+
+const transUsers = transUserArray([]);
+```
+
+transUserArray 함수는 유저들의 정보가 저장된 User[] 타입의 배열 users를 매개변수로 받습니다. 그 다음 map 메서드를 이용해 users에 저장된 각각의 유저 정보에 idWithName 프로퍼티를 추가한 새로운 배열을 반환합니다.
+
+이 함수의 반환 타입은 무엇일까요? 동료가 만약 이런 함수를 만들어 놓았다면 당연히 TUser[]의 반환 타입을 가질 거라고 생각할 수도 있습니다. 그러나 transUsers 변수의 타입을 명시적으로 TUser[]로 선언하는 순간, 오류가 발생합니다.
+
+```typescript
+type User = {
+  id: number;
+  name: string;
+  loc: string;
+};
+
+type TUser = {
+  id: number;
+  userName: string;
+  idWithName: string;
+};
+
+function transUserArray(users: User[]) {
+  return users.map((user) => ({
+    ...user,
+    idWithName: `${user.id}-${user.name}`,
+  }));
+}
+
+const transUsers: TUser[] = transUserArray([]);
+// 오류 발생
+```
+
+TUser 타입을 자세히 살펴보면 프로퍼티의 이름이 name이 아닌 userName으로 선언되어 있는 걸 볼 수 있습니다. 아마 이전에 이 함수를 만든 동료가 제대로 확인하지 못한 것 같습니다. 좀 억지스러운 실수 연출인가요? 그런 면도 없지 않아 있지만 실제로 이런 실수는 많이는 아니지만 종종 발생합니다.
+
+이럴 때 함수의 반환값 타입을 명시적으로 선언하면 실수하지 않을 수 있습니다.
+
+```typescript
+...
+
+function transUserArray(users: User[]): TUser[] {
+  return users.map((user) => ({
+    ...user,
+    idWithName: `${user.id}-${user.name}`,
+  }));
+}
+
+const transUsers: TUser[] = transUserArray([]);
+```
+
+transUserArray 함수의 반환값을 TUser[] 로 선언하면 함수 내부에 빨간 줄로 어디에서 반환이 잘못 되었는지 오류를 표시해 줍니다. 그러므로 함수를 처음 만들 때 부터 반환값이 올바르게 프로그래밍 되었는지 확인할 수 있습니다.
+
+오류가 뻔히 보이는데도 푸시하는 사람은 없으니 아마 우리는 동료에게 이전과 달리 오류가 해결된 다음과 같은 코드를 받게 될 것입니다.
+
+```typescript
+...
+
+function transUserArray(users: User[]): TUser[] {
+  return users.map((user) => ({
+    id: user.id,
+    userName: user.name,
+    idWithName: `${user.id}-${user.name}`,
+  }));
+}
+
+const transUsers: TUser[] = transUserArray([]);
+```
+
+이렇듯 함수 반환값 타입을 명시적으로 선언하면 함수를 구현할 때 부터 반환값이 제대로 설정 되었는지 체크할 수 있으므로 안전한 프로그래밍에 도움이 됩니다.
+
+또 이런 실수를 하지 않는 프로그래머들끼리 모였다고 하더라도, 함수의 반환값 타입이 명시적으로 선언되어 있으면 이 함수가 어떤 타입을 반환 하는지 비교적 파악하기 쉽습니다. 따라서 여러명이서 공동으로 작업하는 경우 최대한 반환값 타입을 명시하는 걸 권장합니다.
+
+<Blank />

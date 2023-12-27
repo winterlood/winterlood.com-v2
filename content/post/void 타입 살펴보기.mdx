@@ -1,0 +1,210 @@
+---
+id: b85e0122-dc15-4a16-aee7-c52ccbd4ac2f
+type: POST
+title: void 타입 살펴보기
+date: 2023-02-14
+subtitle: void 타입에 대해 살펴봅니다
+thumbnail: https://res.cloudinary.com/winterlood/image/upload/v1703649342/blog/post/void%20%ED%83%80%EC%9E%85%20%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0/file_bkxj3e.webp
+tags:
+  - 타입스크립트
+---
+
+## 개요
+
+안녕하세요 이정환입니다 😃
+
+이번에는 타입스크립트의 void 타입에 대해 살펴보겠습니다.
+
+## void 타입
+
+void는 우리말로 ‘공허’라는 뜻으로 ‘아무것도 없음’ 또는 ‘값이 없음’을 의미하는 타입입니다.
+
+C언어를 사용해본 독자라면 void 타입에 대해 익숙 할 것 입니다. C언어에서는 보통 함수가 값을 반환하지 않을 때 반환값의 타입으로 void를 사용합니다.
+
+타입스크립트의 void 타입 또한 함수가 값을 반환하지 않을 때 반환값의 타입으로 주로 사용됩니다.
+
+### 함수의 반환값 타입을 명시하는 방법
+
+타입스크립트에서는 다음과 같이 함수 반환값의 타입을 선언할 수 있습니다.
+
+```typescript
+function hello(): string {
+  // 반환값 타입 선언
+  return "hello";
+}
+```
+
+함수 반환값의 타입을 선언 하려면 함수의 매개변수를 작성하는 소괄호() 뒤에 타입 어노테이션(:타입) 을 사용합니다.
+
+이 방법은 화살표 함수 및 함수 표현식을 사용할 때에도 동일합니다.
+
+```typescript
+const hello1 = (): string => "hello";
+
+const hello2 = function (): string {
+  return "hello";
+};
+```
+
+참고로 대부분의 상황에는 함수의 반환값은 타입스크립트가 자동으로 추론합니다.
+
+다음과 같이 함수를 만든 다음 마우스 커서를 함수 이름에 올려보면 추론된 타입을 확인할 수 있습니다.
+
+```typescript
+function hello()
+  return "hello";
+}
+```
+
+<NImage
+  width={738}
+  height={262}
+  blurDataURL={
+    "data:image/webp;base64,UklGRpwBAABXRUJQVlA4TJABAAAvY8AIABfwAhAFaRuwuHs+JhZM8bU4mv/4GxrITrUtr6xPsAA/mPSTgClgfl7Buc8HsZ8d0Psj5G1zR+eUENH/CcBjvTksPFPG+FXboFczuzLw+faq9/3Uaa0e9gKWDCBb4/C+u1nOQDwu1KNz3MzsOhKActhVz4lSWj0SsMf+a9Y5LqxmlhOgxa563yO2XnMCoEqevXPy/LVcD+wfymaFk60f1wsAds+btU2w1iMDiCGQlbNmKQFYlt2TPGdazgCWzxiEpXGy2IX3RTdP8r5HzAeAPQbnhWyN43YkYP9UVSfkzUnLwPLpdZNVSJ59VAFE/YwhOCF757AkIGr04pwI2U4bNGDXoGsUEWHp9R4YEKMXJ+GNxezfE7DotoYg72y1Vnv4TVANMmS5gFclWRIWdc6PzGrNr5s0YPdBxrQMION9UecmiuExA9i9l8mW0wOARTeZNQD78hC9n2oZ+PiMMX6objKdgPj+o7qFuYpFVb264L3MA1H9GiSKkz/punqJEsT9RTfv11X+I2JY5f8C"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649342/blog/post/void%20%ED%83%80%EC%9E%85%20%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0/file_bkxj3e.webp`}
+  captionText={"string으로 추론된 hello 함수의 반환 값 타입"}
+/>
+
+우선 지금은 타입스크립트에서 함수를 사용하는 방법에 대해 살펴보는 것은 아니므로 이 정도만 살펴보고 나중에 더 자세히 다루겠습니다.
+
+### 함수가 값을 반환하지 않을 때 사용하는 void 타입
+
+다음과 같이 아무런 값도 반환하지 않는 함수가 있습니다.
+
+```typescript
+function voidFunction() {
+  console.log("void function");
+}
+```
+
+함수 voidFunction은 콘솔에 “void function”이라는 메세지를 출력하고 종료됩니다. 아무런 값도 반환하지 않습니다.
+
+그렇다면 voidFunction의 반환값은 무슨 타입이라고 봐야 할까요? 또는 타입스크립트는 이 함수의 반환값 타입을 뭐라고 추론할까요? undefined일까요? null일까요?
+
+voidFunction 함수의 이름에 마우스 커서를 올려 타입스크립트가 추론한 이 함수의 타입을 확인합니다.
+
+<NImage
+  width={798}
+  height={222}
+  blurDataURL={
+    "data:image/webp;base64,UklGRmoBAABXRUJQVlA4TF4BAAAvY8AGABcgFkzxtTwiEKBMFY4gk7ZNXW1nY/Mf/w11IDm19jqSfoN6rx/aCcwjj3pIMFuBr0DbBgtckUwCKvgdgMFO02XFENH/CSBB24/OpdYMICM0s/3ita713YCgKVK2o3eppQAq0Oa6daybWYPoNILtR+e+1JwBFWi29ByrzUCQAUpde2qtJcMYRFuzo/P1Wg3QuwiUunUcm5Fh8k4mmh29S60wfjmRSF161pqB5AeRRLOtYzMr8O1uIiPN9o4lA/EuIpKY5/XqtVqB6N0gEifqdrXNwKiDiEigmO0X5T2fbiefyNvFagBBhpNGmtmnmgtEp3IO00Sz/ZSZAR3k4y3Q/v6U4zjq/AZiuH3yYYL804ySAVTcp1tQaP8LM+fRq1yG6ZvxFzNnvTm5vPmQUpqIJ1WVTqca/8VEUB2ck05/c6qagtcQ/F2GDhl8CMGpqoqT/ptT728iIkH6AQ=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649344/blog/post/void%20%ED%83%80%EC%9E%85%20%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0/file_zj14sa.webp`}
+  captionText={""}
+/>
+
+타입스크립트는 voidFunction 함수의 반환값 타입을 `void` 라는 타입으로 추론하고 있는걸 확인할 수 있습니다.
+
+이렇듯 void는 아무런 값도 반환하지 않는 함수의 반환값 타입으로 사용됩니다.
+
+## void 타입은 왜 존재하는걸까?
+
+그런데 생각해보면 좀 이상합니다.
+
+사실 타입스크립트에는 void 말고도 이미 ‘값이 없음’을 의미하는 타입이 2개 있습니다. 바로 null 타입과 undefined 타입 입니다.
+
+void 타입이 함수가 아무것도 반환하지 않을 때 해당 함수의 반환값 타입으로 사용된다는 것은 알겠는데 ‘값이 없음’을 표현할 때에는 null이나 undefined을 사용하면 되지 않았을까요?
+
+그 이유는 undefined이나 null을 함수 반환값의 타입으로 선언하면 실제로 함수가 return 문을 활용해 null이나 undefined을 반환해야 하기 때문입니다.
+
+```typescript
+function func1(): undefined {
+  // 오류 발생
+  console.log("hi");
+}
+
+function func2(): null {
+  // 오류 발생
+  console.log("hi");
+}
+```
+
+오류로 나타나는 메세지는 다음과 같습니다
+
+**“선언된 형식이 'void'도 'any'도 아닌 함수는 값을 반환해야 합니다.”**
+
+즉 함수 반환값의 타입을 void이거나 any로 선언하지 않았다면 return 문을 통해 값을 꼭 반환 하라는 의미입니다.
+
+그럼 이번에는 좀 다르게 시도 해 보겠습니다.
+
+빈 return 문을 사용해 아무런 값도 반환하지 않도록 함수를 수정합니다.
+
+```typescript
+function func1(): undefined {
+  console.log("hi");
+  return;
+}
+
+function func2(): null {
+  console.log("hi");
+  return;
+  // 오류 : undefined은 null에 할당할 수 없음
+}
+```
+
+`return;` 은 undefined을 반환합니다.
+
+따라서 func1은 반환값 타입이 undefined으로 선언되어 있어 오류가 발생하지 않지만 func2는 반환값 타입이 null로 선언되어 오류가 발생합니다.
+
+이렇듯 번거로운 상황이 나타나기 때문에 다음과 같이 void 타입을 사용해 편리하게 함수가 아무것도 반환하지 않음을 표현할 수 있습니다.
+
+```typescript
+function func1(): void {
+  console.log("hi");
+}
+
+function func2(): void {
+  console.log("hi");
+}
+```
+
+참고로 void 타입을 활용하면 아까처럼 return; 처럼 undefined을 반환하게 하거나 undefined 값을 직접 반환해도 문제가 발생하지 않습니다.
+
+```typescript
+function func1(): void {
+  console.log("hi");
+  return undefined;
+}
+
+function func2(): void {
+  console.log("hi");
+  return;
+}
+```
+
+이것은 사실 void가 undefined 타입을 포함하는 타입이기 때문에 그렇습니다. 지금은 그렇다고만 알아두어도 괜찮습니다. 나중에 자세히 다룹니다.
+
+그러나 null을 반환하게 하면 오류가 발생합니다. null은 void 타입에 포함되지 않기 때문입니다.
+
+```typescript
+function func1(): void {
+  console.log("hi");
+  return undefined;
+}
+
+function func2(): void {
+  console.log("hi");
+  return null;
+  // 오류 : null은 void 형식에 할당할 수 없음
+}
+```
+
+이럴 때에는 tsconfig.json의 strict 옵션이나, strictNullCheck 옵션을 false로 설정하면 오류를 방지할 수 있습니다.
+
+```typescript
+{
+  "compilerOptions": {
+    ...
+    "strict": true,
+    "strictNullChecks": false,
+    ...
+  },
+  "include": ["src"]
+}
+```
+
+> 💡 **strictNullCheck 옵션**  
+> strictNullCheck 옵션은 null 타입이 아닌 변수에 null 값을 할당할 수 있는지 유뮤를 결정하는 옵션입니다. 따라서 이 옵션을 true로 설정하면 null 값을 void타입에 할당할 수 있습니다.
+
+    strictNullCheck 옵션은 null 타입이 아닌 변수에 null 값을 할당할 수 있는지 유뮤를 결정하는 옵션입니다. 따라서 이 옵션을 true로 설정하면 null 값을 void타입에 할당할 수 있습니다.

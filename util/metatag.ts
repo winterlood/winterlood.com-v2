@@ -2,15 +2,13 @@ export function getMetaTag(info: {
   url: string;
   title?: string;
   description?: string;
+  ogImageUrl?: string;
   ogImageTitle?: string;
 }) {
   const title = info.title || "무엇이든 쉽게 설명할 방법은 있다";
-  const description =
-    info.description || "무엇이든 쉽게 설명할 방법은 있다 🔥";
+  const description = info.description || "무엇이든 쉽게 설명할 방법은 있다 🔥";
 
-  const imageUrl = `${
-    process.env.BASE_URL
-  }/api/og?title=${encodeURIComponent(
+  const generatedImageURL = `${process.env.BASE_URL}/api/og?title=${encodeURIComponent(
     info.ogImageTitle || info.title || "이정환 블로그"
   )}`;
 
@@ -23,7 +21,7 @@ export function getMetaTag(info: {
       url: info.url,
       siteName: "이정환 블로그",
       images: {
-        url: imageUrl,
+        url: info.ogImageUrl ?? generatedImageURL,
         alt: title,
       },
       locale: "ko_KR",
@@ -35,7 +33,7 @@ export function getMetaTag(info: {
       description,
       creator: "이정환",
       images: {
-        url: imageUrl,
+        url: info.ogImageUrl ?? generatedImageURL,
         alt: title,
       },
     },

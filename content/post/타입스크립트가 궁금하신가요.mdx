@@ -1,0 +1,618 @@
+---
+id: 68327fe5-60ae-4462-bebe-396d29fa2212
+type: POST
+title: TypeScript가 궁금하신가요?
+date: 2023-11-04
+subtitle: 말도 많고 탈도 많은 TypeScript 도대체 너 누구야!?
+thumbnail: https://res.cloudinary.com/winterlood/image/upload/v1703648903/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_inloro.webp
+tags:
+  - 한 입 크기로 잘라먹는 타입스크립트
+---
+
+## TypeScript를 소개합니다
+
+### 어떻게 탄생했나요?
+
+타입스크립트는 2012년에 마이크로소프트의 개발자이자 C#의 창시자로도 알려진 아주 유명한 덴마크 출신의 개발자 Anders Hejlsberg(앤더스 하일스버그)의 손에서 처음으로 탄생했습니다. 그래서 여담이지만 C#의 창시자가 타입스크립트도 만들었기 때문에 둘이 비슷한점이 꽤 있습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRvAAAABXRUJQVlA4IOQAAABwCACdASpkADgAPp1Em0m0tawhLJRrwrATiWcAxcB8QN2OzcaImil45n77R8RKC1idBk+DftBr477zECEnzlVMAmqvcl/s2LYFVNHwAP7y/10OicfI6u/r+dvboDy2L5OWQ6GKqy/yrcHb4UuvVf1JwM71U5/QY4TuStu5vfVHi8O9tx07hrRyqGTuAYRGKaD4NO4wKVsbk779h+9SCPjyM4b+isA7ypp8aN5g/ewrTJW8wxiavA3Dj6bNO3MaTFGdG3BqjvwTpyYFIE8cXPygbsxCgUWygSNsxYcctFDjOmvAAAA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648903/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_inloro.webp`}
+  captionText={"test Captions"}
+/>
+
+<Blank />
+
+### 오픈소스로써의 TypeScript
+
+또 타입스크립트는 오픈소스로 공개되어 있는데요 그래서 현재도 많은 프로그래머들이 이 언어의 개발과 유지보수에 참여하고 있고 다양한 토론을 이어가고 있어서 앞으로도 발전 가능성이 아주 창창한 언어라고 볼 수 있습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRpIBAABXRUJQVlA4TIUBAAAvY8ANAA/wgowbVPzgY/7jAXClbVejfMmsazYz2/sC4QJo3V0Owek1Pe5WObXbWaRyvQkome3RihLOyklK6oj+K2zbtpEBpXu8wQzj/S9RDRn//TPiqeonjfrDoV28pvk9+8twRd/StHRw5ZQMeNn4N23PrFTJi5edE7L/zFiifbY9rStKla2hvnjjs5u9U0obq/a7CG30su44jVQcU6rYjz3sjkZI1EReKkO9TqZuVK5Kx3tUWVz2jA+Q5UgJVuleIK24I1qxTPf25JkJT09Hw0LADLmiUqJORpZCjq3VfEUQt1yJTQkNftgaKlFsZYq53ATkzwAB9/lGQKj3+wSfjHI3qzQFTICUn5EaBbYLARMwYXmSRcBmm4CQlhYFTOCS704sAfmiAAmQHFchQJJ00uwABI4JR48ZQD64uLUKIN/Gdxwd3DKdrhQAok5aRss6PTmACfA4coPQZ8KRMAEI6ZTny8jws/kQeMUBQObl6vHDII4rAJjRD/P/Mxy2iUY/RyEvBwA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648906/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_rpupyw.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+### TypeScript의 인기
+
+타입스크립트는 현재 자바스크립트 프로그래머들 사이에서 굉장히 인기있는 언어입니다. 사실 지금 현재는 피할수 없는 대세 라고도 할 수 있을 정도로 그 인기가 매우 대단 합니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRt4AAABXRUJQVlA4INIAAACQCwCdASpkADgAPrFMm0oypKIhsl36AlAWCWkA0Ycc92CN9r9JahsRLD7jZvjpmnRjHmeBBqAVAslyyJHheY0mFpJxpP36eXbmXL7s+saw0CPS6Edkdh1kRwDqDUolX/+Ff91eQAD+8Mj7M5dHKzBmfk42BTRGVV5HNu+oojtDxco8dyOxkqe+88NCnX4wpTEv4R+AfwWGoraX5vwZiAn5takwC/nkbr/mrwpr2cDCRCc2AvX16/7e81uZlxyDROrnsdZKXvg+/sH1AWSjUj9gAAA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648911/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_kwe590.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+구체적인 수치로 그 대단함을 따져보기 위해 StateOfJs라는 전 세계의 자바스크립트 개발자들을 대상으로 매년 설문조사를 하는 매우 공신력있는 기관의 설문 결과를 함께 살펴보겠습니다.
+
+[https://stateofjs.com/en-us/](https://stateofjs.com/en-us/)
+
+이 기관에서 2022년도 작년에 조사한 설문 결과에 따르면 지금 현재 100명의 자바스크립트 개발자들 중에 딱 11명만 타입스크립트를 아직 사용하지 않고 있다고 밝혔다고 합니다. 반대로 말하면 100중 89명은 타입스크립트를 이미 쓰고있다는 거죠?
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRt4BAABXRUJQVlA4TNIBAAAvY8ANAA9wAxGCbNvQtoucQIAyVRhj/uPfBnJt21YlZZfhrumlcf+Ext0pwSvF+YQSnMghdHu4u8VE7hq6ew3eW2PUO7f5hYj+M3DbtpELsLeH0VdIGvYbivLGoRp8ztjsm0GdTjYtghqULGV3GDghEzfhQQilriar+p0DXiUt2+5HUGppzozbcx4oWhqCxcCNtNkfd7gGrOhh2H/4cOSjdYaCObxxRu5Y1MTP7jv8NISBBtcydy6CHbaSbPDuJ0ww6TA8t+0TdE3EGZbtHTyl0f64gmxufzR1kz08KliVDfp59Os9Y/PWDU5KS8NyE1oOb3BpZQNJrveoDuW0XKVLUsNuTeiYlFSdc09ScNgUNS47uJWGHZ5g63j/q5M67D/sTGuXT9R5OiATZzE3esstO2F2doVsq19+zVzyEfIaFj5qFec0DNSh36WOksofYGrydkT7mJ9wQbswDAvr6D6GcgSNidsw0KOgd9Ddo5j4AkMlTQOGxhRjQriQ/NMEFH12RTA08c+L4S3c8BioH00cZmryh6X8f7rrjUcNRvsFuRAyeu39+Q9KLXUImkvSO0rSTVudbrMzqXGQijOevuZ9diEvbCmpVpIZnSS5H96qLksC"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648914/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_utwz2h.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+영어권 뿐만 아니라 국내에서도 인기가 대단합니다. 실제로 취업시장만 봐도 자바스크립트를 사용하는 개발자 채용 공고들 중에 프론트엔드 백엔드 포지션을 막론하고 자격 요건이나 우대사항에 이제 타입스크립트가 거의 단골로 등장하고 있습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRt4AAABXRUJQVlA4INIAAABQCwCdASpkADgAPp1ClUosJCchujyMyYATiWkA1jArSie0KW4Tf8GxULPfbroIlpTOnZCjaFZUOLoaSoJdMPgpT9AZcGjdq5UUpvJ2mYqUgEQB4QSKWCMxE7dWkFRDbcNypCAA/vKo/RnAWsEEzzNuyO/qfNR5T4/CvGz2iT462JhgpXm4plh4zaq5i5WCT+mvC8FFLs1EuVzHVfiEOWUGxP1rhhI6PO01TC++RGGWozBJYH5tDDjkAtnjiwQKbEEvgG0XjatDcvJa7pynS8AAAAA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648916/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_wsbrx2.webp`}
+  captionText={""}
+/>
+
+또 23년도 올해에 프로그래머스가 공개한 개발자 설문 조사 결과에 따르면 가장 배우고 싶은 언어 2등으로 타입스크립트가 선정되었습니다.
+
+사실상 1위가 코틀린이기 때문에 자바스크립트를 사용하는 개발자 분들 사이에서는 아마 타입스크립트 압도적으로 배우고 싶은 언어 1위일 것 같습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRrwAAABXRUJQVlA4ILAAAACwBgCdASpkADgAPp1GnUqoKyyhqBbaqZATiWcGcA0mQKd+UNooy7ZHbKvaIyL/hBcEXEp5L1xKF2lT6ObdQAD+8+WfMv/us1xUOnphRn4k7m4krt44qkFHVUxoFwWrHluTs0ZcNyKZVQhYXEsCrV/yV0cN1JXjXpV9WjIL57hs3an7qmUe/AgviA2WsWK/8Wi/quPj12HXNIXsI05pr1nuJiCebQ7QYGBAUABoAAAAAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648920/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_xluio6.webp`}
+  captionText={""}
+/>
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRsAAAABXRUJQVlA4ILQAAABQBwCdASpkADgAPp1InUsoL6mlKBbZ6fATiWcG+Btv4VKpyvgetphuWKN3b4g4SMfmeICMt0TDtkfKvRvUM5vm0J0AAP7y/zQ1BG/Qc296wl2+LD4iz3T9l/8J9Lz4+Rbxdbu3+cCUPjaJLOPWFCo5fRrHrzjyTC1nTHZF9XHuJ3IGFLDf3R6qkQIBTo0RbLomaer7KgZ/IUQEKXJSx1+S5Rs4zlM98S0JlhDMm5ADmPQAAAA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648924/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_eednz4.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+### TypeScript는 JavaScript의 슈퍼셋(확장판)
+
+이렇게 인기가 많은 타입스크립트는 어떤 언어일까요?
+
+사실 타입스크립트는 자바스크립트와 완전히 다른 언어가 아닙니다.
+
+타입스크립트는 기존의 자바스크립트를 더 안전하게 사용할 수 있도록 타입 관련된 여러가지 기능들을 추가한 언어입니다. 그래서 타입스크립트는 쉽게 말해서 자바스크립트의 확장판 이라고 부를 수 있습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRsoAAABXRUJQVlA4IL4AAADQCgCdASpkADgAPp1Em0mlsiIhLtTpmkATiWcGcA1bSroerGwm165o+5BHupTiJMXSuY2/3efzc9eC4G/NbzblyLq8iJ669e+EP04182LoeBO4hiE+a9m/sNow1YboAAD+9cSzxMzmyh60T2MpefCbdPXTqD1ozGb2z579HqOFg4AaQHcmYWQ2xJsrf6ktICXEQHJo5LfvACspN7Cd5PzGmulY+jEK6CBQYobdsHwlPUx/o7NfOm8YFNPgAAAA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648927/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_ws5yos.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+여기 동일한 기능을 하는 두 개의 코드가 있는데요 왼쪽은 자바스크립트 코드이고 오른쪽은 타입스크립트 코드입니다. 완전 비슷하게 생겼죠? 두 코드 모두 두개의 변수를 선언하고 두 변수를 더한 값을 콘솔에 출력합니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRkYBAABXRUJQVlA4TDkBAAAvY8ANAA/wA5AbgNzgZP7jAZK0bTu+7vre4+dRnL/9cm3Ctl1LaAn2yAuwMTL3YNe0fuOsNzzVn/OI/k8AXBpxKwCIK34RLjyAmjLikteCvKtXoS7YRkPDlBG3vECaT6oPtiBkQbrIsBHX4ZNMAKBnpdpkF3ReS/XBCp239yrUhgO2VSPWd0Jc3p4073VBp0+qd4OfXngV5r1A2pERa90KGH0UShVQcPxqKo0xsSEQ1zCyVzv6bEyxDQibXCwo3jYm1gIaiooHmDT1rQB6aComo+l5KwaIa+kvSiLqptQfQGuPP3FdEzYLIDlfQX5mAEC6toGe6kbszVNAuBKwARMuxF4Aa9D1KYk4IM6FqBWAkmwAcXHS9/0km/DTuO/9L/2+91ut7/3Q7xtx/Fh9x4/fqb9oAGwoiTgAAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648930/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_k0xisc.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+이 두 코드의 차이를 한번 살펴보면 왼쪽의 자바스크립트 코드에서는 변수를 선언할 때 변수의 타입까지 지정 하지는 않습니다. 자바스크립트에서는 변수의 타입을 프로그래머가 직접 정의할 수 있는 방법이 없기 때문이죠
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRk4BAABXRUJQVlA4TEIBAAAvY8ANAA9wg5AbhLzgZP7jAVJta1vm5vyzeFToAr5MGGw0s2KGX4cvgVlxIpkZCnJsNXPr48v95y28+WR1RP8nAN6I6jpA/UlCeRwFxn6I6qYDRyeaRIFST7uMASd3mkSBrYTmzgMtn7V4Fpgnoo9GgP0f2qcUGGsXfTQA5oWnxVPA3yz3lEHJC08biUDSiehxH5T0eZrrgP+t6G1RKHn4Q7sEcu9E5FNCpMAHYydfRJo+i2wAaS88Kc56KpIPlJxcyGnSfEICwOLzH4/q6pq9zWWgot/tynJM40AEWDy5aZkfG9tb8AOmuacllpTZWOQAUydP8yNQUwZgSs8XgOk0PzBW2NLgg6QygMyGvDRgLPwPZY3TfvDz7+JqvgOUKJipZu438zFszarPIhxxkiwwq1iO4djgx9aw6LegBOuw3X86"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648933/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_jrxgro.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+반면에 오른쪽 타입스크립트 코드에서는 변수의 이름 뒤에 콜론과 함께 이 변수의 타입을 정의할 수 있습니다.
+
+지금 이 타입스크립트 코드에서는 변수 a와 b 모두 number 숫자 타입을 갖도록 정의를 해 둔 겁니다. 자 이렇게 되면 이제 이 변수에는 숫자값 이외에는 넣을수가 없게 됩니다. 변수의 타입을 고정한거죠
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRjoBAABXRUJQVlA4TC4BAAAvY8ANAA9wg5AbhLzgZP7jAVC0bVusPDNHIXl3hz24JtcVaHV3Sw7V3ZLbdKJl2ADRYc6H/PNHckT/JwDqRGkFAVHbtqK3Aui7E+VDsAFRNwFFbxnQdybqCWDyziHdDRkdqt4dIO5eJakmZDw5zIVAyKGqt8qE5Q+VpBswtu1QFQVRTwFVigdynkW9AExuO6QYENVsqypiYGj7VRUMLN7Vpvb/2XFD6OHRdpMtYgUDGVvbYYYt0rsWA5RWFJV/iFjBwGpcvNH3KGJlARQVubkWOYgAJqNCYVHkIMaEjKIsmA1IahCOGbbs8LcwDCY/eiNNA6L4e2dt+wHGgMXSCgPN8ooKU6OkwkRzIqVQo684B92h6WCdkLgonYwgU8edgakRFYq2Ww+/Vgbaht5/Gw=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648935/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_dqmutc.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+자 이렇듯 우리가 원래 사용하던 자바스크립트 코드에서 타입을 정의하는 문법만 딱 추가하면 타입스크립트 코드가 됩니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRqYBAABXRUJQVlA4TJoBAAAvY8ANAA/wgpAbgLzgZP7jAVKubVvkdkj3zAmrCVtOFgIq/gu1DTOTX1/N6IK+3M5sQJWZSTNablUYXjPvF9F/hW3bNgrKrk/gh4QnCzh7PdxUOeB9VOQAx3+Fe9Dhcrj7nqIEKNIsAE/XFFkpFM1sqZJA2d9wh1IBs60IgIV/Vs7q5wGgRT0/yAIurilygO6vigY43LQa7lAmEPks8l9Ephyg4dqe5OyIPMiCosjb3cKWTZFagKOJZG/JU5EVF4i8HTxx+KpILoCJ+RGO7smQA2a2f8ElsispALSUg1k9FAe4ON/kwq8VACjOBhPtzQc4kJICBNUOAN0OGH8WgBSnCIr6y12AIs+Bw+fnASAFyMhrCWcA4+dgmdmmBkuYWLZtDfRkOTovErMszJvWmKV+P3Ate8vAQJPlJ9gKciz475OWn0ji3mC+3s3b7aUMzfztyaFmXY+dsr/fB1NVRS9vry11qw6X/D40pOHAxFJdjsq7+Gt7wMLM6MrgtO5icDCuKZq+/a7V05S1jFmeD5vEtRyjyVloPZMDAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648939/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_oyidpi.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+이렇듯이 타입스크립트는자바스크립트에서 변수에 이렇게 타입을 직접 지정하는 등의 타입을 더 안전하게 사용할 수 있는 여러가지 기능들이 추가된 자바스크립트의 확장판이라고 볼 수 있습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRtQAAABXRUJQVlA4IMgAAAAwCQCdASpkADgAPp1CmkmlriihLtTqIcATiWcAyngvzDnytmGkYOiuwMECAOdBj83Mg5AjsnJWS09erghXaDdw2d3aXg3BLoPOQg+8kSc2q4vAAP72HtyCSP8ype0VVy/7dRm26eqiCQyymzN/b60OBPq61S/e8rzEGI5xtB5NHbsQsQdXCcQaZ7Gwr9Gxuy8TdBqxi/O+wA3T5wUJYKfQk44TVOYlriczBxSZQsY/0G+Acq9Ots5/pA3qxNQZmCBzCWcUxmAAAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648942/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_wotzus.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+보통 확장판이라고 하면 기존에 있는 기능들과 개념은 유지한 채 뭔가 새로운 것들이 추가된 거를 확장판이라고 하잖아요? 그런것 처럼 자바스크립트의 확장판인 타입스크립트에서는 우리가 알고 있는 자바스크립트 기본 문법 들은 다 쓸 수 있습니다.
+
+이미 자바스크립트에 익숙한 여러분께서는 타입스크립트를 공부할 때 타입을 다루는 추가적인 기능들에 대해서만 공부하면 되기 때문에 아주 빠른 시간안에 쉽게 타입스크립트를 배워 여러분의 프로젝트에 바로 활용하실 수 있습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRtIAAABXRUJQVlA4IMYAAACwCgCdASpkADgAPp1GnUm0ryyhK3ZqqpATiWcAzgSrAYhBEuS75MPbzyT58f591X9fG+Y8DTtmrUKXwwtA7McQSVlIYZYsvvao5R4HKbCm5cSItlMDiCJdayOrALwAAP71NDyzLCB2kWAsfr6zOnbp6yNzYmV6qexyvZHpJoDtYAVTVbww5E9L7aQbj+LGlFudFDxzFWyvuMPMbMjqBYkaNmx0sodoN8alPUBefdhuUP9MaTLeS61cnZE1bQ3V6Gb0r3r0AAA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648946/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_ehne4b.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+## 왜 TypeScript가 필요한가요?
+
+근데 여기서 한가지 의문이 생길 수 있는데요
+
+타입스크립트 인기 좋은거 알겠고, 취업 시장에서 많이 요구하는 것도 알겠고, 배우기 쉬운것도 알겠는데 이미 나는 자바스크립트 만으로도 잘 쓰고 있었는데 이게 꼭 필요한가? 내지는 내가 굳이 이걸 또 배워야 하나? 라는 의문이 드실 수도 있습니다.
+
+<Blank />
+
+사실 자바스크립트 자체만 봐도 이미 세상에서 가장 인기있는 프로그래밍 언어입니다 실제로 2022년도 스택오버 플로우 개발자 설문 조사 결과에서도 인기 투표 1등을 차지하고 있습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAACwBQCdASpkADgAPp1Kn00lo6KiIlgJiLATiWcAy2gDS4jsKBPY7TXAuUnQtE/C6rQ22vT9q4AA/vI6FtdDOc5VjAJ/+TS0IQRnlPtVqpUGEamN2/8Djtwu1gQ5DmlLBrqKHMK0jYp8oPFHZWPHAEHKw7/2FpBZWh5pvx9WYRezoXqGFxd5sJ/mXYEfEuEe1/gJIAAA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648948/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_gyutkg.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+자 그런데 굳이 이렇게 잘 쓰고 있는 자바스크립트에 왜 타입이라는 기능을 추가해서 타입스크립트를 또 만들어서 쓰고 있는걸까요?
+
+그 이유는 아이러니 하게도 자바스크립트가 너무 잘나가서 그렇습니다.
+
+사실 자바스크립트라는 언어는 웹 브라우저에서만 동작하도록 만들어 졌고 또 아주 간단한 사용자 상호작용을 처리하기 위해 만들어졌습니다. 쉽게 말해서 그냥 웹사이트에서 우리가 버튼을 클릭하면 경고창 띄워주는 정도의 상호작용을 만들기 위해 개발된 언어라는 거죠
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRv4AAABXRUJQVlA4IPIAAAAwCwCdASpkADgAPqlEmEotKqqhttv7AaAVCWcGcA05XmAbQAt7IAR+k0rlvj+lyPb4jv1wr7pyptZOuGvLfOcJyalWi4P8HCDXYy8lGMM2lEHMGsKBG6iXElExa9An5DOgAAD+9XMrYBAxw6ND/Nw8nu7F0HUyzZHc2SQiBkqHDywLiqPLf411PAJpcHVdUFt/4aH8+s77WWBhYqEj/E9iQyDSYT7Oxb6DB4v9NnOi97n2Gi6wSKgziYUIHGYZn8mP/V1r7fOalKMPLz/ZohInanXnklreyBPa3zYDV6C12nWl06MoBe7dYZLSccY3gAAAAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648951/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_txuc3n.webp`}
+  captionText={""}
+/>
+
+그래서 자바스크립트는 굳이 엄격한 문법을 갖출 필요가 없었습니다. 대신 아주 유연하게 설계되었죠 버그로부터의 안정성이나 견고함은 일부 포기하는 대신 프로그래머가 쉽고 빠르고 간결하게 코드를 작성하는데에 중점을 두고 만들어졌습니다. 간결한 프로그램을 만들 거니까 그리고 웹 브라우에서만 동작할 거니까요 그리고 실제로 이런 유연함 덕분에 많은 사람들이 편하게 잘 쓰고 있었습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRl4CAABXRUJQVlA4TFECAAAvY8ANABegIG0DFndPyF4AQpBtG9p2m89//NfMQJJi23UkPYFqrgf2fpzwNG+Br8E1lyBzP06Q522wlpl6T9WfDUT0n4HbtnGczOndzt3yCLImKwDMTD+aCHAAiD8WZFnXXCow8cP/4AzspexAnIIbIXBaj9/3VQEkH0ZwDwHO8jp3xHl2ozBNQLlaexYAKQ4CP2JEfrXWavd1RPOn575bu0rdgSjexCRALq1bKRswW/EA4H13nGetwCrmEhKQDd2vsiN+afFij7U17VcBVEdIwJFrtf46C9DjMgFbKWdr1t+Iou85X/V51YGfgPvgVzpqbdfdBijbHPV9llbO8zl0+A9W1PtqrQ07CthRYFT1Qvc16lCa46h97n2+hpXkSQR63ed1D2iLnbLV8xx0YGaSZOiq9bb0DaJlreYQpYwo8hJw3FqbUqv1TpLMMSre2dI2f5Glay/7gPbZ0WLoVXBYaoAntgttGdtlKt+KNEoB8mVpZgr28wOAe9y8GtqB47edhkDBKF4BYLe3yp0UXhtmIA/0Y1ok1364HSkaKVtBJKKErL+JOAGXuQlmCrL2iRkQWbMe+FbEwLuVDRwloVrB3YcS8ocRQxJAjdwhRBQmHHXfZnYUVyXthuiJyCUAQBKRABUypofKFApfTEGkiw6AFYkAiMGRc6xkx8yu0xISmDl4ElkBAPGh8oXnbs4RBfM6YvJI6I8PFOihXofZ68d9XBZ1hJAkifiHJpXN9OEe6n1GSYyZ1d/eFeivaTHMjOzJe3L0s7llkWWhf2z+v7gCAQA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648954/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_dwpepz.webp`}
+  captionText={""}
+/>
+
+그런데 어느날 Node.js가 등장합니다. Node.js는 자바스크립트의 런타임 즉 실행 환경이죠 그러니까 쉽게 말해서 자바스크립트 코드를 읽어서 프로그램을 실행하는 구동기, 실행기입니다.
+
+Node.js 탄생 이후에는 웹 브라우저에서만 실행할 수 있었던 자바스크립트를 이제는 어디서든 실행할 수 있게 되었습니다. 이 말은 곧 어떤 프로그램이든 자바스크립트를 이용해 만들 수 있다는 이야기가 됩니다. 그러자 기존에 자바스크립트를 만족스럽게 사용하던 프로그래머들이 자바스크립트를 이용해 다양한 프로그램을 만들기 시작했습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRlQCAABXRUJQVlA4TEcCAAAvY8ANABcgJk1D17CHYsEUX4sjBWkbsHBfzOY//okaUFKtvaptfUJ2PT8s+xPhT/0E8gXSAH/Y9kch1o9gumk8j/uoR/R/AvDfPv2poF6mPyNBww/3B4LqHOcv+QPqJWWVxf1WQCTJ/JE3VfdwKSlJRjeN1Is6wHvhWDGWqOrFLS5l8ljJWQYfSVFiCEEjV7OjMulgUWbqx0nKLHZ9H6RMAHwi5xhVJJLf/by+K9UDCJpJMqpm/mzW+2mkAyB8znMk93b13jcr8ZEyuZIpa+ban1uhAEG5t1rISLZz0Cod4BLX9WgkM3kNeqMAPvEws0KS1sfGGQiZ7bu39dGuwbaVCAj3dl1mJFfrY6szoKla33qrJNvLWQh47vfVzUi2t61GQDOt9342kvbSCxGU7e7drHBf75fNZiDk9bp7t3qQ9tIrgcj97v20Qlp72Q4CIVfrfTvXQtpLrwSE+3313iq5/7xHm83wIVXrvRnJWvv4LAQc93bdmxWS1z3a6gz4xNa2q/F5jawQCMp1u6xUkuvLyQhMicd6tpXPNrIyA17zamaVc8o87kFlBCDk3nYyCsnBVigAfGJhIVUT1+NRVn4ALJk0chbRzPXufWucvwAEJVkpUTWT+70dZPQA4BLJOXqIkIXP5AA4/4hucUEzyZ2cBU8nifEjLvigmc+o7hG8SPIuAKL6iH7Cc1pU1U0TELz6NIuIH8A7mRYAHsHLl6pb4Abwzjs8nQt+8d7h3U8YB+fcAriXBa8BT4dfdSPAe7jwS7+84P8TAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648957/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_ohj8hz.webp`}
+  captionText={""}
+/>
+
+웹 서버를 개발하는 것 부터 시작해서
+
+오늘날에는 페이스북이나 인스타그램 같은 모바일 어플리케이션을 만들거나 카카오톡 같은 데스크탑 어플리케이션을 만드는데에도 활용됩니다. 자바스크립트의 한계가 사라졌고 그야말로 전성기가 도래 했다고 할 수 있습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRu4BAABXRUJQVlA4TOIBAAAvY8ANABcgFkzxtTgSC6b4WhpdIGX+4w8CkhvbigMLJHr/nmTyAekRABLXEr03PeQz2fueXpofP34IEf1HGDBJAFfoJ+7mLcbI7j9MpdQq8h+fHLhGgCmF5UsMACgPSyRpAFA3Zr+CVEzelhMYOMeOUpgXyYJjjLGjbau1NBzff+eBuDokKhjX9foIxNWB69uf6nV2VAmmiNCHqr7uKLwCDlXV7xNYIMlUVAcQyfomknaqqurZI/sF/pX5ADFF0r6ncnVYuxlz0R2Fs/WG2r5mnECwi4EBzmaStDFriSB4u2Ev7L3xJmm3ciHy4oBj1ssOMSdLe/u7oVjduUS130qPlcxk3PC6I1iTiATfNyzWLrebXvfCZg/E+JoPPbIEM/VeABtEjD5rrNau3sorIpvdSaj4m/KIB29VcoLjNoXMtSOubxOWSU4aznlidqaDL/hWVf3ukc21M3ChZDInEeNQVR17ZLv4UHH+qWpHEQqWKEmbDifqAo4Fb6fq1VFS8ItMdezgBSgRcIwxDmwhONNBBPsx+h4fOJlKiRhvfQBF3OLiQm0AOlpgZ9uTVGAHmN1iTT5vAAAJ2S1MPFUutEJygQuAjQOtEEhEmDmn1SSXA5etCK1BTmSrEvwK09f7TJn8XQ=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648960/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_phfwyv.webp`}
+  captionText={""}
+/>
+
+자 그런데 이렇게 복잡한 대규모 어플리케이션을 자바스크립트로 개발하다 보니까 한가지 문제가 있었습니다. 문제는 바로 자바스크립트가 너무 엄격하지 않다는 점입니다. 너무 유연하다는 점 입니다.
+
+아까 자바스크립트는 애초에 간단한 프로그래밍을 위해 개발되어 유연 하다고 했는데요 이제는 자바스크립트가 인기가 너무 많아져서 간단하지 않은 아주 복잡한 프로그램을 만드는데까지 활용되니 오히려 이 유연함이 프로그램의 안정성을 떨어뜨리는 단점이 되어 버린 것 입니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRrICAABXRUJQVlA4TKUCAAAvY8ANABegIG0DFu77mIK0DVi472MK0jZgcffMbP7j/83kMchxtj1uI0pgoekoIVspM3tOIQf0QJkuiww43RiwEOsUgZGFdpnFsFQmGSH2Ma2fmr3//oj+M3DbSFFmJgvH+AjhhrrKgF7oiZ9GYsKsSSN/ikcK2OCfpmHCZk96+EmpjMa52VDty11hk7sybM2N88xtNlpLGdm7cji7NyG37eXcLbymHdPahr2GAYD9+Ubk3t6uOgdZ/8c457mdptJt7zY2G/JBzswnGpGzgPWQ7KMc5fW4KtnGdHBnmRtG8xLjejke6gfVZKLsorwha9bLasVVMQsiItbIrzlD+WNQrJi5/mHJTTfxcFUvS2DUJ2I+2KLSB1hVPOhjlHNTJ9VT2qhjFytmLgcA6gYuZhKeAIbHa6p8PkK5JNSjJymQ2Lu3VZPl64AOmDWMWOeRc3qDbE5VsF1LadJy0cegBNUwgicQTz/JYPya9WtKMVUCHLVo9MPRgQ6lwN0NocozYEypZkaA7Q9HGUo4bPgCiLWz2TpzymyYSnHHny2Co+KrbDRtwb2BJweRJ4x1ViHvCFVtFbdM562anRkBNaHT15lhvFJyKwWQMsn5JofnWU2JTqVIbi05iWlqmLPSOQclgIA8veJAh9z5TlmkAXk5j1fMJzrsqvCCLKh0lAgAnUaVTWVXdQj59E42Feo1NhWh5EjXzRIbqEYTy58aYKHknc2WqyK/UL6gK9ojPREKcQdvZd63zZpAcotgZlOVCA/ibkfv6293Cf0xfNHAJPCFSmzwtLDT2PdIxRxMZCwgBZCkd5b5Tjmf8iS2CAFI1jE6RsL5t8QI/BgKAG4lRzry3ewI59sF+FQJMJxoqUT6sbH8k9+e24HfquSnp/ZrIX2hpPjFMPh/AgA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648963/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_h6friw.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+그래서 이런 자바스크립트의 문제점을 극복하기 위해서 자바스크립트의 기존 문법들과 매력은 그대로 유지한 채 안정성만 추가로 확보한 새로운 언어가 필요해졌습니다. 이런 배경에서 자바스크립트를 더 안전하게 사용할 수 있도록 타입에 관련된 여러가지 기능을 추가한 오늘날 우리가 배우고 사용하게 될 타입스크립트가 등장하게 되었습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRtQAAABXRUJQVlA4IMgAAAAwCQCdASpkADgAPp1CmkmlriihLtTqIcATiWcAyngvzDnytmGkYOiuwMECAOdBj83Mg5AjsnJWS09erghXaDdw2d3aXg3BLoPOQg+8kSc2q4vAAP72HtyCSP8ype0VVy/7dRm26eqiCQyymzN/b60OBPq61S/e8rzEGI5xtB5NHbsQsQdXCcQaZ7Gwr9Gxuy8TdBqxi/O+wA3T5wUJYKfQk44TVOYlriczBxSZQsY/0G+Acq9Ots5/pA3qxNQZmCBzCWcUxmAAAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648966/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_qmpibw.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+결론적으로 타입스크립트는 더 복잡한 상황에서 더 대규모의 프로그램을 만들기 위해 자바스크립트를 안정적으로 사용할 수 있도록 타입 이라는 안전장치를 하나 추가한 언어라고 이해할 수 있습니다.
+
+<Blank />
+
+자 그럼 다음으로는 자바스크립트에 정확히 어떤 한계가 왜 있었는지 이야기 해보겠습니다.
+
+그 전에 우리가 먼저 알고가야 할 배경 지식이 하나 있는데요
+
+그것은 바로 타입 시스템입니다. 자바스크립트를 포함해서 우리가 알고 있는 모든 프로그래밍언어에는 사실 타입 시스템이라는게 존재합니다.
+
+### 타입 시스템이란?
+
+타입 시스템이란
+
+언어에서 사용할 수 있는 아주 여러가지 값들을 어떤 기준으로 묶어서 타입으로 정할지 결정하고 또 코드의 타입을 언제 검사할지 그리고 어떻게 검사할지 등의 우리가 프로그래밍 언어를 사용할때 타입과 관련해서 지켜야 하는 규칙들을 모아둔 체계입니다. 쉽게 말해서 타입 시스템은 언어의 타입 관련된 문법 체계 라고도 볼 수 있습니다.
+
+이 타입 시스템은 크게 두가지로 나눌 수 있는데요 하나는 코드 실행전에 모든 변수의 타입을 고정적으로 결정하는 정적 타입 시스템이있고 나머지 하나는 코드를 실행하기 전에는 타입을 결정하지 않고 코드를 실행하고 나서 그때 그때마다 유동적으로 변수의 타입을 결정하는 동적 타입 시스템이 있습니다.
+
+쉽게 말해서 정적 타입 시스템은 엄격하고 고정적인 시스템이라고 볼 수 있구요 동적 타입 시스템은 반대로 자유롭고 유연한 시스템이라고 볼 수 있습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRmYCAABXRUJQVlA4TFkCAAAvY8ANABegIG0DFndPx14QoiBtAxZ3T8/mP/6rZkBJ2baw2WUh/zxC3U8KOq/gHfDMFdr9WDDzE6jLjK/2W0JE/xW2bds4rdIJ7ByhJmYAr/5gq7fWubtbfuvmPAEXtt/+qQGHNj/dwwUHeOO3H0k/rQEgOLPO2zaDRyb77zadYzwT826iLUwzxk+6rUUoRpn0KFkuBXYA3KQOCXYKJeUM/JMKDj41EknEWCrcpbeQc/wkgE9954y7CUGutSZKEgvIeWeR95lqPmrMEPm83u2IssNTzu+ZMzvU19HamdGyJx/tfTkofL6ttddO74B6tvbOCYhnu3REd+VnKLkd7cw7UGpHi+g+M31bRwWyQMt9og9JLGJA1/vAKLUiln1U0dyEHb3iqadY3gC5hguWLNYgruLzHXHbAnJ1rylaFDjF8gRiGyqoEe+Djv8HuElzyxFH/Q5imTRXAAbtM7wvBNI5NAukEY4y4L+OIg722EXlB6q4vIrxIZ3z5nL2egQDVYoLT2JX3i/AOT2/UKq8VO/CKIxST6i1vTM46yjDEKe2jm9N+26M9mSpjg34vI4E1ocJbH/n5Jz3HW+tJspz7VCA+DBGa0v6Th7hailFZq29nLjjruZnIF50zq56ONlo+g+wHnbQVt0uFDETrXoCwGq9rpr4Hb+G0sYD2il1e1hK6l4GrM04fLha10V79vyJWJEX7e1dP8Ru7iTiGBXWTWunlkWpTVlIYB5DaLNW2SEEBYBlDHCLtpM4GsCYmxqq6jaJf9p5O4t604i5+rte1J9M64e6qT+aGK0AAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648969/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_lmh3jd.webp`}
+  captionText={""}
+/>
+
+보통 C나 Java 같은 엄격한 문법을 가진 언어들은 당연히 엄격한 정적 타입 시스템을 사용하고 있구요 파이썬이나 자바스크립트 같은 유연한 문법을 가진 언어들은 동적 타입 시스템을 사용합니다.
+
+<Blank />
+
+### 동적 타입 시스템
+
+자바스크립트가 사용하는 동적 타입 시스템은 기본적으로 변수의 타입들을 코드가 실행 되는 도중에 결정하기 때문에 우리가 미리 변수에 타입을 설정하지 않아도 된다는 유연함을 장점으로 갖습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRm4BAABXRUJQVlA4TGEBAAAvY8ANAA9whI4jeBBk24a2XefzHz8DKJJtq3beZ1DswwxTYFTMZDlRqS/fjwOVzICZ0V4dz+xRfQruqtxzzhgi+s/AbdtGKY63l9NXGHpcnHkNPupOx1aFWvhQYSuvuS/sC2z9mm12YecPpRZel9/oEQ43AhMeVtEtYEDYuQBUiDMITEiXAKqAVVkMMAW2ZOIyF8CzwC2grJwXAG08uTuRtH9MTjQGKAfnTmNhvADw8hjjgOIYlyIbXxp2YcU7gEJOAjB3A+y2Lw27pO0XwFOIhrWR1JRTmjVmmNYmAHQ46M7FF4DnJRHlZfxpCsijfISIg/4rQW1JYeGZhl+3oTF7aA6TBDvdOddE2mi7TuhhulP/C6n9F39iJs1xABPzbP5+A+CNaL4EsF9HYyh7B8x8CyWvGVDtrCtlbb/omDFoBTaaVVu2nVHdtrk1bfCJ0boayuZLw1Qo3RAmYEHFrL7TAAA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648972/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_cdbr5r.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+그리고 변수의 타입이 어떤 하나의 타입으로 딱 고정되지 않고 현재 변수에 담긴 값에 따라서 변수의 타입이 동적으로 계속해서 달라집니다.
+
+아래 그림의 코드를 보면 변수 a는 첫번째 라인에서는 문자열 값을 담기 때문에 문자열타입 그러니까 string이 타입이 되고 두번째 라인에서는 숫자 값을 담기 때문에 숫자 타입 그러니까 number 타입이 됩니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRsIBAABXRUJQVlA4TLUBAAAvY8ANABegoG0bFvcPxRS0bcPi/rGYkCBJvPH/ONP8x3/vkAZI0ra3TWRPipe/aGsROqdI+T3DNkUessc+Bx3hJd2smPTomImk/+cGEf1nJElKGCEDKHpY8goRMDU5L5XgmGqV9rw0nO9+NZmUrThhwVo74aA1WW1WmcQM30Z7yWk2xm7N0Nu3wi3KWwZWbKjSOgdxzEWrxYZNaLQmLu7pWll3u6VYuvIkV16LNXTL38QDKWDSsmwY6+Ge7DSrf4C9PXFx2YrJSfi4V3Thg9Q1mSxcGFLyew8TcluYnwVzeLftq8KFoZ5KzGzNHbd8025JtsDV6WLNa0kO++Ni47+vRhEKdqAovqp1VVWv5Iywr6uN5cUBMYs2vt0U2WdejfX1MREBtc6LcfZZPXVQEGGkM53lmd5PRS0sX1+Ptf7U+ZfGMGogc/2pt5bKiHgItW8phgvoj7y1T2IvgD6Evdbv+6hHEHwLZAgowpChTgi2AGA/4DVScSaEhDRwQgIDdTu8oshTdp+EwJpX1joE2gDuRdkHArU2Opf301okBHUg5TZKiUD9U9BGxJrcnNMmow4igv+WAAA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648975/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_uzv7mi.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+이런 특징은 하나의 변수에 다양한 타입의 값을 넣을 수 있기 때문에 변수 하나로 돌려가면서 여기저기 다 활용할 수 있다는 유연함을 장점으로 갖는데요 반면에 큰 단점도 하나 있습니다.
+
+다음 그림의 코드는 아까 살펴본 코드에서 가장 마지막 라인만 하나 추가한 코드입니다. 마지막 라인에서는 변수 a에 toUpperCase라는 문자열을 대문자로 바꿔주는 문자열 전용 메서드를 사용하고 있습니다. 이 코드를 실행하면 어떻게 될까요?
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRlYBAABXRUJQVlA4TEkBAAAvY8ANAA/wBI4ndHzFf/5jCXAk21at7P/qe+Q5bqP4hmfuMAKKkPDjFnnu7ha/OeBObqHbTs556AAi+j8BADBxZoahFz20lDqU9rJrrkJfeGV9WBnaI9ehL3yybVyZeCSbbYp9gWytVCbOSNMwJNyQrIRc9EE2OxQckhxRFl/JZKZdwgPJMOSFR9IsUSKvJMOGNPNIJvMhtuOV5LiEg0cy6bBLKa8klyDH7knTrwy9kiyR2mdeSdPwCMADmayEXHFPNnuUlAfSTJMi3Wfk+qCElAey2WaXRm7I6jzIkR2y2iZF+pfIykEJKYefHIdqLH2YeR6laPHRLGlXMLO0FPBL7UNlu5XFhgTMLC2lQU3JXSpx+xR7pDg31aa0j80kvNAjAQ/sWiARG4Dqjvjc0CPoGUnRYPhgtxBph1W3PWHli+0plgC/JTf+TQA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648978/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_n9za2n.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+실행은 되지만 당연히 오류가 발생합니다. 그리고 프로그램이 비정상적으로 종료되죠 이유는 toUpperCase는 문자열에만 사용할 수 있는 메서드인데 지금 변수 a에는 숫자가 들어있잖아요 그래서 이건 말도 안되는 동작을 하라고 코드를 작성한 거니까 당연히 오류가 발생하겠죠
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRowBAABXRUJQVlA4TH8BAAAvY8ANAA/whI4neHzlf/5jCXK1bT/naP5zxR17+yTmSmXnN3H+darp0rFLadvG2vs/h7W3tjl6Ft/321OI6D8Dt20b+QDeXs4vfP+WvlCqTy9rT24ELZnq/1DoWAgPLVowYPwWIrj6wuFWuGLZuQNuts4lCDkqgXvglWlegasZ/goYlZz74Fr+LwxMqzT+xUuzMlToKL4B/6FFXbj1zno4EAa2E1TBMTvfAKOKLAW8DDt1hargmJVm4MNBhtzfCoM3PSrZB6j2i4z9O+yaEkunMCMZvgicllbJO5/E4eVBgiP4BnjTGYLWA+BDcESOOy7IEhdO3QFCJk+wLjCpjpyQOCypBnCnE8SzxIR+mFKxsxUH3HI5vEpx+GBK7gBcUdVtvQYGynNFJsJA27QsaO0y8LwsXfIaOKxIEHMIXAculzlyxK/jeMcFObJ7Ay8PJhJk9/fCHFYn+CT7D7h8sCGT0HzpwCSmqJ3Rg06z79cDPwhOJ6Sow8PN23lNI3/jAwA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648981/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_gxvyaq.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+자 그런데 여기서 우리가 중요하게 살펴봐야 할 부분은 이 코드가 실행이 되기는 된다는 겁니다. 실행이 안되지는 않죠? 근데 사실 애초에 이렇게 오류가 발생할 코드 였다면 실행 전에 검사를 거쳐서 실행하지 못하도록 막는게 좋습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRpoBAABXRUJQVlA4TI0BAAAvY8ANAA/wAg6CbNvQtnv8LP7zH68FSdL2r23zSvPXjOQU1P/E6xoL7iH6r8vMDN7nDp2YVl6Fsy0zM3ebA+QQ5R2avpXCB4jo/wSw4t6b0xVScwnvXZnLMQ3M5Uv9XJBULfWG4iRmX0/vTLoy9PPy+iR+6+8+L+HKO33eahKqv6RvNuFOW6psSXB/pccTCUd6kvaXIAauSPp8Cnet7MFMW9LJ8TgMN3k8kaT7O8g44EZf0iM7krKThisdSef3ciUEZvqSHtsdUbkYcEWSLu6MC1EMe3qSTqejbUd2WpwkVYoZE8Qw0pP0sjV49EgQ4SSpUnSmeDTDSFvSY5veu8cYqn1JL6+5zOgIZNqSKunBVMFYqt8k3XPuStVCpi3pfslGJQKq36Th+02Xqe4DZiWdPBKmNgPclT63/GymesSHG9Lj0p6wagxwRKrs9Mp2LAYK/3XbjkHG98D9GT67B/bggHjvw5YfQhgCVU5uvgNkPIB7Y8ZnjoVj0RwyNeZsdsylmlk3l7TPXN3InJYjAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648984/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_m0bzxv.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+왜 그럴까요? 그 이유는 간단 한데요 지금은 이 코드가 매우 간단해서 실행하자마자 오류를 확인할 수 있지만
+
+우리가 아주 복잡한 프로그램을 만들때에는 코드도 따라서 매우 복잡해지고 많아지게 되면서 저런 오류가 실행과 동시에 발생하지 않고 완전 나중에 뭐 하루 있다가 발생하게 될 수도 있어요
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAAAwBQCdASpkADgAPp1OoE0lpCaiISnI0BOJZwDO7AMh/1vmKE/DsouY0t7eOOpYwwNYAAD+86T35W1fZXoR5aUqRxJ1zmwnSqLYRp3FEPdNeoYOnisFwBtaOkSKEJUcuEY6K4oXSZU9vWq7iw+Xw9o2dQwmUkxafx9QyAAA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648986/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_cw2lw5.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+그럼 우리 개발자들은 어 원래 잘 돌아갔는데 갑자기 왜 오류가 발생하는거지? 당황하게 되고 예상치 못한 오류의 발생으로 인해서 프로그램이 강제 종료되고 서비스가 마비될 수도 있겠죠
+
+예를 들어서 넷플릭스 서버라도 만든다고 가정하면 처음에 실행했을 때는 잘 굴러가다가 우리가 더글로리나 오징어게임 같은 컨텐츠를 보고 있는데 갑자기 어느 샌가 저런 오류가 발생해서 서비스 전체가 갑자기 셧다운이되고 먹통이 되어버리면 이용자들이 큰 불편함을 겪게 되겠죠개발자들은 새벽에도 다시 출근을 해야 될 테구요
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAAAwBQCdASpkADgAPp1KoU0lo6MiIlgI6LATiWcA0UQDbWyuDDHsA836Uk06qkOxikqIQAD+86T52PbRTZqNgQm+d+SXvRLec1ARW2rvWzh9N8hcYhpKc7ZrKvyu37U745Gelwd7oUIHR5DTBrgdfaouUqxYoeO+smCK8/8YAAA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648989/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_jrrhl4.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+자 이렇게 프로그램이 실행중에 그러니까 런타임에 오류가 발생하게 되면 아주 치명적인 문제가 될 수 있습니다.
+
+<Blank />
+
+### 정적 타입 시스템
+
+반면에 C나 Java 같은 언어들은 정적 타입 시스템을 가지고 있는데요정적 타입 시스템은 코드를 실행하기 전에 모든 변수의 타입을 결정합니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRt4BAABXRUJQVlA4TNIBAAAvY8ANABegIG0DFnfPxRSkbcDCfRlTkLYBi7vnZvMf/ze1DSSp2pZHVgL23A/K/SSg8xLyBOy59s9+EkjmHSi3ec1n3R1E9B9h2rZxOpd0nwz3TA6I49CPf8T4CGHxXaZnACCI6WHmpcGFruyDNq63JgPktELsrmeEPR/gxo6swHG8SjOdssBey5VWxOsIbD+lnleCniLlqrWeGSfqTB7yb6319bkiujz5etVaf8tKMBo2sh211lpfGacrQm1ypo78wtHqLLhRY1r4a1UTTjRkIV0tZUUtE9tNv59gb7VV+VfekIXXjRNE0eRhv01J7kPTc8k/N/2uqoYZ9hsHTjT5ZWvOrWajK98oqavjxkn3fN3qT3IfuvJ/6O+mtPbErmm+0eq4CycaNrK3/O4dCaSz7YlgNYbIdrRkMKMuckNZCep58uSr+UiA2mWBdNVaf0tBdFnYjrbjVNkIqVy1Hhm8UccvbNvxs+eEC7rmCGlPJQGjLuNgy3nfQPygZn7CuqUEPETHSoS1aR9mVPEeYANEZOhEuMV03uSf7QQz9caOLEDAdvvsrURCNH7oxkoQicZKpzfLewneD29k8t5bGc3Qj1grYqZ3NMzGzHZ8B2sma9QH"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648992/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_d5zaos.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+자바스크립트와는 반대로 변수를 선언 함과 동시에 타입도 함께 명시해 주어야 합니다. 그래서 앞서 살펴본 것 과 같은 동적 타입 시스템에서 발생하는 문제는 이런 자바와 같은 정적 타입 시스템언어에서는 잘 발생하지 않습니다.
+
+예제를 하나 보면서 왜 그런지 자세히 살펴볼게요.
+
+<NImage
+  width={1780}
+  height={286}
+  blurDataURL={
+    "data:image/webp;base64,UklGRoIAAABXRUJQVlA4THUAAAAvY8ADAA9AkG0b2naQrwhBtm1o20E+//E/A7e1bSvRxd0hIqIBKIFYMg+nFKYG68C1hSkNtw4i+j8BTRNiZtPU85oF1AbcBtq8YFbtzmp+DICcGfknBPAqnJHGF4E8fo3sKga4ptFI4wmAGR1GqjON/eUUAwAA"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648994/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_yf0c5t.webp`}
+  captionText={""}
+/>
+
+지금 이 코드는 Java 코드인데요 자바를 모르시는 분이 계실 수 있기 때문에 천천히 코드를 한줄 씩 설명합니다.
+
+첫번째 라인에서는 문자열 String 타입의 변수 a를 선언하고 “hello”라는 값을 저장 합니다. 그리고 두번째 라인에서는 int 자바에서는 숫자 타입 변수 b를 선언하고 123 이라는 값을 저장했습니다. 그 다음에 세번째 라인에서 숫자 타입 변수 c를 선언하고 값으로는 문자열 타입의 값 a와 숫자 타입의 값 b를 곱한 값을 저장 하라고 코드를 작성합니다.
+
+그런데 이렇게 작성하면 에디터 상에서 바로 빨간줄로 이 코드는 오류가 발생한다. 너 타입 지금 잘못 썼다 라고 알려 줍니다. 문자열과 숫자를 곱하는 연산은 불가능한 연산이기 때문에 이렇게 코드 실행 전에 타입을 잘못 사용했다고 타입 오류를 보여주고 있습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRnYBAABXRUJQVlA4TGkBAAAvY8ANAA/wAo4bdJzlf/5jCXBsWzv2/DEqp7aTMdiVrV5jsCv31vcHlTkFVq5t6wTv86wMIaL/DNy2baS76ma3X2H7xxEYrJbWDl1h/QoN/RkO2jWzIFpTfm+CprGZAElCVn7BlKb5On+F/roDy1GSOb9ZqCj/4KnARbaV+1k/p2gP5j2lqi+p8pY1LViVCnyEkxwXMfN92JTqXoBru7vJ8BvU+zuaZFwCdi+T7HegUCjrEzYVPQMBYvWtX3EQak4vGyDCUehN1RZAnHgd/QnM9Zvrsw1QJl7nGxKvRwHmzatX7p+qBszVHn0H8sQ6Tn4Bc9FmtZw/FQhlGNW6zGq5/MlZ6BGI8Tardb+pK5xyCQy4i9k+wmZ0kvkwbEG9vwzdKVSNiJJtfVHlL147ZoBdZrPBesDuIxMzaMUPJEi6rNwCP3eBV8FMh6OS0+6ksBYZLL+wgW4t2gmBoVqAPVMb3ZVz0MvP9osNAA=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703648997/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_ceyitr.webp`}
+  captionText={""}
+/>
+
+이렇듯 자바스크립트 같은 동적 타입 시스템을 사용하는 언어와 달리 자바같은 정적 타입 시스템을 사용하는 언어는 타입 관련 오류가 있으면 에디터 상에서 애초에 오류를 바로 알려주고 실행 되기 전에 타입을 잘못 쓰지 않았는지 검사까지 모두 마치고 실행되기 때문에 오류가 있다면 애초에 실행이 불가능합니다.
+
+그래서 프로그래머가 의도치 않은 실수를 하더라도 미리 확인할 수 있는 기회가 주어진다는 거죠
+
+<Blank />
+
+### 정적 타입 시스템의 단점
+
+자 그런데 이런 정적 타입 시스템이라고 모든게 다 좋은건 아닙니다
+
+아까 말했듯이 정적 타입 시스템 언어들에서는 모든 변수에 일일히 타입을 다 정의해야 하기 때문에 일단 매우 귀찮고 우리가 작성해야 하는 코드의 양이 상당히 늘어납니다.
+
+생각해보세요 여러분이 그동안 작성해왔던 자바스크립트코드에 이렇게 모든 변수에 다 타입을 정의해야 한다고 생각하면 생각만해도 끔찍하지 않나요? 그럴꺼면 굳이 자바스크립트를 쓸 이유가 없습니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRmoBAABXRUJQVlA4TF4BAAAvY8ANAA/wAo4neCzL/McD5Ni2ttaNnsyuUJWZ2Z4CM8vMPQ+BK1fcMz0wQzhzYE5aTioGneb7FJpARP8Rpm0btcnoTjH+3+xHukkx14JdTO1FelxkLNk5btXuNV2029aiy7vmHa5zqZUngUhtzT6/sD169z48z9OpeXv9sjJEWdhzPvbqKvnC7Xxd7X6HQJSy9gM6PUreJ+irU1qAw2DF+x2ep0lTe8DlvKp7DtzWdQeYWJVS2oGXkarOgMntYLl3gJeWTMk7YNKnjhMAyxSi7ouKkscrgDxZxjlAvUzJG4DOELn3AeJThIVX6NLfPpmpewDF0ULUfYAOUyg5AuiLkKeorhTJBsgLkcc9B+gy5GwBeGOkfQfIlylZc2CyQ34bdb8AK0Va+w63vaYwNfcZJtVttLyGQ2+w2vtwaBpyFtuho0MpsX/hNdQEb3mHOvI80tSCt8VSMaLSWgJlIg=="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649000/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_nanfj7.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+### 타입스크립트와 점진적 타이핑
+
+그래서 타입스크립트는 좀 독특한 타입 시스템을 사용하는데요 마치 자바스크립트의 동적 타입 시스템과 자바의 정적 타입 시스템을 혼합한 것 같은 그런 독특한 타입시스템을 사용합니다.
+
+<Blank />
+
+일단 타입스크립트에서는 마치 정적 타입 시스템처럼 변수의 타입을 코드 실행 전에 결정하고 타입 오류가 없는지 프로그램 실행전에 코드를 검사합니다. 자 그래서 이 타입스크립트 코드를 보면 변수 a를 number 타입으로 정의했기 때문에 a에 toUpperCase 같은 문자열 메서드를 사용하려고 하면 미리 오류를 띄워 우리에게 알려줍니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRigCAABXRUJQVlA4TBwCAAAvY8ANAB8gFkzx1ShSkLYBi7snY2IaMrb5yGL+49+QxYEcB2DbSJIWPMAltbn0TTmvsBeaS9UmTmgP8KZXXD5j+g2ecvNyAV+/8S9XbuwvGdDIonEviOg/A7dt48StU/XavUeomlYLvihLXuuAEmRa+/z0+4nbrVQIhLx9cVldnu/nkiVx6+fdv6oq2+9iEw79Ieenqrp95jySLNo/dVFdcmvBhgPinH+7eOZhLMz8EO27EYfneRRpwYZcjcXtT8KIivYvPCiH8xi2L3HLg8pNkW7gp1MfSp6fCBaM8vyiqhmG84cPpz6Uw5daB0293efK26g9acJmP+S1KcW0huBGyZtj37g7uRC+rzbO+JcHo2kQpnwpvGf0g8mkGH4/zPbZk4vzrTUSDOk9X3j3lQyES4rbZ/yveuatwUwq2Nf+8d2dyztkUYXNUsEXzrfI6HDG1e3ijO9d7XYEU4YydhqtzQimzBIVBfPWGpFWopHD40F3ZsZAeGCRsrW1tVFGJI0kQLRdFFmXOsYIxRINBjsDohmpG5dWaXs7I6KOBeEhAY1Tt4EluES+jEmV8LipHuKXnNp6aC3UOswYSAQLoJWqrsOLVOpGtKu1lQpFWKqxOIJgajPF30jio/VmimjGWYMS7h+O0UlbJSvF1EKKGqABAlhMG2SbuKYBSBpMUYhaaddqwFqjURpUI2llVDNGBQobZvDGmza0+s8SehU="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649002/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_klfqs6.webp`}
+  captionText={""}
+/>
+
+<Blank />
+
+자 그런데 타입스크립트는 이렇게 정적 타입 시스템처럼 안전하면서도 마치 동적 타입 시스템처럼 모든 변수에 일일이 우리가 직접 타입을 명시하지 않아도 됩니다.
+
+<Blank />
+
+다음 그림의 코드도 타입스크립트 코드인데요 이번에는 변수 a의 타입을 정의하지 않았습니다. 자 근데 그럼에도 변수 a를 숫자 타입으로 자동으로 인지해서 코드에 오류가 있음을 빨간줄로 알려줍니다.
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAwBQCdASpkADgAPp1On00lpCKiISl4sBOJaQDVQAMgQdwS6YM+WhLlz4ZlfWmbeqNwoAD+86T8wqMxuHozm2z3k098Y6DSbF7zdDYg9Ufmg6kO8GnUBR2VNuLVW/JLL89ysc8YAAA="
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649005/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_w1caui.webp`}
+  captionText={""}
+/>
+
+타입스크립트에서는 이렇게 변수의 타입을 우리가 직접 정의 하지 않아도 변수에 담기는 초기값을 기준으로 자동으로 타입을 알아서 추론합니다.마치 인공지능 처럼요 똑똑하죠?
+
+결론적으로 타입스크립트의 이런 독특한 타입 시스템은 동적 타입 시스템의 타입 안전하지 않은 문제를 해결하면서도 정적 타입 시스템의 귀찮음도 동시에 해결하는 아주 멋진 타입 시스템이라고 볼 수 있습니다.
+
+<Blank />
+
+그리고 이런 타입시스템을 점진적으로 타입을 결정한다 라고 해서 점진적 타입 시스템이라고 부릅니다. 영어로는 Gradual Type System이라고 합니다. 쉽게 말해서 점진적으로 타입이 정의된 변수들에 대해서는 타입을 미리 결정하고 타입이 정의되지 않은 변수들에 대해서는 타입을 자동으로 추론하는 그런 타입 시스템이라는거죠
+
+<Blank />
+
+## 정리
+
+<NImage
+  width={1920}
+  height={1080}
+  blurDataURL={
+    "data:image/webp;base64,UklGRooBAABXRUJQVlA4TH4BAAAvY8ANAA/wA48fgNzAZf7jAXK1bTsE5/3nmmVlVvZB2BVnZz3VWtVW+pdJSrPSMraT6VPZRmU7mTeYfOEBRPR/AvCn8yJEYaaSFGWZkhVFSjKz0RSMVbdVCxJ31AWomVC/ZduGrNQV1X7Vb3ZZK7ZtM34Ymzmmt8/UrgGAbdmLzz7trDg4EACMpVoXP9Kxrg9GA5WWdZA83jdyuwKYuWY9IZ8desYcYOHw00Okvu7pdUD3l+P0b8LYtWfPPJJPSFslviE/0ddF3k3+3DaWfxRotYnC3WbZRwGNTRQ6qvKLQAfMUOjijCdgwAyFuapSwoAHEhfLPYEO6KTQNcYkWh3wBE7AJomLsk8CRy33fHZ/JB0j7wt5mTz4hLSR+IZsuuBUvCZtNfaQelvEppWnyRzkXeDuiLLoomqP0QqLtMuT8sLLv+gC5M0s1EaYComzTjSwsm4aCE4s2LYpGEhMyioCELY8wQCmVk8BwFhRURgAA75h4QaQuNwPYxCbsv8j"
+  }
+  src={`https://res.cloudinary.com/winterlood/image/upload/v1703649008/blog/post/%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EA%B0%80%20%EA%B6%81%EA%B8%88%ED%95%98%EC%8B%A0%EA%B0%80%EC%9A%94/file_imvzmz.webp`}
+  captionText={""}
+/>
+
+모든 프로그래밍 언어에는 타입 시스템이 있고이 타입 시스템은 변수의 타입을 언제 결정 하느냐에 따라서 실행 중에 결정하면 동적 타입 시스템 실행 전에 결정하면 정적 타입 시스템이라고 배웠습니다.
+
+자바스크립트 같은 동적 타입 시스템을 채택하는 언어에서는 코드에 타입 관련 오류를 미리 검사할 수 없기 때문에 실행 도중에 예상치 못한 오류가 발생할 수 있는 단점이 있다고 알았습니다.
+
+자바같은 정적 타입 시스템을 채택하는 언어에서는 이런 단점을 해결할 수 있지만 반대로 모든 변수에 일일히 다 타입을 지정해 주어야하는 불편함이 존재한다고 알았습니다.
+
+그리고 마지막으로 타입스크립트는 점진적 타입 시스템을 채택해서 정적 타입 시스템처럼 프로그램 실행 전에 타입을 올바르게 썼는지 타입 검사를 해 타입 안정성을 확보하면서도 동적 타입 시스템처럼 변수에 우리가 일일히 모두 다 타입을 지정해주지 않아도 되는 유연함까지 확보한 독특한 타입 시스템을 갖추고 있는 언어라고 알아보았습니다.
+
+<Blank />

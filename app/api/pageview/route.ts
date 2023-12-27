@@ -1,9 +1,6 @@
-import { notFound } from "next/navigation";
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
 
-export async function GET(
-  request: Request
-): Promise<Response | void> {
+export async function GET(request: Request): Promise<Response | void> {
   const { searchParams } = new URL(request.url);
   const path = searchParams.get("path");
 
@@ -12,9 +9,7 @@ export async function GET(
       projectId: process.env.GOOGLE_PROJECT_ID,
       credentials: {
         client_email: process.env.GOOGLE_CLIENT_EMAIL,
-        private_key: process.env
-          .GOOGLE_PRIVATE_KEY!.split(String.raw`\n`)
-          .join("\n"),
+        private_key: process.env.GOOGLE_PRIVATE_KEY!.split(String.raw`\n`).join("\n"),
       },
     });
 

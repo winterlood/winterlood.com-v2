@@ -1,0 +1,161 @@
+---
+id: 53b428d5-5a43-4c24-ad52-ef1ce19e3f75
+type: QNA
+title: 컴포넌트 내부의 변수를 let 이 아닌 useRef로 선언하는 이유는 무엇인가요?
+date: 2023-11-03
+tags: 
+ - 한입 크기로 잘라먹는 리액트
+---
+
+
+### 질문
+
+
+강사님 안녕하세요
+
+
+강의 중 컴포넌트 내부에서 사용할 변수를 let이나 const가 아닌
+
+
+useRef로 만들어야 한다고 말씀하셨는데
+
+
+<Blank/>
+
+
+왜 그렇게 말씀하셨는지 궁금합니다.
+
+
+<Blank/>
+
+
+### 답변
+
+
+안녕하세요 이정환입니다.
+
+
+React 컴포넌트에서 변수가 필요할 때 `let`이나 `const`가 아닌 `useRef`를 이용하는 이유는 간단합니다. 
+
+
+`let`이나 `const`를 이용한 변수 선언은 컴포넌트가 리렌더링 될 때 마다 값이 초기화 되기 때문입니다.
+
+
+예를 들어 아래와 같이 버튼을 클릭할 때 마다 리스트에 새로운 요소를 추가하는 컴포넌트가 있다고 가정해 보겠습니다.
+
+
+```javascript
+// useRef로 선언한 버전
+import { useRef, useState } from "react";
+import "./styles.css";
+
+export default function App() {
+  const [list, setList] = useState([]);
+  const idRef = useRef(0);
+
+  const onClick = () => {
+    const newListItem = {
+      content: idRef.current
+    };
+    setList([...list, newListItem]);
+    idRef.current++;
+  };
+
+  return (
+    <div className="App">
+      <button onClick={onClick}>새로운 아이템 추가</button>
+      <div>
+        {list.map((it) => (
+          <div key={it.content}>{it.content}</div>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+
+App 컴포넌트에는 배열을 저장하는 `list` State가 있고 버튼을 클릭하여 `onClick` 이벤트 핸들러가 실행되면 `setList`가 호출되어 새로운 아이템이 추가됩니다.
+
+
+이때 아이템의 `content`로는 아이템이 추가되는 순서대로 0부터 1씩 증가하는 숫자를 할당해 주고 있습니다. 따라서 첫번째로 추가된 아이템은 `content`가 0, 두번째로 추가된 아이템은 `content`가 1 이겠죠?
+
+
+![](https://cdn.inflearn.com/public/files/posts/ed878040-b7c2-4b18-9558-32d9380423ad/image.png)
+
+
+자 그렇다면 이때 만약 `idRef`를 `useRef` 대신 `let`을 이용해 변수로 선언하면 어떨까요?
+
+
+다음 코드는 `useRef`대신 그냥 `let`을 이용해 변수를 선언한 코드입니다.
+
+
+```javascript
+// let으로 선언한 버전
+import { useState } from "react";
+import "./styles.css";
+
+export default function App() {
+  const [list, setList] = useState([]);
+  let idRef = 0; // ①
+
+  const onClick = () => {
+    const newListItem = {
+      content: idRef
+    };
+    setList([...list, newListItem]);
+    idRef++;
+  };
+
+  return (
+    <div className="App">
+      <button onClick={onClick}>새로운 아이템 추가</button>
+      <div>
+        {list.map((it) => (
+          <div key={it.content}>{it.content}</div>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+
+①라인 수정하여 `useRef` 대신 `let`을 이용해 변수를 선언하도록 만들었습니다.
+
+
+위 코드와 이전 코드가 목표하는 바는 동일합니다.
+
+
+새로운 아이템이 추가될 때 마다 `idRef`의 값을 1씩 증가 시키면서 아이템별로 각각 다른 `content` 값을 가지게 하려고 합니다.
+
+
+그러나 결과는 그렇지 않습니다.
+
+
+![](https://cdn.inflearn.com/public/files/posts/678f5b73-3aab-4f36-84c5-01f7a13eb480/image.png)
+
+
+"새로운 아이템 추가" 버튼을 클릭해보면 새롭게 추가되는 모든 아이템의 `content` 값이 0으로 고정된다는 사실을 알 수 있습니다.
+
+
+이렇게 되는 이유는 `State`가 업데이트되어 App 컴포넌트가 리렌더링 될 때 App 컴포넌트(함수)가 다시 호출되기 때문에 ① 라인 또한 다시 실행되기 때문입니다.
+
+
+① 라인이 다시 실행되면 `idRef`라는 변수를 다시 생성하고 값을 0으로 다시 초기화 합니다.
+
+
+따라서 이 App 컴포넌트에 추가되는 모든 `list`의 아이템들은 0 이라는 고정된 `content`를 가지게 됩니다.
+
+
+자 여기서 핵심 포인트는 컴포넌트 함수 내부에 선언한 변수들은 모두 컴포넌트가 리렌더링 될 때(다시 호출 될 때) 결국 **다시 생성되어 초기화 된다는 점** 입니다.
+
+
+결론적으로 위 코드의 `idRef` 처럼 컴포넌트가 리렌더링 될 때에도 기존의 값을 유지하는 변수를 사용하고 싶다면 `let`이 아닌 `useRef`를 이용하셔야 합니다.
+
+
+감사합니다.
+
+
+<Blank/>
+

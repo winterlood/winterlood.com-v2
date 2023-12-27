@@ -1,0 +1,109 @@
+---
+id: 18361e59-ed97-45b0-9b2d-486e87bf95d8
+type: QNA
+title: …any vs …unknown[] 무슨 차이점이 있을까?
+date: 2023-12-14
+tags: 
+ - 한입 크기로 잘라먹는 타입스크립트
+---
+
+
+### 질문
+
+
+다음과 같이 매개변수로 배열을 받아 배열의 마지막 값을 반환하는 함수 `getLastValue`가 있을 때
+
+
+```javascript
+function getLastValue<T>(data: [...any, T]): T {
+  return data[data.length - 1];
+}
+```
+
+
+`data` 매개변수의 타입을 `[…any, T]`가 아닌 다음과 같이 `[…unknown[], T]`로 변경했을 때 오류가 발생하는 이유가 무엇인가요?
+
+
+```javascript
+function getLastValue<T>(data: [...unknown[], T]): T {
+  return data[data.length - 1];
+  // ^^^ Type Error 발생!
+}
+```
+
+
+<Blank/>
+
+
+### 답변
+
+
+`data` 매개변수의 타입을 `[…unknown[], T]`로 변경할 경우 `data[data.length - 1]`의 타입이 `unknown`으로 추론되기 때문입니다. 
+
+
+아래와 같이 코드를 쪼개보면 좀 더 쉽게 이해할 수 있습니다.
+
+
+```javascript
+function getLastValue<T>(data: [...unknown[], T]): T {
+  const res = data[data.length - 1]; // 1. unknown 타입으로 추론 됨
+  return res; // 2. unknown 타입의 값을 반환함
+}
+```
+
+
+위 코드에서 변수 `res`의 타입은 `unknown`으로 추론됩니다.
+
+
+그런데 이상합니다. 우리가 `data` 매개변수의 타입을 정의할 때 분명 마지막 요소의 타입을 `T`로 정의했는데 `unknown`으로 추론되다니 이렇게 되는 이유는 무엇일까요?
+
+
+그 이유는 TypeScript는 `data[data.length - 1]` 이라는 값이 `data` 배열의 마지막 요소인지 알 수 없기 때문입니다. 그래서 그냥 이 값을 `data` 배열의 값 중 하나라고 생각하고 `unknown` 이라고 추론해버리는 것 입니다.
+
+
+```javascript
+function getLastValue<T>(data: [...unknown[], T]): T {
+  const res = data[data.length - 1]; // 1. unknown 타입으로 추론 됨
+  return res; // 2. unknown 타입의 값을 반환함
+  // ^^^ unknown 타입은 T 타입과 호환되지 않음
+}
+```
+
+
+따라서 결국 위 함수는 `unknown` 타입의 값을 반환하는 꼴이 됩니다. 그리고 함수의 반환값 타입은 T라고 정의되어 있기 때문에 타입 오류가 발생하게 됩니다.  왜 일까요? `unknown`은 `T`와 호환되지 않는 타입이기 때문입니다.
+
+
+<Blank/>
+
+
+그러므로 다음과 같이 `data` 매개변수의 타입을 `[…any, T]`로 변경해야 합니다. 
+
+
+```javascript
+function getLastValue<T>(data: [...any, T]): T {
+  const res = data[data.length - 1]; // 1. any 타입으로 추론 됨
+  return res; // 2. any 타입의 값을 반환함
+}
+```
+
+
+이렇게 되면 res의 타입이 이전과는 달리 `any` 타입으로 추론됩니다.
+
+
+<Blank/>
+
+
+이제 `getLastValue` 함수는 `any` 타입의 값을 반환하도록 설정되었습니다. `any`는 모든 타입과 호환되므로 반환값 타입으로 설정된 `T`와도 당연히 호환됩니다. 따라서 아무런 타입 오류가 발생하지 않습니다.
+
+
+```javascript
+function getLastValue<T>(data: [...any, T]): T {
+  const res = data[data.length - 1]; // 1. any 타입으로 추론 됨
+  return res; // 2. any 타입의 값을 반환함
+  // any는 T와 호환됨 -> 아무런 문제 없음
+}
+```
+
+
+<Blank/>
+

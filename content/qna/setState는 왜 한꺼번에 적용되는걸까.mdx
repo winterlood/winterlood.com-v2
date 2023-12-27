@@ -1,0 +1,271 @@
+---
+id: 52738225-1a09-4798-b0cc-e81252763201
+type: QNA
+title: setState를 두번 호출했는데 하나만 적용됩니다
+date: 2023-11-13
+subtitle: 하나의 함수 내부에서 setState를 두번 호출할 때 주의할 점
+tags: 
+ - 한입 크기로 잘라먹는 리액트
+---
+
+
+### 질문
+
+
+강사님 안녕하세요
+
+
+아래의 코드를 보고 질문을 받아주시면 감사하겠습니다.
+
+
+```javascript
+const Test = () => {
+  const [testData, setTestData] = useState({
+    testNumber1: 0,
+    testNumber2: 0
+  });
+
+  useEffect(() => {
+    axios.get("1번 API").then((res) => {
+      const responseData = res.data;
+      setTestData({
+        ...testData,
+        testNumber1: responseData
+      });
+    });
+
+    axios.get("2번 API").then((res) => {
+      const responseData = res.data;
+      setTestData({
+        ...testData,
+        testNumber2: responseData
+      });
+    });
+  }, []);
+
+  return (
+    <>{`${testData.testNumber1} / ${testData.testNumber2}`}</>
+  );
+};
+```
+
+
+testData.testNumber1 에는 비동기로 가져온 데이터가 반영되는데
+
+
+testData.testNumber2 에는 비동기로 가져온 데이터가 반영이 되지 않습니다.
+
+
+<Blank/>
+
+
+<Blank/>
+
+
+### 답변
+
+
+안녕하세요 이정환입니다.
+
+
+우선 문제가 발생하는 결과적인 이유는 첫번째 비동기 호출의 then 메서드와 두번째 비동기 호출의 then 메서드가 현재 같은 State값을 참조하고 있기 때문입니다.
+
+
+이 문제는 굳이 비동기 호출이 아니여도 비슷하게 재현할 수 있습니다. 아래의 예제 코드를 살펴봐주세요
+
+
+```javascript
+export default function App() {
+  const [state, setState] = useState({ a: 0, b: 0 });
+
+  const onClick = () => {
+    setState({
+      ...state,
+      a: state.a + 1
+    });
+
+    setState({
+      ...state,
+      b: state.b + 1
+    });
+  };
+
+  return (
+    <div className="App">
+      <div>a : {state.a}</div>
+      <div>b : {state.b}</div>
+      <button onClick={onClick}>증가</button>
+    </div>
+  );
+}
+
+```
+
+
+위 코드의 App 컴포넌트는 a와 b라는 프로퍼티를 가진 객체 형태의 State를 가집니다. 그리고 다음과 같은 UI를 렌더링 합니다.
+
+
+![](https://cdn.inflearn.com/public/files/posts/af2136c7-20f2-4505-8752-8185773c5b19/image.png)
+
+
+이때 "증가" 버튼을 클릭하게 되면 onClick 함수가 실행됩니다. 
+
+
+그럼 어떤 일이 일어날까요?
+
+
+아마도 대부분 a와 b 각각 1씩 값이 증가할거라고 예상하실 겁니다. 
+
+
+정말 그럴까요? 실제로 증가 버튼을 클릭해보겠습니다.
+
+
+![](https://cdn.inflearn.com/public/files/posts/5ad4075b-5df6-462c-99a9-900460644f04/image.png)
+
+
+증가 버튼을 클릭하면 예상과는 다르게 a의 값은 그대로 유지되고 b의 값만 1 늘어납니다.
+
+
+한번 더 눌러도 아래 그림처럼 b의 값만 늘어나게 됩니다. 왜 이렇게 되는 걸까요?
+
+
+![](https://cdn.inflearn.com/public/files/posts/6ef35db5-c5d3-484f-a71b-c57b298ba70f/image.png)
+
+
+그 이유는 동일한 함수 내부에서 호출된 setState의 경우 동일한 State 값을 참조하기 때문입니다. 더 쉽게 말하자면 아래의 코드에서 위의 setState와 아래의 setState 함수가 참조하는 state값이 동일하다는 것이죠
+
+
+```javascript
+  const onClick = () => {
+    setState({
+      ...state, // 값 : {a: 0, b: 0}
+      a: state.a + 1
+    });
+
+    setState({
+      ...state, // 값 : {a: 0, b: 0}
+      b: state.b + 1
+    });
+  };
+```
+
+
+그러므로 setState 메서드가 작성해둔 순서대로 실행되어 먼저 a의 값이 1로 증가했다고 해도 결국 뒤에 실행되는 setState에 의해 a의 값은 다시 0으로 덮이고 b의 값만 1로 증가하게 됩니다.
+
+
+호출 순서를 바꿔서 해보면 더 쉽게 이해할 수 있습니다.
+
+
+```javascript
+  const onClick = () => {
+    setState({
+      ...state,
+      b: state.b + 1
+    });
+
+    setState({
+      ...state,
+      a: state.a + 1
+    });
+  };
+```
+
+
+이번에는 b의 값을 1 증가시키는 setState를 먼저 호출하도록 순서를 바꿔보았습니다. 이때의 결과는 어떻게 될까요? 슬슬 느낌이 오시나요?
+
+
+![](https://cdn.inflearn.com/public/files/posts/f4dd2640-2c8d-4d31-902b-e22c89ea2800/image.png)
+
+
+버튼을 클릭하면 a의 값만 1 증가하게 됩니다.
+
+
+그러므로 위와 같은 기능을 구현 하려면 가장 쉬운 방법으로는 다음 코드처럼 setState를 최소화하여 호출하는게 좋습니다.
+
+
+```javascript
+  const onClick = () => {
+    setState({
+      a: state.a + 1,
+      b: state.b + 1
+    });
+  };
+```
+
+
+만약 이렇게 할 수 없는 상황이라면 아래 코드처럼 함수형 업데이트를 사용하시는것도 괜찮습니다. 함수형 업데이트는 언제나 최신의 State 값만을 참조하기 때문에 앞서 살펴본 문제가 발생하지 않도록 방지할 수 있습니다.
+
+
+```javascript
+  const onClick = () => {
+    setState((state) => ({ // state 값 : 최신
+      ...state,
+      a: state.a + 1
+    }));
+
+    setState((state) => ({ // state 값 : 최신
+      ...state,
+      b: state.b + 1
+    }));
+  };
+```
+
+
+이해가 되셨나요?
+
+
+지금까지 설명드린 내용을 바탕으로 질문자님의 코드를 수정해보면 아래와 같이 해볼 수 있겠습니다. (useEffect 코드만 붙여넣을게요)
+
+
+```javascript
+  useEffect(() => {
+    axios.get("...").then((res) => {
+      const responseData = 8;
+      setTestData((data) => ({
+        ...data,
+        testNumber1: responseData
+      }));
+    });
+
+    axios.get("...").then((res) => {
+      const responseData = 8;
+      setTestData((data) => ({
+        ...data,
+        testNumber2: responseData
+      }));
+    });
+  }, []);
+```
+
+
+또 두번의 API 호출을 다음과 같이 Promise.all 등의 Promise API를 활용해 병렬로 호출하는 것도 좋아보입니다. (이게 더 좋은것 같아요)
+
+
+```javascript
+  useEffect(() => {
+    Promise.all([axios.get("..."), axios.get("...")]).then(
+      ([res1, res2]) => {
+        const res1Data = res1.data;// 8 이라고 가정
+				const res2Data = res2.data;// 8 이라고 가정
+
+        setTestData({
+          testNumber1: res1Data,
+          testNumber2: res2Data
+        });
+      }
+    );
+  }, []);
+```
+
+
+<Blank/>
+
+
+여기에 덧붙여 React 18 버전부터는 동시에 발생한 setState를 한번에 모아 자동으로 반영하는 Auto Batching 이라는 기능을 제공하는데요 이에 대해서도 추가로 더 탐구해보시면 좋겠습니다 😃
+
+
+<Bookmark url={`https://react.dev/blog/2022/03/29/react-v18#new-feature-automatic-batching`} title={`React v18.0 – React`} thumbnail={`https://react.dev/images/og-blog.png`} description={`The library for web and native user interfaces`}/>
+
+
+<Blank/>
+

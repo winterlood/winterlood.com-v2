@@ -1,4 +1,6 @@
-const BASE_URL = process.env.BASE_URL;
+import { allPOSTs, allQNAs } from "@/contentlayer/generated";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export default async function sitemap() {
   const routes = ["/about", "/post", "/qna", "/work"].map((route) => ({
@@ -6,33 +8,24 @@ export default async function sitemap() {
     lastModified: new Date().toISOString(),
   }));
 
-  // try {
-  //   const [postRes, qnaRes] = await Promise.all([
-  //     fetchPages("POST"),
-  //     fetchPages("QNA"),
-  //   ]);
+  try {
+    const posts = allPOSTs.map((page) => ({
+      url: `${BASE_URL}/${encodeURI(page._raw.flattenedPath)}`,
+      lastModified: new Date(page.date).toISOString(),
+    }));
 
-  //   const posts = postRes.map((page) => ({
-  //     url: `${BASE_URL}/post/${page.id}`,
-  //     lastModified: new Date(page.createTime).toISOString(),
-  //   }));
+    const qnas = allQNAs.map((page) => ({
+      url: `${BASE_URL}/${encodeURI(page._raw.flattenedPath)}`,
+      lastModified: new Date(page.date).toISOString(),
+    }));
 
-  //   const qnas = qnaRes.map((page) => ({
-  //     url: `${BASE_URL}/qna/${page.id}`,
-  //     lastModified: new Date(page.createTime).toISOString(),
-  //   }));
-
-  //   console.log(posts, qnas);
-
-  //   const res = [...routes, ...posts, ...qnas].sort(
-  //     (a, b) =>
-  //       new Date(b.lastModified).getTime() -
-  //       new Date(a.lastModified).getTime()
-  //   );
-  //   return res;
-  // } catch (e) {
-  //   console.error(e);
-  //   return routes;
-  // }
+    const res = [...routes, ...posts, ...qnas].sort(
+      (a, b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
+    );
+    return res;
+  } catch (e) {
+    console.error(e);
+    return routes;
+  }
   return routes;
 }
