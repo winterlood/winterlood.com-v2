@@ -17,7 +17,7 @@ export default async function PostItem(props: POST) {
     tags,
   } = props;
 
-  const blurImage = await getImageBase64DataURL(thumbnail!);
+  const blurImage = thumbnail ? await getImageBase64DataURL(thumbnail!) : "";
 
   const imageProps: ImageProps = {
     src: thumbnail as string,

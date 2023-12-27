@@ -34,7 +34,8 @@ export async function generateMetadata({
   });
 }
 
-export default async function Page({ params: { category } }: Props) {
+export default async function Page({ params }: Props) {
+  const category = params.category;
   switch (category) {
     case "about":
     case "work": {
