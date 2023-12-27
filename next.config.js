@@ -8,6 +8,15 @@ const config = {
   images: {
     domains: ["res.cloudinary.com"],
   },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/post",
+        permanent: true,
+      },
+    ];
+  },
   webpack: (config) => {
     config.module = {
       ...config.module,
