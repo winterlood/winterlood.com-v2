@@ -1,8 +1,8 @@
-import { POST, QNA, allPAGEs, allPOSTs } from "@/contentlayer/generated";
+import { POST, QNA, allPOSTs, allQNAs } from "@/contentlayer/generated";
 import { notFound, redirect } from "next/navigation";
 
 export function getPageBySlug({ category, slug }: { category: string; slug: string }) {
-  const pages = category === "post" ? allPOSTs : allPAGEs;
+  const pages = category === "post" ? allPOSTs : allQNAs;
 
   const pageFromPath = (pages as any[]).find(
     (page: POST | QNA) => page._raw.flattenedPath === `${category}/${decodeURI(slug)}`
