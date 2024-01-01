@@ -6,8 +6,10 @@ import NImage from "./NImage";
 import Codeblock from "./CodeBlock";
 import Blank from "./Blank";
 import Video from "./Video";
+import Link from "./Link";
 
 const MDXComponents: MDXComponents = {
+  a: Link,
   code: Codeblock as any,
   Video,
   Blank,
