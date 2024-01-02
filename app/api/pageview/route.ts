@@ -32,7 +32,7 @@ export async function GET(request: Request): Promise<Response | void> {
               fieldName: "pagePath",
               stringFilter: {
                 matchType: "EXACT",
-                value: path,
+                value: encodeURI(path),
               },
             },
           }

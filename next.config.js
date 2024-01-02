@@ -2,6 +2,7 @@ const { withContentlayer } = require("next-contentlayer");
 
 /** @type {import('next').NextConfig} */
 const config = {
+  reactStrictMode: false,
   sassOptions: {
     prependData: `@import "app/styles/variables.scss"; @import "app/styles/mixins.scss";`,
   },

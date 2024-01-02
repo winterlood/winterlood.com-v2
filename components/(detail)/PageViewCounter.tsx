@@ -3,20 +3,39 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function PageViewCounter() {
+interface Props {
+  pageCategory: string;
+  pageNotionId: string;
+  pageSlug: string;
+}
+
+const GA_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
+export default function PageViewCounter({ pageCategory, pageNotionId, pageSlug }: Props) {
   const pathname = usePathname();
   const [view, setView] = useState<number | undefined>();
 
   const fetchPageViewCount = async () => {
-    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/pageview${
-      pathname ? `?path=${pathname}` : ""
-    }`;
-    const res = await fetch(url);
+    try {
+      const pageViewResponses = await Promise.all(
+        [pageNotionId, pageSlug].map((path) =>
+          fetch(
+            `${GA_URL}/api/pageview${`?path=/${pageCategory}/${encodeURI(path)}`}`
+          ).then((res) => res.json())
+        )
+      );
 
-    if (res.ok) {
-      const data: { path: string; pageView: string }[] = await res.json();
-      setView(data[0] ? parseInt(data[0].pageView) : 0);
-    } else {
+      const pageView = pageViewResponses.reduce((acc, res) => {
+        if (res[0]) {
+          const { pageView } = res[0];
+          return acc + (parseInt(pageView) || 0);
+        } else {
+          return acc;
+        }
+      }, 0);
+
+      setView(pageView);
+    } catch (err) {
       setView(0);
     }
   };

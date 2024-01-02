@@ -6,6 +6,7 @@ import { PageCategory } from "types";
 import MDXContent from "@/components/mdx/MDXContent";
 import PageViewCounter from "@/components/(detail)/PageViewCounter";
 import { getPageBySlug } from "../get-page-by-slug";
+import type { POST, QNA } from "@/contentlayer/generated";
 
 const cx = classNames.bind(style);
 
@@ -15,7 +16,10 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const { category, id } = params;
-  const page = getPageBySlug({ category, slug: id });
+  const page: POST | QNA = getPageBySlug({ category, slug: id });
+
+  const pageNotionId = page.id;
+  const pageSlug = page._raw.flattenedPath.split("/")[1];
 
   return (
     <div className={cx("container")}>
@@ -30,7 +34,11 @@ export default async function Page({ params }: Props) {
         <div className={cx("subtitle")}>{page.subtitle}</div>
         <div className={cx("date")}>
           <span>
-            <PageViewCounter />
+            <PageViewCounter
+              pageCategory={category}
+              pageNotionId={pageNotionId}
+              pageSlug={pageSlug}
+            />
           </span>
           <div className={cx("sep")}></div>
           <span>{new Date(page.date).toLocaleDateString()} 작성</span>
