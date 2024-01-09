@@ -1,0 +1,129 @@
+---
+id: edc781edc74a463d84e15360a93fe558
+type: QNA
+title: Create React App 실행 시 오류가 발생합니다.
+date: 2024-01-09
+tags: 
+ - 한입 크기로 잘라먹는 리액트
+---
+
+
+### ❌ npx create react app 설치 도중 오류 발생 시
+
+
+---
+
+
+명령어는 실행되지만 새로운 React App을 생성하는 도중에 오류가 발생한다면
+
+
+현재 컴퓨터에 설치된 Node.js버전의 문제일 가능성이 있습니다.
+
+
+다음과 같이 `node -v` 명령어를 이용하여 `node.js` 버전을 확인합니다.
+
+
+```typescript
+> node -v
+20.9.0
+```
+
+
+2023년 1월 9일 기준 
+
+
+create react app이 정상 작동하는 Node.js버전은 아래와 같습니다.
+
+- 18.x.x 버전
+- 20.x.x 버전
+
+그 이외의 버전을 사용하고 계신 분들께서는 기존에 설치되어 있던 Node.js를 제거하고 다시 설치해주시기 바랍니다.
+
+
+<Blank/>
+
+
+### ❌ npm : command not found
+
+
+---
+
+
+node.js를 설치하신 폴더를 확인해주세요
+
+
+만약 C드라이브에 설치하셨다면, C드라이브 내에서 npx create react app을 수행해주셔야 합니다.
+
+
+만약 그래도 문제가 해결되지 않는다면 Node.js 공식 사이트에서 LTS버전을 다시 다운로드 하시길 바랍니다.
+
+
+<Blank/>
+
+
+<Blank/>
+
+
+### ❌ permission error - MacOS (권한 에러)
+
+
+---
+
+
+MacOS 환경에서 
+
+
+새로운 React App을 생성하시려는 폴더의 수정권한이 없을 경우
+
+
+다음과 같이 “Permission denied”라는 문구를 포함한 에러 메세지가 출력됩니다.
+
+
+```text
+npm ERR! syscall access
+npm ERR! Error: EACCES: permission denied, access '/usr/local/lib/node_modules'
+```
+
+
+<Blank/>
+
+
+이럴 경우 아래와 같이 수정 권한을 직접 부여하는 명령어를 입력한 다음 해결이 가능합니다.
+
+
+```text
+> sudo chown -R `whoami` ~/.npm
+> sudo chown -R `whoami` /usr/local/lib/node_modules
+> npx create-react-app ~~
+```
+
+
+<Blank/>
+
+
+### ❌ permission error - WindowOS (권한 에러)
+
+
+---
+
+
+Windows OS 환경에서
+
+
+위와 동일한 또는 유사한 오류가 발생한 경우
+
+
+명령프롬프트를 `관리자 권한`으로 실행 시켜 주시면 됩니다.
+
+
+또는 VsCode의 터미널에서 이런 권한에러가 발생할 경우
+
+
+아래 블로그를 참고해주시기 바랍니다.
+
+
+<Blank/>
+
+
+<Bookmark url={`https://hianna.tistory.com/549`} title={`[VSCode] 터미널 관리자(Admin) 모드로 열기`} thumbnail={`https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FeUUXn1%2Fbtq3Ts1v4i3%2FrrmPEHnTaRSZf46yAg2jt1%2Fimg.png`} description={`VSCode의 터미널을 관리자 모드로 열기 위해서는 VSCode를 관리자 모드로 열면 됩니다. 1. 한번만 관리자 모드로 열기 Visual Studio Code 실행 아이콘의 마우스 오른쪽 버튼을 클릭하여 '관리자 권한으로 실행'을 선택하여 VSCode를 실행시킵니다. 2. 열때마다 관리자 모드로 열기 VSCode를 열때마다 관리자 모드로 실행시키기 위해서 VSCode 실행 속성을 수정합니다. VSCode 실행 파일을 선택한 후, 마우스 오른쪽 버튼을 클릭하여 '속성'을 선택합니다. '호환성' 탭을 선택한 후, '관리자 권한으로 이 프로그램 실행'에 체크해 줍니다. 이제부터는 이 실행파일로 VSCode를 열때마다, 관리자 권한으로 실행됩니다. VSCode의 터미널을 관리자 권한으로 실행하는 방법을 알아보..`} sitename={`어제 오늘 내일`}/>
+
