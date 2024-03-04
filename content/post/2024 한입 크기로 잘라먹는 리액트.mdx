@@ -1,0 +1,397 @@
+---
+id: a272094923ae42bfaa4db43f14e815a7
+type: POST
+title: 한 입 크기로 잘라먹는 리액트가 전면 리뉴얼 되었습니다.
+date: 2024-03-04
+subtitle: 왜 리뉴얼 했으며 어떤 것들이 변경되었을까?
+thumbnail: https://res.cloudinary.com/winterlood/image/upload/v1709551669/blog/post/2024%20%ED%95%9C%EC%9E%85%20%ED%81%AC%EA%B8%B0%EB%A1%9C%20%EC%9E%98%EB%9D%BC%EB%A8%B9%EB%8A%94%20%EB%A6%AC%EC%95%A1%ED%8A%B8/file_dnjpev.webp
+tags: 
+ - 한 입 크기로 잘라먹는 리액트
+---
+
+
+2024년 3월 4일 드디어 “한 입 크기로 잘라먹는 리액트”가 전면 리뉴얼 되었습니다.
+
+
+어떤 부분이 바뀌었고 개선되었는지 상세히 공유해 드리겠습니다.
+
+
+(맨 아래에 기습 이벤트 공지도 있으니 참고해주세요 🥷)
+
+
+<Blank/>
+
+
+## 1. 왜 리뉴얼 했는가?
+
+
+<NImage width={1200} height={781} blurDataURL={"data:image/webp;base64,UklGRvIAAABXRUJQVlA4IOYAAABQCACdASpkAEEAPrlQoEuptSohq/YsWqAXCWcG+OfCyV9+gKlesJFX7sCOpTiiPJc3LjtimzVQVsbHLKvIHJt49gU9dJnZH31YGaAA/u+leJvzQZnwN7+p6NNv7R5YkYYL8BkCXAGeITiF6OhWgrCF2xyaOJidomueTMC5lVNMPGbW154U9TpzX9JBTNs4C2bFOsy1oQsGi7urPR27HnDLDf0CZhJQYqz8vGgl5IPHgUQd99SEjhbJr2jUxbnG8YpiiQvX26yqJfxZl0rEg9KzMttL1rZOqPzO5GQewXTzUAWaIwAAAA=="} src={`https://res.cloudinary.com/winterlood/image/upload/v1709551669/blog/post/2024%20%ED%95%9C%EC%9E%85%20%ED%81%AC%EA%B8%B0%EB%A1%9C%20%EC%9E%98%EB%9D%BC%EB%A8%B9%EB%8A%94%20%EB%A6%AC%EC%95%A1%ED%8A%B8/file_dnjpev.webp`} captionText={""} />
+
+
+한 입 크기로 잘라먹는 리액트는 최초 21년 11월 출시되어 
+
+
+지금까지 [인프런](https://www.inflearn.com/course/%ED%95%9C%EC%9E%85-%EB%A6%AC%EC%95%A1%ED%8A%B8#), [유데미](https://www.udemy.com/course/winterlood-react-basic/?referralCode=CB775FCF68FAC7B4BF4C) 통합 8,446분께서 수강중이시며, [종이책](https://product.kyobobook.co.kr/detail/S000201352991)으로도 출간되어 있습니다.
+
+
+이렇게나 과분한 사랑을 받는 강의를 2년이 넘도록 리뉴얼 하지 않는건 사실상 직무유기에 가깝습니다.
+
+
+그래서 의무감을 갖고 머리띠 둘러매고 부랴부랴 리뉴얼 하게 되었습니다.
+
+
+<Blank/>
+
+
+아무래도 처음 제작한 강의이다보니 퀄리티적으로 미흡한 부분이 많았습니다.
+
+
+강의 음질이 매우 들쭉날쭉해서 몇몇 챕터에서는 아예 동굴에서 녹화한것 같다거나
+
+
+또는 편집점이 잘못되어 했던말을 또하는 등 정말 옥예티가 많았습니다.
+
+
+그래서 리뉴얼 하지 않을 수가 없었습니다.
+
+
+<Blank/>
+
+
+## 2. 어떤 부분이 바뀌었는가?
+
+
+그럼 어떤 부분이 변경되었을까요?
+
+
+사실 전체 내용을 다시 다 기획하고, 대본쓰고, 피피티만들고, 녹화하고, 편집했기 때문에
+
+
+사실상 그냥 거의 새로운 강의라고 봐도 되는데요 
+
+
+그럼에도 변경된 점을 크게 나열해보자면 대략 다음과 같습니다.
+
+1. 음질개선
+2. 시각자료 개선
+3. 섹션 더 잘개 쪼개기
+4. 챕터 더 잘개 쪼개기
+5. 코드 예제 제공하기
+6. CRA → Vite로 변경하기
+7. 가격 인상
+
+<Blank/>
+
+
+위 변경 사항들은 꽤나 큼직큼직한 변경사항들이라서
+
+
+차례대로 하나씩 더 자세히 소개해 드리려고 합니다.
+
+
+<Blank/>
+
+
+### 1. 음질 개선
+
+
+<NImage width={1852} height={932} blurDataURL={"data:image/webp;base64,UklGRh4EAABXRUJQVlA4WAoAAAAQAAAAYwAAMQAAQUxQSEcDAAAFmQskRPQ/ZiChkSRJkioGxdFdtvdhuJQ6Izyztw5AxAQ4kCQ1bohMEEaqWeQcb/jxJymPP57ZcUg5DsfIOkPpuuFllMHUfACWmA7vYo7jLzncH5EXgxB54AJIkhvsgXJW6AeJjp0cIjGdNDKHxK2IHCQjGoYXAqzNOUypiSXJA7y0l+aNdU4CkWDgBpKApxl8bopDpAC4iLF8OIdp8lZthiTM4glhAm+sJIswRqzrJBDtzLS8fuEQABefQXJph6v+shQ0PoTC5zpdMlIMmJH/Ik+4KwC+4nXNPlwph4zX2vHKuOz1pKSeEnLC4xCs8EdSJEDiM8K63Yr4On5ui7AUcUQsmXrvM2OPOZx68T0b6kDkFAADmApUukXO+TpdUgzWQz8LsCY7jyAJEUO994Jdhr5veFM0sg6DeWT6cPt9RwMnnTUtEA4OrACB0INIYzhXSZp2GZrQkMpnFghWsvxgydQAwxbmgbV5UcFEHCRlcR5hBT5dx3xJoX1y6SHW7MQHqqwrQ1sDyhG7vmtttvzeSqXTM0EIDe86fCcfLlMiAiCZFbmYnaB/HrXoglCCQAYiA5GwQ/AooVtx17q/aFoqcuyyyAaGHDCbXJRyOblhDKXcVrOoizyYCSoSMpuoAFYcN2GymIHD3TpyMYLbrWQ4T2Ge1O56rG6qHSVwBVAVLHl8wZ7O0n023RsSHmeFALigAAnsgh/TslqFvDIeA3StTExlE9hjF0uL63kVjTWONB2BxIQDhxQ/syByHCd9YYt+bjYT9wVUdCcDxsFgv+WtMoNMVL7vmBgiJ3tZL6xzyycUoFSniFnU7VNlzeTpQ4bAsxZ+g9uLLUsuilyIUxCJbDN7oXMar9Ri1T0fTI7LL8k3EOPjkNnebVPeLBvfpbSiIlCaiReZbwAqSTWIEAHJD0soDwE3XiVUxJgUiEQe7e79LEsKkuFV/4HLHjGEBAdV3bMhAgaJVTmc7KJjCwCKAqUfbxjXJi4iAICgE7D0phks6LB1pUFYiwPBm1xLA7CkiF6fcnLdxbfigqaoAT6ODCzsvA+556QAumTLJIOc3bMC7JLUPHFBAHBnBGzMLI46EZ5JULndcUWCPP9GHOL+I3qZkm/ZAQBWUDggsAAAADAIAJ0BKmQAMgA+nUScSaguqSEttAmB0BOJaQZwDUgAVQQ8M9a77mtyujGOnWa22W20XC2NTFH2uBDo7ezV5WzouimogIkM7XPgAP5eO52WnINavZk6JZaqFZW5h+dNDIvecLUQpvGDrMzO3oiXQ4cwqVgprWhy7rg8GKunmicNLCFFIYrkpnqSi+C5g8JvhTJ4S+ajWPYKUqE7hA6ekgegmTdJhWQIdvdeS4kMwAAA"} src={`https://res.cloudinary.com/winterlood/image/upload/v1709551673/blog/post/2024%20%ED%95%9C%EC%9E%85%20%ED%81%AC%EA%B8%B0%EB%A1%9C%20%EC%9E%98%EB%9D%BC%EB%A8%B9%EB%8A%94%20%EB%A6%AC%EC%95%A1%ED%8A%B8/file_rzrtpj.webp`} captionText={""} />
+
+
+들쭉 날쭉한 음질은 제가 그동안 가장 많이 지적받아왔던 사항이었습니다.
+
+
+사실 이 강의를 처음 촬영할 때 집에 녹화 세팅이 되어 있지 않아서 …
+
+
+그리고 강의 제작 자체가 아예 처음이라서 … (그리고 돈도 없었습니다)
+
+
+최대한 가성비가 좋은 마이크를 들고 사무실 빈 공간을 찾아다니며 
+
+
+아무 방에나 들어가서 녹화를 진행했었는데요
+
+
+그러다보니 음질이 더더욱 안좋아 졌던 것 같습니다.
+
+
+<Blank/>
+
+
+그래서 이번엔 아예 꽤나 유명한 마이크 세트도 구매하고
+
+
+주변 소음이나 울림이 발생하지 않도록 흡음 커튼과 러그를 깔아서 
+
+
+아예 홈 스튜디오를 차려서 녹화를 진행했습니다.
+
+
+그리고 여기에 더해 입에서 발생하는 쩝쩝 소리 마저도 모두 제거하기 위해서 
+
+
+izotope이라는 유료 목소리 보정 플러그인도 구매해서 적용했습니다.
+
+
+한번 들어보세요 차이가 느껴지시나요?
+
+
+<Blank/>
+
+
+**구 버전 (리뉴얼 전)**
+
+
+<Video src={"https://www.youtube.com/watch?v=W998BOADQ08"}/>
+
+
+<Blank/>
+
+
+**신 버전 (리뉴얼 후)**
+
+
+<Video src={"https://www.youtube.com/watch?v=VaI0lGpysBY"}/>
+
+
+<Blank/>
+
+
+### 2. 시각 자료 개선
+
+
+기존의 시각자료도 나쁘다는 평은 없었지만 그래도 제 맘에 들지 않았습니다.
+
+
+더 이쁘게 할 수 있을 것 같았거든요 그래서 전부 폐기하고 모두 새로운 시각자료로 강의를 녹화했습니다.
+
+
++ 마우스가 아닌 타블렛 판서는 덤 입니다.
+
+
+<Blank/>
+
+
+이랬던 시각자료가 (리뉴얼 전 구버전)
+
+
+<NImage width={2516} height={1138} blurDataURL={"data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAADwBgCdASpkAC0APp1MnUu4sCylJjgJ4xATiWcAzYQH/tsaVKYWsBIOALVJksZPpqfjVzZXUmsGf1iEU6ZBMgQAAP700o61qReecy7aJ0RHGwsGuYMme2SUZf4UgLxtH6WOXfboQACEhjIuR6vWh+DbAqDDcSN1KaZJfpgUvk4mhpTTtvAa0H50qwV0gqkJoAVdZjnpTFSsiHUpUdkIUAAA"} src={`https://res.cloudinary.com/winterlood/image/upload/v1709551677/blog/post/2024%20%ED%95%9C%EC%9E%85%20%ED%81%AC%EA%B8%B0%EB%A1%9C%20%EC%9E%98%EB%9D%BC%EB%A8%B9%EB%8A%94%20%EB%A6%AC%EC%95%A1%ED%8A%B8/file_brqdmm.webp`} captionText={""} />
+
+
+<Blank/>
+
+
+이렇게 변경되었습니다. (리뉴얼 후 신버전)
+
+
+<NImage width={960} height={540} blurDataURL={"data:image/webp;base64,UklGRroAAABXRUJQVlA4IK4AAADwBwCdASpkADgAPp1Im0osL6YkqBksMfATiWkA0jQOGFwZnyXPMAm1tVehoy+LYp8ID2jn3vVHppbbiz+B0P5WYIqLFQ2SYbAA/vOk+qKKEicpWY9+l/N4wyjI3aKR3YexK/QCMdiXP+VubC8Ygs6IsiGkD++/QsEEmHEEApNACPdYjTYy4PEK32HOej0FjSwObqyd82DCyDeP3HDLS/Jh0M1PsyYBUmWGvzFUAAA="} src={`https://res.cloudinary.com/winterlood/image/upload/v1709551679/blog/post/2024%20%ED%95%9C%EC%9E%85%20%ED%81%AC%EA%B8%B0%EB%A1%9C%20%EC%9E%98%EB%9D%BC%EB%A8%B9%EB%8A%94%20%EB%A6%AC%EC%95%A1%ED%8A%B8/file_veus3q.webp`} captionText={""} />
+
+
+<Blank/>
+
+
+### 3. 섹션 더 잘게 쪼개기
+
+
+이전에는 총 **6개의 섹션** 73개의 챕터로 강의가 구성되어 있었습니다.
+
+
+(참고: 섹션은 챕터를 아우르는 범위입니다)
+
+
+이렇게 하나의 섹션에 너무 많은 챕터들이 배정되다 보니
+
+
+한 섹션을 끝까지 수강하기가 어렵고 또 복습용으로 돌아보시기에도 불편하셨을 겁니다.
+
+
+<Blank/>
+
+
+그래서 이번엔 **6개의 섹션을** **13개의 섹션으로 분리**했습니다.
+
+
+따라서 이제 섹션별로 정확히 어떤 내용을 배우게 되는지 더 명확해 졌기 때문에
+
+
+섹션을 마일스톤 삼아 수강하시기에도 편하고 또 복습용으로 돌아보실 때에도
+
+
+원하는 내용의 강의를 찾아가시기 쉬울거라고 기대됩니다.
+
+
+<Blank/>
+
+
+### 4. 챕터 더 잘개 쪼개기
+
+
+이전에는 하나의 챕터(하나의 영상) 시간이 매우 들쭉날쭉 했었습니다. 
+
+
+어떤 챕터는 5분짜리고 또 어떤 챕터는 58분 짜리였으니 이렇게나 변칙적일 수가 없었죠
+
+
+그러다보니 수강생 분들의 입장에서는 챕터 단위로 수강 계획을 잡으시기가 굉장히 어려우셨을 것 같습니다. 
+
+
+또 복습용으로 돌아보실 때에도 하나의 챕터에 너무 과다하게 많은 내용이 포함되어 있는 경우
+
+
+긴 영상을 빨리감기로 원하는 부분을 찾아다녀야 했기 때문에 매우 불편하셨을 것 같습니다.
+
+
+<Blank/>
+
+
+그래서 이번엔 **기존 73개의 챕터를 97개의 챕터로 더 잘게 쪼개었습니다.**
+
+
+(3개만 더 채우면 100개 였을텐데 아쉽네요)
+
+
+또 쪼개진 챕터별 시간 분배도 평균 10분 ~ 25분 사이가 되도록 조정했습니다.
+
+
+물론 몇몇 챕터의 경우 다른 챕터들보다 훨씬 길수도 반대로 훨씬 짧을수도 있지만
+
+
+최대로 아무리 길어봤자 35분 정도로 조정해 두었습니다.
+
+
+<Blank/>
+
+
+### 5. 코드 예제 제공하기
+
+
+기존에는 CodeSandbox라는 온라인 IDE를 통해 강의 코드를 제공했었는데요
+
+
+제공해드리는 제 입장에서도 그렇고 받아보시는 수강생 분들 입장에서도 그렇고
+
+
+이게 여간 불편한게 아니더군요 …  제 생각이 짧았습니다 … 😢
+
+
+<Blank/>
+
+
+<NImage width={1090} height={508} blurDataURL={"data:image/webp;base64,UklGRgwCAABXRUJQVlA4TAACAAAvY4ALAB+goG0UOHUvYAEFaRuwuHsipqZtAxZf3Qg6//H/FhK5DSQ52962kQXIexEw75NkqAOk/AI0e/6AdB8Xcj8C/AtQ9mTKfRq9Tw/rHCGi/w7cto0kpyCQzD2z+4m371CPBOtVqVyUE3W8KiUDa0p5SoAyJsot9a1o/heoqkIoih173goh6nJuPRtWrZoq13yFLITQ1h6RI4odO7jhjLHcKeg9ww1AK+oqTXizj54wETesKUEe8DB+nq6jC3EBP4bLJtOY6L0S+hWo6hQTj/9CVJe8yjT+VHZOCC8xzdNXaFIghzl9fz9k4CxlovfvkzWkVBnnvh+fF9JJI3I82PcHGhH7eDWZsW+WmXAXHcnYeQZr3x2NWsoiT+7LLQsNO+h8bjLjf+Ts4zORHjA0ALn3Z0+eET2FN76lZ2c9x2GQXeH9kXuwlgh3W/C1YSk745yjgO6xiHPh/eGuL45naw2NNCnZd5xnGChuUCNuw4YMT8Yuhoj0ENqW5cZ+zTTipJSHr1MkmWWmUAGeQ9Fs3UIacerDWtcZnihi1KoH4Bm2ZJwhGnBS4TDBUtQx2knr+DB+vko5UvSx48P4pUgBimo6DoieDUuRKkT5wh4g+2eCiYg0+pJ+3G7qFAg7jriTSkHYU6S5kRONk5R918lwrirDVinlJ1u5BeCtOEuyAg=="} src={`https://res.cloudinary.com/winterlood/image/upload/v1709551681/blog/post/2024%20%ED%95%9C%EC%9E%85%20%ED%81%AC%EA%B8%B0%EB%A1%9C%20%EC%9E%98%EB%9D%BC%EB%A8%B9%EB%8A%94%20%EB%A6%AC%EC%95%A1%ED%8A%B8/file_cxuxt5.webp`} captionText={""} />
+
+
+그래서 GitHub를 통해서 1초라도 실습이 포함된 모든 챕터(모든 영상)별로 코드를 제공하는 걸로 변경했습니다. 아래 링크를 통해 확인하실 수 있습니다 
+
+
+[https://winterlood.notion.site/a873435b477f433ea04a359f89380cc5?v=1bfd06a98a594ce6a4c158f4aafbe0b2](https://winterlood.notion.site/a873435b477f433ea04a359f89380cc5?v=1bfd06a98a594ce6a4c158f4aafbe0b2)
+
+
+<Blank/>
+
+
+### 6. CRA → Vite
+
+
+<NImage width={960} height={540} blurDataURL={"data:image/webp;base64,UklGRuYBAABXRUJQVlA4TNoBAAAvY8ANABegoG0bFvePxMikbVNX25mYgrQNWLivZvMf/w9xG0BSti2O9Atm7w/lfRL43Zfg1+ABUtN9EjD7HpJjGof0DSL6z8Bt20Z2j7f3L+4eAAzljpYUNXqzHk6KIqsbEQ8LMBNZhvBkWgCWnWbvAYtBNQGgmC0A9AgZEUHRLswoK0bXIAAStAQsKcK6mrt3jsF3AI95BriGXcaFm8ecHltEqBkDM3vlgJT2NMNp1cDBMgPrvn02gOtZYC/aAPN7O34iHOkK5RAmLVjSceTROHEUMUoy8Sfn8wVlKopqh/nI2R64tb55rvF4HCUDdQDSXsyajGY6SceZ2EBPWhFlfo4+ZPRYbz4ShrGxMpLSYfmu8JoazThsRR7RUusQUhJQ4zqQW/YiH6A1ZUxAKle+ClqnSMUGS600+Xz5q6xXWKtD+uCnOuTy5scFGr+iT/Xz4pXN6fLmZf4v6crmeb/M+nOeGS/zWfsYLKk4swcZj/g4j5whHYgz+/F5AINqM95xjscaIdRhCkt8rCkC3MGYk/cK2IE6nQTzgkeEMx1IAhATAK97GAYWROBmekP5AABwg+oyuSKWuReSO3BpD40iAYDT3F3RedxgvVzAMDv2mknRhU1GRHR9JAE="} src={`https://res.cloudinary.com/winterlood/image/upload/v1709551684/blog/post/2024%20%ED%95%9C%EC%9E%85%20%ED%81%AC%EA%B8%B0%EB%A1%9C%20%EC%9E%98%EB%9D%BC%EB%A8%B9%EB%8A%94%20%EB%A6%AC%EC%95%A1%ED%8A%B8/file_mrdmms.webp`} captionText={""} />
+
+
+기존에는 CRA(Create React App)을 통해 React App을 생성했었는데요
+
+
+24년 현재 CRA가 더 이상 권장되지 않는 도구가 되어버렸습니다.
+
+
+따라서 Vite을 이용해 새로운 React App을 생성하는 커리큘럼으로 변경되었습니다.
+
+
+<Blank/>
+
+
+### 7. 가격 인상
+
+
+죄송합니다. 41,800원에서 48,400원으로 인상하게 되었습니다.
+
+
+이렇게 인상한 이유는 … 다양한 이벤트를 더 자주 진행하기 위함 …입니다
+
+
+<Blank/>
+
+
+## 3. 마치며
+
+
+진심으로 진심으로 제 온몸을 다해서 
+
+
+항상 저를 응원해주시는 수강생 여러분께 감사의 인사를 드리고 싶습니다.
+
+
+혹시나 길가다가 저를 만나게 되신다면 꼭 아는척 부탁드려요
+
+
+제가 근처의 아무거나라도 사드리겠습니다 (진심)
+
+
+<Blank/>
+
+
+## 🥷 기습 이벤트 안내 🥷
+
+
+<NImage width={1200} height={781} blurDataURL={"data:image/webp;base64,UklGRvIAAABXRUJQVlA4IOYAAABQCACdASpkAEEAPrlQoEuptSohq/YsWqAXCWcG+OfCyV9+gKlesJFX7sCOpTiiPJc3LjtimzVQVsbHLKvIHJt49gU9dJnZH31YGaAA/u+leJvzQZnwN7+p6NNv7R5YkYYL8BkCXAGeITiF6OhWgrCF2xyaOJidomueTMC5lVNMPGbW154U9TpzX9JBTNs4C2bFOsy1oQsGi7urPR27HnDLDf0CZhJQYqz8vGgl5IPHgUQd99SEjhbJr2jUxbnG8YpiiQvX26yqJfxZl0rEg9KzMttL1rZOqPzO5GQewXTzUAWaIwAAAA=="} src={`https://res.cloudinary.com/winterlood/image/upload/v1709551686/blog/post/2024%20%ED%95%9C%EC%9E%85%20%ED%81%AC%EA%B8%B0%EB%A1%9C%20%EC%9E%98%EB%9D%BC%EB%A8%B9%EB%8A%94%20%EB%A6%AC%EC%95%A1%ED%8A%B8/file_qbv5yj.webp`} captionText={""} />
+
+
+2년만에 강의를 전면 리뉴얼까지 했는데 이벤트가 없을수는 없겠죠…!
+
+
+사실 기존 수강생 분들께 그닥 와닿는 소식은 아니겠지만 그럼에도 … 혹시나 주변 분들께 추천해주실까 하여
+
+
+이렇게 기습 이벤트도 함께 안내드립니다.
+
+
+<Blank/>
+
+
+> 인프런 50% 할인 쿠폰 (조기 소진될 수 있습니다)  
+> - 강의 링크 : [**https://inf.run/JhBG**](https://inf.run/JhBG)  
+>   
+> - 50% 할인 쿠폰 : **15305-89a8d6765a4b**
+
+
+> Udemy 50% 할인 쿠폰 (조기 소진될 수 있습니다)  
+> - 할인 쿠폰이 적용된 강의 링크
+
+
+<Blank/>
+
+
+이번 리뉴얼 이벤트는 신규 강의가 출시될 때 진행하는 얼리버드 이벤트와 동급으로 진행되므로
+
+
+아주 높은 할인폭으로 긴 기간동안 진행됩니다.
+
+
+<Blank/>
+
+
+무려 3주간 50% 할인된 가격으로 강의를 구매하실 수 있는데요
+
+
+참가 방법은 없구요 그냥 아래의 할인 쿠폰 링크를 가져가서 사용하시면 됩니다.
+
+
+주변 분들께 많이 많이 널리 뿌려주시면 감사하겠습니다. 🙇‍♂️
+
+
+<Blank/>
+
+
+<Blank/>
+
+
+<Blank/>
+

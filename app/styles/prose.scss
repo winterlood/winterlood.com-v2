@@ -1,6 +1,6 @@
 .prose {
   > * {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     box-sizing: border-box;
   }
 
@@ -124,7 +124,8 @@
     background-color: var(--bg-opacity-color);
     border-radius: 3px;
     font-size: 85%;
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+      Courier, monospace;
   }
 
   /* Code block */
