@@ -7,7 +7,7 @@
   h1,
   h2 {
     font-family: bold;
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
     margin-bottom: 1rem;
   }
 
@@ -21,8 +21,12 @@
     font-size: 1rem;
     font-family: regular;
     line-height: 28px;
-    color: var(--fg-color);
+    color: var(--fg-font-color);
     caret-color: var(--fg-color);
+
+    > strong {
+      font-family: bold;
+    }
   }
 
   .n_image {
@@ -105,7 +109,9 @@
 
   /* Divider */
   hr {
+    // border-color: rgb(229, 231, 235);
     border-color: var(--border-color);
+    opacity: 0.5;
   }
 
   /* Link */
