@@ -6,13 +6,31 @@ import { PageCategory } from "types";
 import MDXContent from "@/components/mdx/MDXContent";
 import PageViewCounter from "@/components/(detail)/PageViewCounter";
 import { getPageBySlug } from "../get-page-by-slug";
-import type { POST, QNA } from "@/contentlayer/generated";
+import {
+  allPOSTs,
+  allQNAs,
+  type POST,
+  type QNA,
+} from "@/contentlayer/generated";
 
 const cx = classNames.bind(style);
 
 type Props = {
   params: { category: PageCategory; id: string };
 };
+
+export function generateStaticParams(): Props["params"][] {
+  return [
+    ...allQNAs.map((qna) => ({
+      category: "qna" as PageCategory,
+      id: qna.id,
+    })),
+    ...allPOSTs.map((post) => ({
+      category: "post" as PageCategory,
+      id: post.id,
+    })),
+  ];
+}
 
 export default async function Page({ params }: Props) {
   const { category, id } = params;

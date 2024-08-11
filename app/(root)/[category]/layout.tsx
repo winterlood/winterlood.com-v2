@@ -26,12 +26,20 @@ const snsList = [
   },
 ] as const;
 
-export default function Layout({ children }: { children: React.ReactNode }): JSX.Element {
+export default function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}): JSX.Element {
   return (
     <section className={cx("container")}>
       <section className={cx("header")}>
         <div className={cx("profile_img")}>
-          <Image alt="winterlood 프로필 사진" src={"/profile.png"} layout="fill" />
+          <Image
+            alt="winterlood 프로필 사진"
+            src={"/profile.png"}
+            layout="fill"
+          />
         </div>
         <div className={cx("profile_info")}>
           <div className={cx("name")}>이정환 | Winterlood</div>
