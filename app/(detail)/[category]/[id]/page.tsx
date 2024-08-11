@@ -12,6 +12,7 @@ import {
   type POST,
   type QNA,
 } from "@/contentlayer/generated";
+import BackButton from "./_components/back-button";
 
 const cx = classNames.bind(style);
 
@@ -42,12 +43,7 @@ export default async function Page({ params }: Props) {
   return (
     <div className={cx("container")}>
       <section className={cx("header")}>
-        <Link href={`/${category}`}>
-          <div className={cx("back")}>
-            <Icon type="BACK" />
-            <div>전체 {category === "post" ? "포스트" : "QNA"}</div>
-          </div>
-        </Link>
+        <BackButton category={category} />
         <h1 className={cx("title")}>{page.title}</h1>
         <div className={cx("subtitle")}>{page.subtitle}</div>
         <div className={cx("date")}>
