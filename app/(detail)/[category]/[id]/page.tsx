@@ -1,10 +1,7 @@
 import style from "./page.module.scss";
 import classNames from "classnames/bind";
-import Link from "next/link";
-import Icon from "@/components/Icon";
 import { PageCategory } from "types";
 import MDXContent from "@/components/mdx/MDXContent";
-import PageViewCounter from "@/components/(detail)/PageViewCounter";
 import { getPageBySlug } from "../get-page-by-slug";
 import {
   allPOSTs,
@@ -13,6 +10,7 @@ import {
   type QNA,
 } from "@/contentlayer/generated";
 import BackButton from "./_components/back-button";
+import ViewCounter from "./_components/view-counter";
 
 const cx = classNames.bind(style);
 
@@ -33,12 +31,26 @@ export function generateStaticParams(): Props["params"][] {
   ];
 }
 
+async function hashPath(path: string) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(path);
+
+  const hash = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hash));
+  const hashHex = hashArray
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+
+  return hashHex;
+}
+
+export const revalidate = 3;
+
 export default async function Page({ params }: Props) {
   const { category, id } = params;
   const page: POST | QNA = getPageBySlug({ category, slug: id });
-
-  const pageNotionId = page.id;
   const pageSlug = page._raw.flattenedPath.split("/")[1];
+  const hashedPath = await hashPath(`${params.category}/${pageSlug}`);
 
   return (
     <div className={cx("container")}>
@@ -48,11 +60,7 @@ export default async function Page({ params }: Props) {
         <div className={cx("subtitle")}>{page.subtitle}</div>
         <div className={cx("date")}>
           <span>
-            <PageViewCounter
-              pageCategory={category}
-              pageNotionId={pageNotionId}
-              pageSlug={pageSlug}
-            />
+            <ViewCounter hashedPath={hashedPath} />
           </span>
           <div className={cx("sep")}></div>
           <span>{new Date(page.date).toLocaleDateString()} 작성</span>
