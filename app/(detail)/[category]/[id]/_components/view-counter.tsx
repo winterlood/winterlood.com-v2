@@ -32,6 +32,7 @@ export default function ViewCounter({
 }: {
   hashedPath: string;
 }) {
+  console.log({ hashedPath });
   const [views, setViews] = useState<number | null>(null);
 
   const init = async () => {

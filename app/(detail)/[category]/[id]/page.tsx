@@ -50,7 +50,8 @@ export default async function Page({ params }: Props) {
   const { category, id } = params;
   const page: POST | QNA = getPageBySlug({ category, slug: id });
   const pageSlug = page._raw.flattenedPath.split("/")[1];
-  const hashedPath = await hashPath(`${params.category}/${pageSlug}`);
+  // const hashedPath = await hashPath(`${params.category}/${pageSlug}`);
+  const hashedPath = encodeURI(`${params.category}/${pageSlug}`);
 
   return (
     <div className={cx("container")}>
