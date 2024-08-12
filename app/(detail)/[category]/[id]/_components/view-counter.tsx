@@ -44,7 +44,7 @@ export default function ViewCounter({
   }, []);
 
   useEffect(() => {
-    if (views && typeof window !== null) {
+    if (views !== null && typeof window !== null) {
       increaseViewCount(hashedPath, views);
     }
   }, [views]);
