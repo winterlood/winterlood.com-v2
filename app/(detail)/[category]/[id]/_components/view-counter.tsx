@@ -1,9 +1,11 @@
 "use client";
 
 import createSupabaseClient from "app/util/supabase";
+import { unstable_noStore } from "next/cache";
 import { useEffect, useState } from "react";
 
 async function fetchViews(hashedPath: string): Promise<number> {
+  unstable_noStore();
   const supabase = createSupabaseClient();
   const { data } = await supabase
     .from("blog-pageview")
@@ -20,6 +22,7 @@ async function increaseViewCount(
   hashedPath: string,
   prevViews: number
 ) {
+  unstable_noStore();
   const supabase = createSupabaseClient();
   await supabase.from("blog-pageview").upsert({
     "path-hash": hashedPath,
@@ -32,7 +35,6 @@ export default function ViewCounter({
 }: {
   hashedPath: string;
 }) {
-  console.log({ hashedPath });
   const [views, setViews] = useState<number | null>(null);
 
   const init = async () => {
