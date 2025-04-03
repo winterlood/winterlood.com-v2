@@ -60,10 +60,10 @@ export default async function Page({ params }: Props) {
         <h1 className={cx("title")}>{page.title}</h1>
         <div className={cx("subtitle")}>{page.subtitle}</div>
         <div className={cx("date")}>
-          <span>
+          {/* <span>
             <ViewCounter hashedPath={hashedPath} />
           </span>
-          <div className={cx("sep")}></div>
+          <div className={cx("sep")}></div> */}
           <span>{new Date(page.date).toLocaleDateString()} 작성</span>
         </div>
         <div className={cx("date")}></div>
