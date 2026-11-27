@@ -27,7 +27,6 @@
     "image-size": "^1.0.2",
     "next": "14.0.2",
     "next-contentlayer": "^0.3.4",
-    "next-mdx-remote": "^4.4.1",
     "nextjs-toploader": "^1.4.2",
     "open-graph-scraper": "^6.3.2",
     "prismjs": "^1.29.0",
