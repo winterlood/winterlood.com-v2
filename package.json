@@ -55,5 +55,8 @@
     "open-graph": "^0.2.6",
     "sharp": "^0.33.1",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }
