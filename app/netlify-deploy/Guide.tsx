@@ -123,8 +123,7 @@ function ScreenB() {
     <>
       <div className={cx("note")}>
         이 화면은 Netlify가 2026년 11월부터 일부 계정에 먼저 적용하고 있는 새 화면입니다. 아직 모든 단계를 직접
-        캡처하지 못해서, 일부는 <b>Netlify 공식 문서의 그림</b>으로 안내합니다. 직접 확인되는 대로 실제 화면으로
-        바꿔 두겠습니다.
+        캡처하지 못해서, 일부는 <b>Netlify 공식 문서의 그림</b>으로 안내합니다.
       </div>
 
       <Step n={1} title="프로젝트 폴더 올리기">
@@ -213,10 +212,9 @@ export default function Guide() {
         <h1>Netlify로 내 웹 페이지 배포하기</h1>
         <p className={cx("lead")}>
           내 컴퓨터에만 있던 프로젝트 폴더를 Netlify에 올려, 누구나 열 수 있는 인터넷 주소로 만드는 과정입니다.
-          한입 시리즈 책과 강의에서 이 주소로 넘어왔다면, 여기 안내를 따라 하면 됩니다.
         </p>
         <p className={cx("checked")}>
-          마지막 확인: {LAST_CHECKED} · Netlify 화면은 자주 바뀌어서, 바뀔 때마다 이 페이지를 고칩니다.
+          마지막 확인: {LAST_CHECKED}
         </p>
       </header>
 
@@ -261,16 +259,14 @@ export default function Guide() {
       <section className={cx("stuck")}>
         <h2>그래도 화면이 다르거나 막혔다면</h2>
         <p>
-          지금 보이는 화면을 캡처해서 AI에게 그대로 보여 주고 물어보세요. 화면이 바뀌어도 가장 빨리 길을 찾는
-          방법입니다.
+          지금 보이는 화면을 캡처해서 AI에게 그대로 보여 주고 물어보세요.
         </p>
         <pre className={cx("prompt")}>
           Netlify에 사이트를 배포했는데, 다른 사람이 주소를 열면 로그인 화면이 떠. 누구나 볼 수 있게 공개로 바꾸고
           싶어. 첨부한 지금 화면에서 무엇을 눌러야 하는지 순서대로 알려 줘
         </pre>
         <p className={cx("sub")}>
-          인프런 강의 수강생이라면 Q&amp;A 게시판에 화면 캡처와 함께 질문을 올려 주세요. 확인해서 답변드리고, 이
-          페이지도 고쳐 두겠습니다.
+          인프런 강의 수강생이라면 Q&amp;A 게시판에 화면 캡처와 함께 질문을 올려 주세요.
         </p>
       </section>
     </article>
